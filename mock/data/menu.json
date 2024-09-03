@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "system",
+    "desc": "",
+    "sort": 1,
+    "menuType": "page",
+    "path": "/system",
+    "component": "/index.vue",
+    "redirect": "/system/user",
+    "meta": { "title": "system" },
+    "auth": "",
+    "createTime": "2024-06-17T17:19:43.671Z",
+    "updateTime": "2025-02-16T11:12:52.450Z",
+    "createAt": "2024-06-17T17:19:43.671Z",
+    "updateAt": "2025-02-16T11:12:52.450Z"
+  },
+  {
+    "id": 2,
+    "parentId": 1,
+    "menuType": "page",
+    "path": "/system/user",
+    "component": "/system/user/index.vue",
+    "meta": { "title": "user" },
+    "createTime": "2024-09-03T08:08:45.128Z",
+    "updateTime": "2024-09-03T08:08:45.129Z"
+  },
+  {
+    "id": 3,
+    "parentId": 1,
+    "menuType": "page",
+    "path": "/system/dept",
+    "component": "/system/dept/index.vue",
+    "meta": { "title": "dept" },
+    "createTime": "2024-09-03T08:26:26.522Z",
+    "updateTime": "2024-09-03T08:26:26.524Z"
+  },
+  {
+    "id": 4,
+    "parentId": 1,
+    "menuType": "page",
+    "path": "/system/role",
+    "component": "/system/role/index.vue",
+    "meta": { "title": "role" },
+    "createTime": "2024-09-03T08:38:52.555Z",
+    "updateTime": "2024-09-03T08:38:52.556Z"
+  },
+  {
+    "id": 5,
+    "menuType": "page",
+    "path": "/system/user",
+    "component": "/system/user/index.vue",
+    "meta": { "title": "user" },
+    "createTime": "2024-09-03T08:08:45.128Z",
+    "updateTime": "2024-09-03T08:08:45.129Z",
+    "children": [],
+    "parentId": 1
+  },
+  {
+    "id": 6,
+    "parentId": 2,
+    "menuType": "btn",
+    "meta": { "title": "Add" },
+    "auth": "user.add",
+    "createTime": "2024-09-03T09:13:51.117Z",
+    "updateTime": "2024-09-03T09:13:51.119Z"
+  }
+]

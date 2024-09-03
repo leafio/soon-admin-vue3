@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "admin",
+    "email": "admin@test.com",
+    "phone": "18812341234",
+    "name": "测试",
+    "nickname": "哈哈哈",
+    "roleId": "admin",
+    "deptId": 3,
+    "status": 1,
+    "gender": 0,
+    "desc": "哈哈哈",
+    "createTime": "2024-06-06T01:37:12.274Z",
+    "updateTime": "2024-07-05T03:04:49.781Z"
+  }
+]
