@@ -74,9 +74,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import BtnAdd from "@/components/Toolbar/btn-add.vue"
-import BtnRefresh from "@/components/Toolbar/btn-refresh.vue"
-import BtnSearch from "@/components/Toolbar/btn-search.vue"
+import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
+import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
+import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
 
 import { tree_menu, Menu, del_menu } from "@/api"
 

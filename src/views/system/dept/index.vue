@@ -62,8 +62,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import BtnAdd from "@/components/Toolbar/btn-add.vue"
-import BtnRefresh from "@/components/Toolbar/btn-refresh.vue"
+import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
+import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
 
 import { tree_dept, Dept, del_dept } from "@/api"
 

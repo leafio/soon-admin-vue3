@@ -39,7 +39,7 @@
     </div>
     <div class="md:hidden mt-2">
       <div v-for="(item, index) in list" :key="index" class="mb-2 rounded-sm p-1 pb-0 bg-white">
-        <card-detail :cols="cols" :item="item">
+        <soon-detail :cols="cols" :item="item">
           <div class="flex justify-between w-full">
             <div class="flex">
               <div>{{ item.name }}</div>
@@ -53,7 +53,7 @@
               <el-button size="small" text type="primary" @click="handleShowEdit(item)">{{ t("edit") }} </el-button>
             </div>
           </div>
-        </card-detail>
+        </soon-detail>
       </div>
     </div>
     <el-pagination
@@ -69,7 +69,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import CardDetail from "@/components/card-detail/index.vue"
+import SoonDetail from "@/components/soon-detail/index.vue"
 import { list_role, Role, del_role } from "@/api"
 
 import { dateFormat } from "@/utils/tools"

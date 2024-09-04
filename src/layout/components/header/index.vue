@@ -5,6 +5,10 @@
       <BIconTextIndentRight v-else class="w-6 h-6 cursor-pointer" @click="toggleSideMenu" />
       <Breadcrumb class="ml-4" />
     </div>
+    <div class="hidden md:flex mx-6">
+      <el-alert :title="t('msg')" type="warning" class="!py-1 !pr-16" />
+    </div>
+
     <div class="flex items-center">
       <LangSwitch class="mr-4" />
       <!-- <div class="mr-4 cursor-pointer hidden md:block">
@@ -16,6 +20,13 @@
       <div class="mr-4 cursor-pointer hidden md:block">
         <BIconBell />
       </div> -->
+
+      <a href="https://github.com/leafio/soon-admin-vue3" target="_blank">
+        <el-tooltip :content="t('star')">
+          <BIconGithub class="mr-4" />
+        </el-tooltip>
+      </a>
+
       <User />
     </div>
   </header>
@@ -24,12 +35,18 @@
 import { BIconGear } from "bootstrap-icons-vue"
 import { BIconSearch } from "bootstrap-icons-vue"
 import { BIconBell } from "bootstrap-icons-vue"
-import { BIconTextIndentLeft, BIconTextIndentRight } from "bootstrap-icons-vue"
+import { BIconTextIndentLeft, BIconTextIndentRight, BIconGithub } from "bootstrap-icons-vue"
 
-import Breadcrumb from "./Breadcrumb.vue"
+import Breadcrumb from "./soon-breadcrumb.vue"
 import LangSwitch from "../lang-switch.vue"
 import User from "./user.vue"
 import { useAppStore } from "@/store/modules/app"
+import { tMessages } from "@/i18n"
+
+const t = tMessages({
+  "zh-cn": { msg: "我在上海找工作，如果有机会给到我，请联系我，email: leafnote@outlook.com ", star: "给个⭐" },
+  en: { msg: "I'm looking for job in Shanghai, if you have a offer for me , email me : leafnote@outlook.com ", star: "⭐ me" },
+})
 
 const appStore = useAppStore()
 const isHide = computed(() => appStore.sideBar.isHide)

@@ -24,6 +24,11 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 - 使用 Prettier 统一格式化代码，集成 ESLint代码校验规范
 - 使用 husky、lint-staged 规范提交信息
 
+### 截图
+
+![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc.png)
+![mobile](<(https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile.png)>)
+
 ### 安装使用步骤 📔
 
 - **Clone：**
@@ -40,7 +45,7 @@ yarn install
 
 - **Run：**
 
-1.  普通dev模式  (需开启后端项目进行连接)
+1.  普通dev模式 (需开启后端项目进行连接)
 
 ```text
 yarn dev
@@ -72,7 +77,6 @@ yarn lint:eslint
 yarn lint:prettier
 ```
 
-
 ### 文件资源目录 📚
 
 ```text
@@ -89,9 +93,9 @@ Soon-Admin-Vue3
 │  ├─ directives           # 全局指令文件
 │  ├─ hooks                # 常用 Hooks 封装
 │  ├─ i18n                 # 语言国际化 i18n
-│  ├─ layouts              # 框架布局模块
-│  ├─ routers              # 路由管理
-│  ├─ stores               # pinia store
+│  ├─ layout               # 框架布局模块
+│  ├─ router               # 路由管理
+│  ├─ store                # pinia store
 │  ├─ utils                # 常用工具库
 │  ├─ views                # 项目所有页面
 │  ├─ App.vue              # 项目主组件
@@ -120,11 +124,9 @@ Soon-Admin-Vue3
 - 本地开发推荐使用 Chrome 最新版浏览器 [Download](https://www.google.com/intl/zh-CN/chrome/)。
 - 生产环境支持现代浏览器，不再支持 IE 浏览器，更多浏览器可以查看 [Can I Use Es Module](https://caniuse.com/?search=ESModule)。
 
-| ![IE](https://i.imgtg.com/2023/04/11/8z7ot.png) | ![Edge](https://i.imgtg.com/2023/04/11/8zr3p.png) | ![Firefox](https://i.imgtg.com/2023/04/11/8zKiU.png) | ![Chrome](https://i.imgtg.com/2023/04/11/8zNrx.png) | ![Safari](https://i.imgtg.com/2023/04/11/8zeGj.png) |
-| :---------------------------------------------: | :-----------------------------------------------: | :--------------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
-|                   not support                   |                  last 2 versions                  |                   last 2 versions                    |                   last 2 versions                   |                   last 2 versions                   |
-
-
+| ![Edge](https://i.imgtg.com/2023/04/11/8zr3p.png) | ![Firefox](https://i.imgtg.com/2023/04/11/8zKiU.png) | ![Chrome](https://i.imgtg.com/2023/04/11/8zNrx.png) | ![Safari](https://i.imgtg.com/2023/04/11/8zeGj.png) |
+| :-----------------------------------------------: | :--------------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
+|                  last 2 versions                  |                   last 2 versions                    |                   last 2 versions                   |                   last 2 versions                   |
 
 ### 项目支持 🍵
 
@@ -132,4 +134,4 @@ Soon-Admin-Vue3
 
 - Star、Fork、Watch 一键三连 🚀
 
-
+Email: leafnote@outlook.com

@@ -26,7 +26,7 @@ export const soon = createSoon<SoonOptions>({
           if (body.code === 0) {
             resolve(body.data)
           } else {
-            ElMessage.error(body.err)
+            ElMessage.error(body.err ?? "Invalid JSON Response")
           }
         }
       } else if (res.status === 401) {

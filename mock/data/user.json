@@ -12,7 +12,18 @@
     "status": 1,
     "gender": 0,
     "desc": "哈哈哈",
+    "avatar": "https://tupian.qqw21.com/article/UploadPic/2020-4/202041521185361316.jpg",
     "createTime": "2024-06-06T01:37:12.274Z",
     "updateTime": "2024-07-05T03:04:49.781Z"
+  },
+  {
+    "id": "2",
+    "username": "user`",
+    "password": "user",
+    "status": 1,
+    "createTime": "2024-09-04T15:32:14.963Z",
+    "updateTime": "2024-09-04T15:32:14.963Z",
+    "roleId": "user",
+    "deptId": 12
   }
 ]

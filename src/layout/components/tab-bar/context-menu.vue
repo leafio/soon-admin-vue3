@@ -9,7 +9,7 @@
       <li class="context-menu" @click="handleCloseAll">
         {{ t("closeAll") }}
       </li>
-      <li class="context-menu">{{ t("fullscreen") }}</li>
+      <!-- <li class="context-menu" @click="handleFullscreen">{{ t("fullscreen") }}</li> -->
     </ul>
   </el-popover>
 </template>
@@ -59,6 +59,7 @@ const handleCloseAll = () => {
   tabStore.closeAll()
   router.push("/")
 }
+const handleFullscreen = () => {}
 </script>
 <style scoped lang="scss">
 .context-menu {

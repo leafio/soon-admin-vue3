@@ -50,7 +50,7 @@
     "prettier": "^3.3.2",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.2",
-    "soon-mock": "0.0.1-beta.10",
+    "soon-mock": "0.0.1-beta.11",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
     "typescript-eslint": "^8.0.0",

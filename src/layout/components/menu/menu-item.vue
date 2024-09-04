@@ -7,7 +7,7 @@
   >
     <div class="flex-1 flex items-center justify-between" :class="{ active: menu.path === selectedPath }">
       <div class="flex">
-        <Icon v-if="!level && menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
+        <soon-icon v-if="!level && menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
         <span v-if="!isCollapse">{{ runStrFun(menu.meta?.title) }}</span>
       </div>
 
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import Icon from "@/components/Icon/index.vue"
+import SoonIcon from "@/components/soon-icon/index.vue"
 import { runStrFun } from "@/utils"
 import { Menu } from "@/api"
 import { BIconChevronLeft } from "bootstrap-icons-vue"
@@ -30,6 +30,7 @@ import { useAppStore } from "@/store/modules/app"
 
 const props = defineProps<{ menu: Menu; level?: number }>()
 const router = useRouter()
+
 const expanded = ref(false)
 const selectedPath = inject<Ref<string>>("selectedPath")
 const isCollapse = inject("isCollapse")
@@ -56,6 +57,14 @@ const hasPath = (item: Menu, path: string): boolean => {
   )
 }
 const hasSelect = computed(() => hasPath(props.menu, selectedPath?.value ?? ""))
+
+watch(
+  () => selectedPath?.value,
+  () => {
+    if (hasSelect.value) expanded.value = true
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>

@@ -9,6 +9,7 @@ export const zh_global = {
   action: "操作",
   cancel: "取消",
   confirm: "确定",
+  cols: "列展示",
   tip: {
     requestTimeout: "请求超时",
   },

@@ -13,7 +13,7 @@
         @click="handleGoTo(item)"
       />
     </div>
-    <context-menu :visible="visible" :target-ref="targetRefList[curIndex]" :tab="tabsMenuList[curIndex]" :cur-index="curIndex" />
+    <context-menu v-if="tabsMenuList[curIndex]" :visible="visible" :target-ref="targetRefList[curIndex]" :tab="tabsMenuList[curIndex]" :cur-index="curIndex" />
   </nav>
 </template>
 
@@ -23,7 +23,7 @@ import { ref, computed, watch, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useTabsStore } from "@/store/modules/tabs"
 import { ClickOutside as vClickOutside } from "element-plus"
-import NavTab from "./NavTab.vue"
+import NavTab from "./nav-tab.vue"
 import { RouteLocationRaw } from "vue-router"
 import { runStrFun } from "@/utils"
 import { useAppStore } from "@/store/modules/app"

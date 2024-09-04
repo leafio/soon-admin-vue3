@@ -48,12 +48,40 @@
   {
     "id": 5,
     "menuType": "page",
-    "path": "/system/user",
-    "component": "/system/user/index.vue",
-    "meta": { "title": "user" },
+    "path": "/system/menu",
+    "component": "/system/menu/index.vue",
+    "meta": { "title": "menu" },
     "createTime": "2024-09-03T08:08:45.128Z",
     "updateTime": "2024-09-03T08:08:45.129Z",
-    "children": [],
+    "children": [
+      {
+        "id": 18,
+        "parentId": 5,
+        "menuType": "btn",
+        "meta": { "title": "Add" },
+        "auth": "user.add",
+        "createTime": "2024-09-04T15:20:37.350Z",
+        "updateTime": "2024-09-04T15:20:37.350Z"
+      },
+      {
+        "id": 19,
+        "parentId": 5,
+        "menuType": "btn",
+        "meta": { "title": "Edit" },
+        "auth": "user.edit",
+        "createTime": "2024-09-04T15:20:51.881Z",
+        "updateTime": "2024-09-04T15:20:51.881Z"
+      },
+      {
+        "id": 20,
+        "parentId": 5,
+        "menuType": "btn",
+        "meta": { "title": "Del" },
+        "auth": "user.del",
+        "createTime": "2024-09-04T15:21:05.194Z",
+        "updateTime": "2024-09-04T15:21:05.194Z"
+      }
+    ],
     "parentId": 1
   },
   {
@@ -64,5 +92,104 @@
     "auth": "user.add",
     "createTime": "2024-09-03T09:13:51.117Z",
     "updateTime": "2024-09-03T09:13:51.119Z"
+  },
+  {
+    "id": 7,
+    "parentId": 2,
+    "menuType": "btn",
+    "meta": { "title": "Edit" },
+    "auth": "user.edit",
+    "createTime": "2024-09-04T15:00:06.630Z",
+    "updateTime": "2024-09-04T15:00:06.630Z"
+  },
+  {
+    "id": 10,
+    "parentId": 2,
+    "menuType": "btn",
+    "meta": { "title": "Del" },
+    "auth": "user.del",
+    "createTime": "2024-09-04T15:01:34.713Z",
+    "updateTime": "2024-09-04T15:01:34.713Z"
+  },
+  {
+    "id": 11,
+    "parentId": 3,
+    "menuType": "btn",
+    "meta": { "title": "新增" },
+    "auth": "dept.add",
+    "createTime": "2024-09-04T15:17:38.750Z",
+    "updateTime": "2024-09-04T15:17:38.750Z"
+  },
+  {
+    "id": 12,
+    "parentId": 3,
+    "menuType": "btn",
+    "meta": { "title": "编辑" },
+    "auth": "dept.edit",
+    "createTime": "2024-09-04T15:17:55.385Z",
+    "updateTime": "2024-09-04T15:17:55.385Z"
+  },
+  {
+    "id": 13,
+    "parentId": 3,
+    "menuType": "btn",
+    "meta": { "title": "删除" },
+    "auth": "dept.del",
+    "createTime": "2024-09-04T15:18:20.094Z",
+    "updateTime": "2024-09-04T15:18:20.094Z"
+  },
+  {
+    "id": 15,
+    "parentId": 4,
+    "menuType": "btn",
+    "meta": { "title": "新增" },
+    "auth": "role.add",
+    "createTime": "2024-09-04T15:18:46.495Z",
+    "updateTime": "2024-09-04T15:18:46.495Z"
+  },
+  {
+    "id": 16,
+    "parentId": 4,
+    "menuType": "btn",
+    "meta": { "title": "编辑" },
+    "auth": "role.edit",
+    "createTime": "2024-09-04T15:19:01.738Z",
+    "updateTime": "2024-09-04T15:19:01.738Z"
+  },
+  {
+    "id": 17,
+    "parentId": 4,
+    "menuType": "btn",
+    "meta": { "title": "删除" },
+    "auth": "role.del",
+    "createTime": "2024-09-04T15:19:29.431Z",
+    "updateTime": "2024-09-04T15:19:29.431Z"
+  },
+  {
+    "id": 18,
+    "parentId": 5,
+    "menuType": "btn",
+    "meta": { "title": "Add" },
+    "auth": "menu.add",
+    "createTime": "2024-09-04T15:20:37.350Z",
+    "updateTime": "2024-09-04T15:20:37.350Z"
+  },
+  {
+    "id": 19,
+    "parentId": 5,
+    "menuType": "btn",
+    "meta": { "title": "Edit" },
+    "auth": "menu.edit",
+    "createTime": "2024-09-04T15:20:51.881Z",
+    "updateTime": "2024-09-04T15:20:51.881Z"
+  },
+  {
+    "id": 20,
+    "parentId": 5,
+    "menuType": "btn",
+    "meta": { "title": "Del" },
+    "auth": "menu.del",
+    "createTime": "2024-09-04T15:21:05.194Z",
+    "updateTime": "2024-09-04T15:21:05.194Z"
   }
 ]

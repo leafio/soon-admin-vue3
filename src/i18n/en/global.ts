@@ -9,6 +9,7 @@ export const en_global = {
   action: "Action",
   cancel: "Cancel",
   confirm: "Confirm",
+  cols: "Columns",
   tip: {
     requestTimeout: "Request timeout",
   },

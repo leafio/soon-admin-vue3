@@ -53,9 +53,10 @@
         "nullable": false,
         "dataType": "int",
         "desc": "",
-        "mock": "",
+        "mock": "auto.intId()\n",
         "required": false,
-        "primary": true
+        "primary": true,
+        "defaultValue": "auto.intId()"
       },
       { "id": "1bf04853-d132-4abb-bf99-616074af507c", "name": "username", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
       { "id": "f25ba691-3269-49a7-872b-e53593f45005", "name": "password", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
@@ -99,12 +100,12 @@
         "nullable": false,
         "dataType": "string",
         "desc": "",
-        "mock": "",
-        "required": true,
-        "primary": true
+        "mock": "auto.intId()",
+        "required": false,
+        "primary": true,
+        "defaultValue": "auto.intId()"
       },
       { "id": "e5ce5529-7249-4715-ad5f-d4ba0f41bff4", "name": "name", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": true },
-      { "fields": [], "name": "code", "dataType": "string" },
       { "id": "a288d131-87d8-4922-8f9b-37524be347a9", "name": "status", "nullable": false, "dataType": "int", "desc": "", "mock": "", "required": false },
       { "id": "813dbd2a-09e2-47a7-9385-622201b99f09", "name": "desc", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
       {
@@ -132,28 +133,47 @@
         "id": "b1664554-e0ea-4813-863a-0af19b799416",
         "name": "id",
         "nullable": false,
-        "dataType": "string",
+        "dataType": "number",
         "desc": "",
-        "mock": "",
+        "mock": "auto.intId()",
         "required": false,
         "primary": true,
         "fields": [],
-        "isArray": false
+        "isArray": false,
+        "defaultValue": "auto.intId()"
       },
       { "id": "ad3ec711-fa25-4499-94f2-cf4be6dc199a", "name": "name", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
       { "id": "eaa8f80a-acdc-4260-ba0c-71d4c995c55a", "name": "desc", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
       { "id": "4b2bd144-5c22-4b32-bf3c-4955fbb6c1a5", "name": "sort", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
-      { "id": "423d3bde-3844-473a-87a8-8dbeedfa788e", "name": "parentId", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false },
+      {
+        "id": "423d3bde-3844-473a-87a8-8dbeedfa788e",
+        "name": "parentId",
+        "nullable": false,
+        "dataType": "number",
+        "desc": "",
+        "mock": "",
+        "required": false,
+        "fields": [],
+        "isArray": false
+      },
       {
         "id": "cbeebe43-153f-4e3e-9d02-819e97934337",
         "name": "createTime",
         "nullable": false,
         "dataType": "string",
         "desc": "",
-        "mock": "",
+        "mock": "faker.date.anytime()",
         "required": false
       },
-      { "id": "ff70bab9-1ef6-4997-8756-9223e36ed882", "name": "updateTime", "nullable": false, "dataType": "string", "desc": "", "mock": "", "required": false }
+      {
+        "id": "ff70bab9-1ef6-4997-8756-9223e36ed882",
+        "name": "updateTime",
+        "nullable": false,
+        "dataType": "string",
+        "desc": "",
+        "mock": "faker.date.anytime()",
+        "required": false
+      }
     ],
     "dataType": "string"
   },

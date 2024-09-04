@@ -16,7 +16,7 @@
   {
     "method": "GET",
     "path": "auth/profile",
-    "response": { "body": { "dataType": "object", "fields": [] } },
+    "response": { "body": { "dataType": "user", "fields": [], "required": false, "isArray": false } },
     "request": {
       "params": { "dataType": "object", "fields": [] },
       "body": { "dataType": "object", "fields": [] },
@@ -73,7 +73,8 @@
     },
     "actions": [],
     "id": "159e152f-4898-4018-a294-d4b35b7fee2f",
-    "actionCode": "res.success([\n    \"user.add\",\n    \"user.edit\",\n    \"user.del\",\n    \"user.list\",\n    \"user.export\",\n    \"dept.add\",\n    \"dept.edit\",\n    \"dept.del\",\n    \"dept.list\",\n    \"role.add\",\n    \"role.edit\",\n    \"role.del\",\n    \"role.list\",\n    \"menu.add\",\n    \"menu.edit\",\n    \"menu.del\",\n    \"menu.list\"\n])"
+    "actionCode": "const menus=await action.menu.read()\nconst user=(await action.user.read()).find(u=>u.username=req.username)\nconst role=(await action.role.read()).find(r=>r.id===user?.roleId)\nconst result=menus.filter(m=>role?.permissions?.includes(m.auth)).map(m=>m.auth)\nres.success(result)\nres.success([\n    \"user.add\",\n    \"user.edit\",\n    \"user.del\",\n    \"user.list\",\n    \"user.export\",\n    \"dept.add\",\n    \"dept.edit\",\n    \"dept.del\",\n    \"dept.list\",\n    \"role.add\",\n    \"role.edit\",\n    \"role.del\",\n    \"role.list\",\n    \"menu.add\",\n    \"menu.edit\",\n    \"menu.del\",\n    \"menu.list\"\n])",
+    "auth": true
   },
   {
     "method": "POST",
@@ -126,14 +127,16 @@
         "name": "root",
         "dataType": "object",
         "fields": [
-          { "name": "page", "dataType": "int" },
-          { "name": "limit", "dataType": "int" }
+          { "name": "pageIndex", "dataType": "int" },
+          { "name": "pageSize", "dataType": "int" }
         ]
-      }
+      },
+      "body": { "dataType": "object", "fields": [] },
+      "params": { "dataType": "object", "fields": [] }
     },
-    "response": { "body": { "name": "root", "dataType": "user", "isArray": true } },
+    "response": { "body": { "name": "root", "dataType": "user", "isArray": true, "fields": [] } },
     "group": "user",
-    "actionCode": "res.success(await action.user.list(req.query))"
+    "actionCode": "const {pageIndex,pageSize}=req.query;\nconst {list,total,page,limit}= await action.user.list({page:pageIndex,limit:pageSize})\nconst depts=await action.dept.read()\nconst roles=await action.role.read()\nconst _list=list.map( u=>({...u,dept:depts.find(d=>d.id===u.deptId),role:roles.find(r=>r.id===u.roleId)}))\nres.success({pageIndex:page,pageSize:limit,total,list:_list})"
   },
   {
     "id": "20c387d1-95c2-49a2-bd5b-1b8664f3101b",
@@ -207,9 +210,10 @@
     "method": "PUT",
     "request": {
       "body": { "name": "root", "dataType": "role" },
-      "params": { "name": "root", "dataType": "object", "fields": [{ "primary": true, "required": true, "name": "id", "dataType": "role.id" }] }
+      "params": { "dataType": "object", "fields": [] },
+      "query": { "dataType": "object", "fields": [] }
     },
-    "response": { "body": { "name": "root", "dataType": "role" } },
+    "response": { "body": { "name": "root", "dataType": "role", "fields": [] } },
     "group": "role",
     "actionCode": "res.success(await action.role.update({...req.body,...req.params}))"
   },
@@ -217,10 +221,14 @@
     "id": "64972c84-eef8-4ddc-bdab-3f830f909fb6",
     "path": "role/delete",
     "method": "DELETE",
-    "request": { "params": { "name": "root", "dataType": "object", "fields": [{ "primary": true, "required": true, "name": "id", "dataType": "role.id" }] } },
-    "response": { "body": { "name": "root", "dataType": "role" } },
+    "request": {
+      "params": { "dataType": "object", "fields": [] },
+      "body": { "dataType": "object", "fields": [] },
+      "query": { "dataType": "object", "fields": [] }
+    },
+    "response": { "body": { "name": "root", "dataType": "role", "fields": [] } },
     "group": "role",
-    "actionCode": "res.success(await action.role.del(req.params))"
+    "actionCode": "res.success(await action.role.del(req.body))"
   },
   {
     "method": "GET",
@@ -248,11 +256,13 @@
           { "name": "pageIndex", "dataType": "int" },
           { "name": "pageSize", "dataType": "int" }
         ]
-      }
+      },
+      "body": { "dataType": "object", "fields": [] },
+      "params": { "dataType": "object", "fields": [] }
     },
-    "response": { "body": { "name": "root", "dataType": "dept", "isArray": true } },
+    "response": { "body": { "name": "root", "dataType": "dept", "isArray": true, "fields": [] } },
     "group": "dept",
-    "actionCode": "const {pageIndex,pageSize}=req.query;\nconst {list,total,page,limit}= await action.dept.list({page:pageIndex,limit:pageSize})\nres.json({pageIndex:page,pageSize:limit,total,list})"
+    "actionCode": "const {pageIndex,pageSize}=req.query;\nconst {list,total,page,limit}= await action.dept.list({page:pageIndex,limit:pageSize})\nres.success({pageIndex:page,pageSize:limit,total,list})"
   },
   {
     "id": "27286632-d329-410b-bc11-a01979a1eca0",
@@ -278,24 +288,29 @@
   },
   {
     "id": "bf489947-9d18-4d19-b5f1-c80adf01d23b",
-    "path": "dept/:id",
+    "path": "dept/update",
     "method": "PUT",
     "request": {
       "body": { "name": "root", "dataType": "dept" },
-      "params": { "name": "root", "dataType": "object", "fields": [{ "primary": true, "required": true, "name": "id", "dataType": "dept.id" }] }
+      "params": { "dataType": "object", "fields": [] },
+      "query": { "dataType": "object", "fields": [] }
     },
-    "response": { "body": { "name": "root", "dataType": "dept" } },
+    "response": { "body": { "name": "root", "dataType": "dept", "fields": [] } },
     "group": "dept",
     "actionCode": "res.success(await action.dept.update({...req.body,...req.params}))"
   },
   {
     "id": "460e4cff-1f78-497b-8aac-409e29aebba3",
-    "path": "dept/:id",
+    "path": "dept/delete",
     "method": "DELETE",
-    "request": { "params": { "name": "root", "dataType": "object", "fields": [{ "primary": true, "required": true, "name": "id", "dataType": "dept.id" }] } },
-    "response": { "body": { "name": "root", "dataType": "dept" } },
+    "request": {
+      "params": { "dataType": "object", "fields": [] },
+      "body": { "dataType": "object", "fields": [] },
+      "query": { "dataType": "object", "fields": [] }
+    },
+    "response": { "body": { "name": "root", "dataType": "dept", "fields": [] } },
     "group": "dept",
-    "actionCode": "res.success(await action.dept.del(req.params))"
+    "actionCode": "res.success(await action.dept.del(req.body))"
   },
   {
     "enable": true,

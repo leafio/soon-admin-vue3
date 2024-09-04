@@ -52,7 +52,7 @@
     </div>
     <div class="md:hidden mt-2">
       <div v-for="(item, index) in list" :key="index" class="mb-2">
-        <card-detail :cols="checkedCols" :item="item">
+        <soon-detail :cols="checkedCols" :item="item">
           <div class="flex-1 flex p-1">
             <el-image class="w-12 mr-1" :src="item.avatar ?? ''"></el-image>
             <div class="flex-1">
@@ -81,7 +81,7 @@
               </div>
             </div>
           </div>
-        </card-detail>
+        </soon-detail>
       </div>
     </div>
     <el-pagination
@@ -99,12 +99,12 @@
   </div>
 </template>
 <script setup lang="tsx">
-import BtnAdd from "@/components/Toolbar/btn-add.vue"
-import BtnExport from "@/components/Toolbar/btn-export.vue"
-import BtnRefresh from "@/components/Toolbar/btn-refresh.vue"
-import BtnSearch from "@/components/Toolbar/btn-search.vue"
-import BtnCols from "@/components/Toolbar/btn-cols.vue"
-import CardDetail from "@/components/card-detail/index.vue"
+import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
+import BtnExport from "@/components/soon-tool-bar/btn-export.vue"
+import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
+import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
+import BtnCols from "@/components/soon-tool-bar/btn-cols.vue"
+import SoonDetail from "@/components/soon-detail/index.vue"
 import { Female, Male } from "@element-plus/icons-vue"
 import { list_user, download_user_table, del_user, UserInfo } from "@/api"
 

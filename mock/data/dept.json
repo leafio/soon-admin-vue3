@@ -1,8 +1,7 @@
 [
-  { "id": 1, "name": "总部", "createTime": "2024-06-03T07:25:42.000Z" },
-  { "id": 4, "name": "华东", "desc": "6", "createTime": "2024-06-03T07:25:42.000Z" },
-  { "id": 5, "name": "hh", "desc": "ss", "createTime": "2024-06-13T07:26:10.801Z", "updateTime": "2024-06-13T07:26:10.801Z" },
-  { "id": 2, "name": "人资部", "sort": 3, "parentId": 1, "createTime": "2024-06-03T07:25:42.000Z" },
-  { "id": 3, "name": "资讯部", "sort": 4, "parentId": 1, "createTime": "2024-06-03T07:25:42.000Z", "updateTime": "2024-06-07T04:55:45.489Z" },
-  { "id": 7, "name": "ddff", "desc": "ssdd", "parentId": 5, "createTime": "2024-06-13T07:42:09.892Z", "updateTime": "2024-06-13T07:43:33.092Z" }
+  { "id": 8, "name": "总部" },
+  { "id": 9, "name": "IT部", "parentId": 8 },
+  { "id": 10, "name": "人资部", "parentId": 8 },
+  { "id": 11, "name": "Oversea" },
+  { "id": 12, "name": "Marketing", "parentId": 11, "desc": "Awesome Team" }
 ]
