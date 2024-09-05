@@ -18,7 +18,7 @@ import eslintPlugin from "vite-plugin-eslint"
 export default defineConfig(({ mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
-  console.log("env", env)
+  console.log(mode, env)
   const isDev = process.env.NODE_ENV === "development"
   const createDevProxy = () => {
     if (isDev && env.VITE_DEV_PROXY == "true" && env.VITE_API_URL.includes("http")) {

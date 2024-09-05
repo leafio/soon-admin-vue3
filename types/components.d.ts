@@ -7,11 +7,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Breadcrumb: typeof import('./../src/layout/components/header/Breadcrumb.vue')['default']
     BtnAdd: typeof import('./../src/components/soon-tool-bar/btn-add.vue')['default']
     BtnCols: typeof import('./../src/components/soon-tool-bar/btn-cols.vue')['default']
     BtnExport: typeof import('./../src/components/soon-tool-bar/btn-export.vue')['default']
     BtnRefresh: typeof import('./../src/components/soon-tool-bar/btn-refresh.vue')['default']
     BtnSearch: typeof import('./../src/components/soon-tool-bar/btn-search.vue')['default']
+    CardDetail: typeof import('./../src/components/card-detail/index.vue')['default']
+    ColsConfig: typeof import('./../src/components/cols-config/index.vue')['default']
     ContextMenu: typeof import('./../src/layout/components/tab-bar/context-menu.vue')['default']
     DictSelect: typeof import('./../src/components/dict-select/index.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
@@ -48,6 +51,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     Header: typeof import('./../src/layout/components/header/index.vue')['default']
+    Icon: typeof import('./../src/components/Icon/index.vue')['default']
     Iframe: typeof import('./../src/layout/components/iframe.vue')['default']
     KeepComp: typeof import('./../src/layout/components/keep-comp/index.vue')['default']
     LangSwitch: typeof import('./../src/layout/components/lang-switch.vue')['default']
@@ -57,6 +61,7 @@ declare module 'vue' {
     NavTab: typeof import('./../src/layout/components/tab-bar/nav-tab.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SoonAside: typeof import('./../src/layout/components/soon-aside.vue')['default']
     SoonBreadcrumb: typeof import('./../src/layout/components/header/soon-breadcrumb.vue')['default']
     SoonCols: typeof import('./../src/components/soon-cols/index.vue')['default']
     SoonDetail: typeof import('./../src/components/soon-detail/index.vue')['default']

@@ -11,7 +11,6 @@ export type Menu = {
   auth: string
   path: string
   redirect: string
-  component: string
   children: Menu[]
   createTime: string
   updateTime: string

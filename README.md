@@ -1,3 +1,137 @@
+[English](#soon-admin) | [中文](#soon-admin-1)
+
+# Soon-Admin
+
+### Introduction 📖
+
+Soon-Admin is full stuck admin system written by Typescript。
+
+- 🧑‍🤝‍🧑Frontend soon-admin-vue3`(this project)`
+
+- 👭Backend [soon-admin-express](https://github.com/leafio/soon-admin-express)
+
+### Features 🔨
+
+- Vue3.4 + TypeScript ,SFC **＜script setup＞**
+- package: vite5
+- style: scss tailwind-css
+- auto-import: unplugin-auto-import unplugin-vue-components , element-plus
+- state management: pinia
+- http request: soon-fetch
+- i18n: grig
+- mock: soon-mock
+- router: vue-router ,dynamic routes and permissions for pages and buttons
+- keep-alive: cached multiply page tabs
+- mobile: responsive designed for both PC and mobile
+- code style: prettier eslint
+- git: husky、lint-staged
+
+### Snapshot
+
+![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc.png)
+![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile.png)
+
+### Usage 📔
+
+- **Clone：**
+
+```bash
+git clone https://github.com/leafio/soon-admin-vue3.git
+```
+
+- **Install：**
+
+```bash
+yarn install
+```
+
+- **Run：**
+
+1.  general dev mode (need backend project opened)
+
+```bash
+yarn dev
+```
+
+2.  mock dev mode (auto open a mock server and connect to it )
+
+```bash
+yarn dev:mock
+```
+
+- **Build：**
+
+```bash
+# development
+yarn build:dev
+
+# production
+yarn build
+```
+
+- **Lint：**
+
+```bash
+# eslint check
+yarn lint:eslint
+
+# prettier format
+yarn lint:prettier
+```
+
+### Project Directory 📚
+
+```text
+Soon-Admin-Vue3
+├─ .husky                  # husky config
+├─ build                   # Vite config
+├─ mock                    # soon-mock  config and data
+├─ public                  # static files
+├─ src
+│  ├─ api                  #
+│  ├─ assets               # static files
+│  ├─ components           #
+│  ├─ css                  #
+│  ├─ directives           #
+│  ├─ hooks                #
+│  ├─ i18n                 #
+│  ├─ layout               #
+│  ├─ router               #
+│  ├─ store                # pinia store
+│  ├─ utils                # helper functions
+│  ├─ views                #
+│  ├─ App.vue              #
+│  └─ main.ts              #
+├─  types                  # ts types
+├─ .env                    #
+├─ .env.development        #
+├─ .env.mock               # mock env
+├─ .env.production         #
+├─ .gitignore              #
+├─ .prettierignore         #
+├─ CHANGELOG.md            #
+├─ eslint.config.js        #
+├─ index.html              #
+├─ package.json            # project info and dependencies
+├─ postcss.config.js       #
+├─ prettier.config.js      #
+├─ README.md               # introduction
+├─ tsconfig.json           # type script config
+└─ vite.config.ts          #
+
+```
+
+### Support Me 🍵
+
+If you like this project, just star it.🚀
+
+> I'm looking for a frontend job in Shanghai , hope a offer for me.
+> Email: leafnote@outlook.com
+
+<br />
+
+[English](#soon-admin) | [中文](#soon-admin-1)
+
 # Soon-Admin
 
 ### 介绍 📖
@@ -33,13 +167,13 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 
 - **Clone：**
 
-```text
+```bash
 git clone https://github.com/leafio/soon-admin-vue3.git
 ```
 
 - **Install：**
 
-```text
+```bash
 yarn install
 ```
 
@@ -47,19 +181,19 @@ yarn install
 
 1.  普通dev模式 (需开启后端项目进行连接)
 
-```text
+```bash
 yarn dev
 ```
 
 2.  mock dev模式（会自动启动并连接本地mock服务器）
 
-```text
+```bash
 yarn dev:mock
 ```
 
 - **Build：**
 
-```text
+```bash
 # 开发环境
 yarn build:dev
 
@@ -69,7 +203,7 @@ yarn build
 
 - **Lint：**
 
-```text
+```bash
 # eslint 检测代码
 yarn lint:eslint
 
@@ -119,19 +253,9 @@ Soon-Admin-Vue3
 
 ```
 
-### 浏览器支持 🌎
-
-- 本地开发推荐使用 Chrome 最新版浏览器 [Download](https://www.google.com/intl/zh-CN/chrome/)。
-- 生产环境支持现代浏览器，不再支持 IE 浏览器，更多浏览器可以查看 [Can I Use Es Module](https://caniuse.com/?search=ESModule)。
-
-| ![Edge](https://i.imgtg.com/2023/04/11/8zr3p.png) | ![Firefox](https://i.imgtg.com/2023/04/11/8zKiU.png) | ![Chrome](https://i.imgtg.com/2023/04/11/8zNrx.png) | ![Safari](https://i.imgtg.com/2023/04/11/8zeGj.png) |
-| :-----------------------------------------------: | :--------------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
-|                  last 2 versions                  |                   last 2 versions                    |                   last 2 versions                   |                   last 2 versions                   |
-
 ### 项目支持 🍵
 
-如果你正在使用这个项目或者喜欢这个项目的，可以通过以下方式支持我：
+喜欢 soon-admin 的话 , 在 github 上给个 star 吧.
 
-- Star、Fork、Watch 一键三连 🚀
-
-Email: leafnote@outlook.com
+> 我目前在找前端的工作，位置上海。有岗位机会的话，可以联系我。
+> Email: leafnote@outlook.com

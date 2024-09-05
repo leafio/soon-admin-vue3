@@ -124,11 +124,7 @@ const cols = computed(() => [
     label: t("label.routePath"),
     width: "",
   },
-  {
-    prop: "component",
-    label: t("label.component"),
-    width: "",
-  },
+
   {
     prop: "auth",
     label: t("label.auth"),

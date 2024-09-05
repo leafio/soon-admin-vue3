@@ -43,10 +43,6 @@
           <el-input v-model="formData.meta.icon" clearable></el-input>
         </el-form-item>
 
-        <el-form-item :label="t('label.component')" class="dialog-form-item">
-          <el-input v-model="formData.component" clearable></el-input>
-        </el-form-item>
-
         <el-form-item :label="t('label.linkUrl')" class="dialog-form-item">
           <el-input v-model="formData.meta.link" clearable> </el-input>
         </el-form-item>

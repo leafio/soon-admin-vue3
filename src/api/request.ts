@@ -18,6 +18,7 @@ export const soon = createSoon<SoonOptions>({
     }),
   }),
   afterResponse: async (result, resolve, reject) => {
+    console.log("result", result)
     const res = result.response
     if (res) {
       if (res.ok) {
