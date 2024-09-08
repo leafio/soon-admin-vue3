@@ -8,7 +8,6 @@ export const useAppStore = defineStore("app", {
       homeUrl: "",
     },
     sideBar: {
-      title: "Soon Admin",
       isCollapse: false,
       isHide: false,
     },

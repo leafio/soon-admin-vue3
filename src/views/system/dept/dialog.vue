@@ -52,7 +52,7 @@ import { en_system_dept } from "@/i18n/en/system/dept"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
-const t = tMessages({ "zh-cn": zh_system_dept, en: en_system_dept })
+const t = tMessages({ zh: zh_system_dept, en: en_system_dept })
 const deptOptions = ref<any[]>([])
 const titles = computed(() => ({
   add: t("add"),

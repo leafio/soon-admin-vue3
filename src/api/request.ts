@@ -18,7 +18,6 @@ export const soon = createSoon<SoonOptions>({
     }),
   }),
   afterResponse: async (result, resolve, reject) => {
-    console.log("result", result)
     const res = result.response
     if (res) {
       if (res.ok) {
@@ -28,7 +27,10 @@ export const soon = createSoon<SoonOptions>({
             resolve(body.data)
           } else {
             ElMessage.error(body.err ?? "Invalid JSON Response")
+            reject(body.err)
           }
+        } else {
+          resolve(res)
         }
       } else if (res.status === 401) {
         localStorage.removeItem("token")
@@ -36,11 +38,12 @@ export const soon = createSoon<SoonOptions>({
       } else {
         ElMessage.error(res.statusText)
       }
+      reject(res.statusText)
     } else if (result.isTimeout) {
       ElMessage.error(t("tip.requestTimeout"))
     } else if (result.error) {
       ElMessage.error(result.error)
     }
-    reject()
+    reject(result.error ?? "Request Error")
   },
 })

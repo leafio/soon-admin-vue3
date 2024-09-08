@@ -1,12 +1,12 @@
 <template>
-  <li
-    class="menu flex cursor-pointer h-[3em]"
-    :style="`padding-left:${(level ?? 0) * 16}px`"
-    :class="{ current: hasSelect && !level, isCollapse, base: !level }"
-    @click="handleClickMenu"
-  >
-    <div class="flex-1 flex items-center justify-between" :class="{ active: menu.path === selectedPath }">
-      <div class="flex">
+  <li :class="{ current: hasSelect && !level, isCollapse }">
+    <div
+      class="flex-1 flex items-center justify-between mx-1 rounded menu cursor-pointer h-[3em] mt-1"
+      :class="{ active: menu.path === selectedPath, base: !level }"
+      :style="`padding-left: calc(${(level ?? 0) * 16}px + 0.5rem)`"
+      @click="handleClickMenu"
+    >
+      <div class="flex flex-1">
         <soon-icon v-if="!level && menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
         <span v-if="!isCollapse">{{ runStrFun(menu.meta?.title) }}</span>
       </div>
@@ -15,10 +15,10 @@
         <BIconChevronLeft class="transition-transform" :class="{ '-rotate-90': expanded }" />
       </div>
     </div>
+    <ul v-if="expanded && !isCollapse">
+      <menu-item v-for="sub in menu.children ?? []" :key="sub.path" :menu="sub" :level="(level ?? 0) + 1" />
+    </ul>
   </li>
-  <template v-if="expanded && !isCollapse">
-    <menu-item v-for="sub in menu.children ?? []" :key="sub.path" :menu="sub" :level="(level ?? 0) + 1" />
-  </template>
 </template>
 
 <script setup lang="ts">
@@ -69,34 +69,21 @@ watch(
 
 <style scoped>
 .current {
-  background-color: var(--el-menu-hover-bg-color);
+  border-right: solid 1px var(--el-menu-hover-text-color);
+}
+.current .base {
   color: var(--el-menu-hover-text-color);
 }
 
-.active {
-  color: var(--el-menu-hover-text-color);
-  font-weight: bold;
-}
-
-.menu:hover {
-  color: var(--el-menu-hover-text-color);
-  background-color: var(--el-menu-hover-bg-color);
-}
-
-.menu.base {
-  &::before {
-    content: "";
-    width: 4px;
-    margin-right: 4px;
+@media screen and (min-width: 768px) {
+  .menu:hover {
+    color: var(--el-menu-hover-text-color);
+    background-color: var(--el-menu-hover-bg-color);
   }
 }
-
-.menu.current::before {
-  background-color: var(--el-menu-hover-text-color);
-}
-
-.menu.current.isCollapse::before {
-  display: none;
+.menu.active {
+  color: white;
+  background-color: var(--el-color-primary);
 }
 
 .isCollapse > div {

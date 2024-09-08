@@ -31,7 +31,7 @@ function parseRouteComponent(routes: { component?: string | any; path: string; c
     return result as RouteRecordRaw
   })
 }
-const t = tMessages({ "zh-cn": zh_menu, en: en_menu })
+const t = tMessages({ zh: zh_menu, en: en_menu })
 
 export const parseMenuTitle = (menus: Menu[]): Menu[] => {
   return menus.map((m) => {

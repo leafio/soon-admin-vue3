@@ -14,6 +14,7 @@ if (import.meta.env.DEV) {
 
 import "element-plus/theme-chalk/el-message.css"
 import "element-plus/theme-chalk/el-message-box.css"
-import "./css/index.scss"
 
 app.use(pinia).use(router).use(directives).mount("#app")
+
+import "./css/index.scss"

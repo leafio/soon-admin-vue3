@@ -8,7 +8,7 @@
         <el-input v-model="form.username" :placeholder="t('username') + ':  admin'"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="form.password" :placeholder="t('password') + ':  admin'"></el-input>
+        <el-input v-model="form.password" :placeholder="t('password') + ':  admin'" type="password"></el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="form.code" :placeholder="t('code')">
@@ -31,7 +31,7 @@ import { zh_login } from "@/i18n/zh/login"
 import { FormInstance } from "element-plus"
 
 import LangSwitch from "@/layout/components/lang-switch.vue"
-const t = tMessages({ "zh-cn": zh_login, en: en_login })
+const t = tMessages({ zh: zh_login, en: en_login })
 
 const form = ref({
   username: "",

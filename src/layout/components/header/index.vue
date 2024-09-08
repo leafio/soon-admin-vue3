@@ -1,8 +1,8 @@
 <template>
   <header class="flex justify-between p-2 app-header">
     <div class="flex items-center">
-      <BIconTextIndentLeft v-if="isHide" class="w-6 h-6 cursor-pointer" @click="toggleSideMenu" />
-      <BIconTextIndentRight v-else class="w-6 h-6 cursor-pointer" @click="toggleSideMenu" />
+      <BIconTextIndentLeft v-if="isHide" class="soon-header-menu-icon" @click="toggleSideMenu" />
+      <BIconTextIndentRight v-else class="soon-header-menu-icon" @click="toggleSideMenu" />
       <Breadcrumb class="ml-4" />
     </div>
     <div class="hidden md:flex mx-6">
@@ -44,7 +44,7 @@ import { useAppStore } from "@/store/modules/app"
 import { tMessages } from "@/i18n"
 
 const t = tMessages({
-  "zh-cn": { msg: "我在上海找工作，如果有机会给到我，请联系我，email: leafnote@outlook.com ", star: "给个⭐" },
+  zh: { msg: "我在上海找工作，如果有机会给到我，请联系我，email: leafnote@outlook.com ", star: "给个⭐" },
   en: { msg: "I'm looking for job in Shanghai, if you have a offer for me , email me : leafnote@outlook.com ", star: "⭐ me" },
 })
 
@@ -57,5 +57,11 @@ const toggleSideMenu = () => {
 <style scoped>
 .app-header .cursor-pointer:hover svg {
   animation: logoAnimation 0.3s ease-in-out;
+}
+
+.soon-header-menu-icon {
+  @apply w-8 h-8 cursor-pointer p-1 rounded-sm;
+  color: var(--el-menu-hover-text-color);
+  background-color: var(--el-menu-hover-bg-color);
 }
 </style>

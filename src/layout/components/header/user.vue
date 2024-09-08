@@ -22,7 +22,7 @@ import { useTabsStore } from "@/store/modules/tabs"
 import { useKeepAliveStore } from "@/store/modules/keepAlive"
 import { useAppStore } from "@/store/modules/app"
 const t = tMessages({
-  "zh-cn": {
+  zh: {
     logout: "退出登录",
     loggedOut: "已退出!",
   },

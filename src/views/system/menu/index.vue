@@ -107,7 +107,7 @@ const {
   initParams: { hasBtn: true },
 })
 refresh()
-const t = tMessages({ "zh-cn": zh_system_menu, en: en_system_menu })
+const t = tMessages({ zh: zh_system_menu, en: en_system_menu })
 const cols = computed(() => [
   {
     prop: "meta.title",
@@ -130,16 +130,16 @@ const cols = computed(() => [
     label: t("label.auth"),
     width: "",
   },
-  {
-    prop: "sort",
-    label: t("label.sort"),
-    width: "",
-  },
-  {
-    prop: "hidden",
-    label: t("label.hidden"),
-    width: "",
-  },
+  // {
+  //   prop: "sort",
+  //   label: t("label.sort"),
+  //   width: "",
+  // },
+  // {
+  //   prop: "hidden",
+  //   label: t("label.hidden"),
+  //   width: "",
+  // },
 ])
 const handleDelete = (item: Item) => {
   ElMessageBox.confirm(t("tip.confirmDel", { name: item.name }), t("tip.title"), {

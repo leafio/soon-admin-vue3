@@ -2,12 +2,10 @@ import { createRouter, createWebHistory } from "vue-router"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 
-import { initRoute, parseRedirectNext } from "./utils"
 import { useUserStore } from "@/store/modules/user"
 import { staticRoutes, bizRoutes } from "./routes"
 import { startLoading, endLoading } from "@/utils/loading"
 import { useAppStore } from "@/store/modules/app"
-import { Menu } from "@/api"
 
 const ROUTER_WHITE_LIST: string[] = []
 

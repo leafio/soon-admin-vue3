@@ -37,9 +37,9 @@ export const del_user = soon.API("/user/:id").DELETE()
 export const detail_user = soon.API("/user/:id").GET<undefined, UserInfo>()
 
 export const download_user_table = async (query: ListQueryUser) => {
-  return soon.get("/user/export", { query }).then((res) => {
-    const body = res.body.blob()
+  return soon.get<Response>("/user/export", { query }).then(async (res) => {
     const filename = getAttachmentFilenameFormHeader(res.headers) ?? "user.xlsx"
+    const body = await res.blob()
     downloadBlob(body, filename)
   })
 }

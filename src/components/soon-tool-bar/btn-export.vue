@@ -12,7 +12,7 @@ import { tMessages } from "@/i18n"
 import { Download } from "@element-plus/icons-vue"
 const emit = defineEmits(["click"])
 const t = tMessages({
-  "zh-cn": {
+  zh: {
     export: "导出Excel",
   },
   en: {

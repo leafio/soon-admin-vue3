@@ -21,8 +21,8 @@
 
       <el-form-item :label="t('label.menuType')" class="dialog-form-item">
         <el-radio-group v-model="formData.menuType">
-          <el-radio label="page">{{ t("menuType.page") }}</el-radio>
-          <el-radio label="btn">{{ t("menuType.button") }}</el-radio>
+          <el-radio value="page">{{ t("menuType.page") }}</el-radio>
+          <el-radio value="btn">{{ t("menuType.button") }}</el-radio>
         </el-radio-group>
       </el-form-item>
 
@@ -52,17 +52,17 @@
         <el-input v-model="formData.auth" clearable></el-input>
       </el-form-item>
 
-      <el-form-item :label="t('label.sort')" class="dialog-form-item">
+      <!-- <el-form-item :label="t('label.sort')" class="dialog-form-item">
         <el-input-number v-model="formData.sort" controls-position="right" class="w100" />
-      </el-form-item>
+      </el-form-item> -->
 
       <template v-if="formData.menuType === 'page'">
-        <el-form-item :label="t('hidden.title')" class="dialog-form-item">
+        <!-- <el-form-item :label="t('hidden.title')" class="dialog-form-item">
           <el-radio-group v-model="formData.meta.isHide">
             <el-radio :value="true">{{ t("hidden.true") }}</el-radio>
             <el-radio :value="false">{{ t("hidden.false") }}</el-radio>
           </el-radio-group>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item :label="t('pageCache.title')" class="dialog-form-item">
           <el-radio-group v-model="formData.meta.isKeepAlive">
@@ -99,7 +99,7 @@ import { en_system_menu } from "@/i18n/en/system/menu"
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
 const deptOptions = ref<any[]>([])
-const t = tMessages({ "zh-cn": zh_system_menu, en: en_system_menu })
+const t = tMessages({ zh: zh_system_menu, en: en_system_menu })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),

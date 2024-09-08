@@ -98,7 +98,7 @@ const {
   searchApi: list_role,
 })
 refresh()
-const t = tMessages({ "zh-cn": zh_system_role, en: en_system_role })
+const t = tMessages({ zh: zh_system_role, en: en_system_role })
 const cols = computed(() => [
   {
     prop: "name",

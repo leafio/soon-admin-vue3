@@ -19,7 +19,7 @@ export const today = function () {
 export const defaultTime: [Date, Date] = [dayjs("00:00:00", "hh:mm:ss").toDate(), dayjs("23:59:59", "hh:mm:ss").toDate()]
 
 const t = tMessages({
-  "zh-cn": {
+  zh: {
     yesterday: "昨天",
     today: "今天",
     lastWeek: "上周",
@@ -108,13 +108,3 @@ export const timePickerOptions = computed(() => ({
     },
   ],
 }))
-
-export function trimObject(obj: any) {
-  const v = Object.create(null)
-  for (const k in obj) {
-    if (obj[k] !== undefined && obj[k] !== null && obj[k] !== "") {
-      v[k] = obj[k]
-    }
-  }
-  return v
-}

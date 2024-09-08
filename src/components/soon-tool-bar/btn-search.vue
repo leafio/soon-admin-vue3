@@ -15,11 +15,11 @@ const toggleSearch = () => {
   showSearch.value = !showSearch.value
 }
 const t = tMessages({
-  "zh-cn": {
+  zh: {
     hide: "隐藏搜索",
     show: "显示搜索",
   },
-  zh: {
+  en: {
     hide: "Hide Search Section",
     show: "Show Search Section",
   },

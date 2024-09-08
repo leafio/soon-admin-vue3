@@ -26,7 +26,7 @@ const props = defineProps<{
 const { curIndex, targetRef, tab, visible } = toRefs(props)
 
 const t = tMessages({
-  "zh-cn": {
+  zh: {
     refresh: "刷新",
     close: "关闭当前",
     closeOthers: "关闭其它",

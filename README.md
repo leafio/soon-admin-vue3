@@ -10,6 +10,11 @@ Soon-Admin is full stuck admin system written by Typescript。
 
 - 👭Backend [soon-admin-express](https://github.com/leafio/soon-admin-express)
 
+### Snapshot
+
+![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-en.png)
+![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile-en.png)
+
 ### Features 🔨
 
 - Vue3.4 + TypeScript ,SFC **＜script setup＞**
@@ -25,11 +30,6 @@ Soon-Admin is full stuck admin system written by Typescript。
 - mobile: responsive designed for both PC and mobile
 - code style: prettier eslint
 - git: husky、lint-staged
-
-### Snapshot
-
-![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc.png)
-![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile.png)
 
 ### Usage 📔
 
@@ -142,6 +142,11 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 
 - 👭后端 [soon-admin-express](https://github.com/leafio/soon-admin-express)
 
+### 截图
+
+![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-zh.png)
+![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile-zh.png)
+
 ### 项目功能 🔨
 
 - Vue3.4 + TypeScript 开发，单文件组件**＜script setup＞**
@@ -157,11 +162,6 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 - 移动端适配完善，表格在移动端展示为卡片形式
 - 使用 Prettier 统一格式化代码，集成 ESLint代码校验规范
 - 使用 husky、lint-staged 规范提交信息
-
-### 截图
-
-![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc.png)
-![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile.png)
 
 ### 安装使用步骤 📔
 

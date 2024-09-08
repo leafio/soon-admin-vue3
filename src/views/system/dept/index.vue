@@ -93,7 +93,7 @@ const {
   searchApi: tree_dept,
 })
 refresh()
-const t = tMessages({ "zh-cn": zh_system_dept, en: en_system_dept })
+const t = tMessages({ zh: zh_system_dept, en: en_system_dept })
 const cols = computed(() => [
   {
     prop: "name",

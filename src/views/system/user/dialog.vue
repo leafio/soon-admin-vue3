@@ -87,7 +87,7 @@ import { en_system_user } from "@/i18n/en/system/user"
 type Item = User
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
-const t = tMessages({ "zh-cn": zh_system_user, en: en_system_user })
+const t = tMessages({ zh: zh_system_user, en: en_system_user })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),

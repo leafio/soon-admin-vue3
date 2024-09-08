@@ -5,7 +5,10 @@
         <soon-icon v-if="item.meta.icon" :value="item.meta.icon" class="w-4 h-4 mr-0.5" />
         <span class="text-nowrap">{{ runStrFun(item.meta.title) }}</span>
       </div>
-      <BIconChevronRight v-if="index <= breadcrumbList.length - 1 && runStrFun(breadcrumbList[index + 1]?.meta.title)" class="w-4 h-4 mx-1.5 text-gray-600" />
+      <BIconChevronRight
+        v-if="index > 0 && index <= breadcrumbList.length - 1 && runStrFun(breadcrumbList[index + 1]?.meta.title)"
+        class="w-4 h-4 mx-1.5 text-gray-600"
+      />
     </template>
   </div>
 </template>

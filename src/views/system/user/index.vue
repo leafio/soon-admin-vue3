@@ -54,9 +54,9 @@
       <div v-for="(item, index) in list" :key="index" class="mb-2">
         <soon-detail :cols="checkedCols" :item="item">
           <div class="flex-1 flex p-1">
-            <el-image class="w-12 mr-1" :src="item.avatar ?? ''"></el-image>
+            <el-image class="w-12 mr-1 h-12" :src="item.avatar ?? ''"></el-image>
             <div class="flex-1">
-              <div class="flex justify-between flex-1">
+              <div class="flex justify-between">
                 <div class="text-lg">
                   <span class="text-xl">{{ item.nickname }}</span>
                   <span class="text-gray-500">({{ item.username }})</span>
@@ -64,19 +64,20 @@
                     <Female v-if="item.gender === 2" class="text-pink-600" />
                     <Male v-if="item.gender === 1" class="text-blue-600" />
                   </el-icon>
-
-                  <el-tag v-if="item.status" class="ml-0.5" type="success">{{ t("status.enabled") }}</el-tag>
-                  <el-tag v-else class="ml-0.5">{{ t("status.disabled") }}</el-tag>
                 </div>
 
-                <div class="text-base">
+                <div class="text-base pr-4">
                   <el-button v-if="item.username != 'admin'" size="small" text type="danger" @click.stop="handleDelete(item)">{{ t("del") }} </el-button>
                   <el-button size="small" text type="primary" @click.stop="handleShowEdit(item)">{{ t("edit") }} </el-button>
                 </div>
               </div>
-              <div class="flex flex-1 justify-between">
-                <span>{{ item.name }}</span>
+              <div class="flex">
                 <span>{{ item.phone }}</span>
+                <el-tag v-if="item.status" size="small" class="ml-0.5" type="success">{{ t("status.enabled") }}</el-tag>
+                <el-tag v-else size="small" class="ml-0.5">{{ t("status.disabled") }}</el-tag>
+              </div>
+              <div class="flex justify-between">
+                <span>{{ item.name }}</span>
                 <span>{{ dateFormat(item.createTime) }}</span>
               </div>
             </div>
@@ -126,7 +127,7 @@ const showSearch = ref(true)
 const auth = useAuth()
 
 const t = tMessages({
-  "zh-cn": zh_system_user,
+  zh: zh_system_user,
   en: en_system_user,
 })
 

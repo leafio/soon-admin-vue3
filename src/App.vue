@@ -12,7 +12,7 @@ import { useAppStore } from "./store/modules/app"
 import { runStrFun } from "./utils"
 import { useBreakpoints, breakpointsTailwind } from "@vueuse/core"
 const langData = {
-  "zh-cn": zhCn,
+  zh: zhCn,
   en: en,
 }
 
@@ -21,7 +21,7 @@ const title = useTitle()
 const appStore = useAppStore()
 // dynamic set document title
 watchEffect(() => {
-  const appTitle = appStore.sideBar.title
+  const appTitle = "Soon Admin"
   const metaTitle = runStrFun(route.meta.title)
   title.value = metaTitle ? `${metaTitle} | ${appTitle}` : appTitle
 })

@@ -72,7 +72,7 @@ import { zh_system_role } from "@/i18n/zh/system/role"
 import { en_system_role } from "@/i18n/en/system/role"
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
-const t = tMessages({ "zh-cn": zh_system_role, en: en_system_role })
+const t = tMessages({ zh: zh_system_role, en: en_system_role })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),

@@ -1,0 +1,33 @@
+// // styles/element/index.scss
+// /* 只需要重写你需要的即可 */
+// @forward 'element-plus/theme-chalk/src/common/var.scss' with (
+//   $colors: (
+//     'primary': (
+//       'base': #673ab7,
+//     ),
+//   ),
+// );
+
+:root body {
+  --el-color-primary-rgb: 126, 78, 229;
+
+  --el-color-primary: #8c57ff;
+  --el-color-primary-light-3: #7d5cb8;
+  --el-color-primary-light-5: #876eb3;
+  --el-color-primary-light-7: rgb(190, 174, 219);
+  --el-color-primary-light-8: rgb(216, 204, 240);
+  --el-color-primary-light-9: #ece8f7;
+  --el-color-primary-dark-2: #5220a8;
+
+  --el-menu-active-color: var(--el-color-primary);
+  --el-menu-hover-text-color: var(--el-color-primary);
+  --el-menu-hover-bg-color: var(--el-color-primary-light-9);
+}
+
+#nprogress .bar {
+  background: var(--el-color-primary);
+}
+#nprogress .spinner-icon {
+  border-top-color: var(--el-color-primary);
+  border-left-color: var(--el-color-primary);
+}
