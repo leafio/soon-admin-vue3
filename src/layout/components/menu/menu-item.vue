@@ -8,7 +8,7 @@
     >
       <div class="flex flex-1">
         <soon-icon v-if="!level && menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
-        <span v-if="!isCollapse">{{ runStrFun(menu.meta?.title) }}</span>
+        <span v-if="!isCollapse" class="ml-1">{{ runStrFun(menu.meta?.title) }}</span>
       </div>
 
       <div v-if="!isCollapse && menu.children?.length" class="mx-2">
@@ -69,21 +69,21 @@ watch(
 
 <style scoped>
 .current {
-  border-right: solid 1px var(--el-menu-hover-text-color);
+  border-right: solid 1px var(--soon-menu-hover-text-color);
 }
 .current .base {
-  color: var(--el-menu-hover-text-color);
+  color: var(--soon-menu-hover-text-colorr);
 }
 
 @media screen and (min-width: 768px) {
   .menu:hover {
-    color: var(--el-menu-hover-text-color);
-    background-color: var(--el-menu-hover-bg-color);
+    color: var(--soon-menu-hover-text-color);
+    background-color: var(--soon-menu-hover-bg-color);
   }
 }
 .menu.active {
   color: white;
-  background-color: var(--el-color-primary);
+  background-color: var(--soon-color-primary);
 }
 
 .isCollapse > div {

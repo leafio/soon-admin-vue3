@@ -11,6 +11,10 @@ export const en_system_menu = {
     linkUrl: "Link Url",
     menuIcon: "Menu Icon",
     parentMenu: "Parent Menu",
+    layout: "Layout",
+  },
+  layout: {
+    default: "Default Layout",
   },
   menuType: {
     page: "Page",

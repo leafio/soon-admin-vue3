@@ -1,5 +1,7 @@
-import { Plus } from "@element-plus/icons-vue"
+import { BIconGearWideConnected, BIconHouse, BIconLink45deg } from "bootstrap-icons-vue"
 
 export default {
-  Plus,
+  BIconGearWideConnected,
+  BIconHouse,
+  BIconLink45deg,
 } as Record<string, object>

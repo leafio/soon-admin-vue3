@@ -1,5 +1,43 @@
 [
   {
+    "id": 21,
+    "menuType": "page",
+    "path": "/home",
+    "meta": { "cached": true, "title": "home", "layout": "layout", "isIframe": false, "isAffix": true },
+    "createTime": "2024-09-09T15:29:46.582Z",
+    "updateTime": "2024-09-09T15:29:46.583Z",
+    "children": []
+  },
+  {
+    "id": 22,
+    "menuType": "page",
+    "path": "/link",
+    "meta": { "cached": true, "title": "link", "isIframe": false, "layout": "layout" },
+    "createTime": "2024-09-09T15:30:21.146Z",
+    "updateTime": "2024-09-09T15:30:21.146Z"
+  },
+  {
+    "id": 23,
+    "parentId": 22,
+    "menuType": "iframe",
+    "path": "/link/iframe",
+    "meta": { "cached": true, "title": "iframe", "isIframe": true, "link": "https://www.baidu.com" },
+    "createTime": "2024-09-09T15:31:06.719Z",
+    "updateTime": "2024-09-09T15:31:06.719Z",
+    "children": []
+  },
+  {
+    "id": 24,
+    "parentId": 22,
+    "menuType": "link",
+    "path": "/link/external",
+    "meta": { "cached": true, "title": "external", "isIframe": false, "link": "https://github.com/leafio/soon-admin-vue3" },
+    "createTime": "2024-09-09T15:31:29.742Z",
+    "updateTime": "2024-09-09T15:31:29.742Z",
+    "children": [],
+    "redirect": ""
+  },
+  {
     "id": 1,
     "name": "system",
     "desc": "",
@@ -8,10 +46,7 @@
     "path": "/system",
     "component": "/index.vue",
     "redirect": "/system/user",
-    "meta": {
-      "title": "system",
-      "layout": "layout"
-    },
+    "meta": { "title": "system", "layout": "layout", "icon": "BIconGearWideConnected" },
     "auth": "",
     "createTime": "2024-06-17T17:19:43.671Z",
     "updateTime": "2025-02-16T11:12:52.450Z",
@@ -24,9 +59,7 @@
     "menuType": "page",
     "path": "/system/user",
     "component": "/system/user/index.vue",
-    "meta": {
-      "title": "user"
-    },
+    "meta": { "title": "user" },
     "createTime": "2024-09-03T08:08:45.128Z",
     "updateTime": "2024-09-03T08:08:45.129Z"
   },
@@ -36,9 +69,7 @@
     "menuType": "page",
     "path": "/system/dept",
     "component": "/system/dept/index.vue",
-    "meta": {
-      "title": "dept"
-    },
+    "meta": { "title": "dept" },
     "createTime": "2024-09-03T08:26:26.522Z",
     "updateTime": "2024-09-03T08:26:26.524Z"
   },
@@ -48,9 +79,7 @@
     "menuType": "page",
     "path": "/system/role",
     "component": "/system/role/index.vue",
-    "meta": {
-      "title": "role"
-    },
+    "meta": { "title": "role" },
     "createTime": "2024-09-03T08:38:52.555Z",
     "updateTime": "2024-09-03T08:38:52.556Z"
   },
@@ -59,55 +88,16 @@
     "menuType": "page",
     "path": "/system/menu",
     "component": "/system/menu/index.vue",
-    "meta": {
-      "title": "menu"
-    },
+    "meta": { "title": "menu" },
     "createTime": "2024-09-03T08:08:45.128Z",
     "updateTime": "2024-09-03T08:08:45.129Z",
-    "children": [
-      {
-        "id": 18,
-        "parentId": 5,
-        "menuType": "btn",
-        "meta": {
-          "title": "Add"
-        },
-        "auth": "user.add",
-        "createTime": "2024-09-04T15:20:37.350Z",
-        "updateTime": "2024-09-04T15:20:37.350Z"
-      },
-      {
-        "id": 19,
-        "parentId": 5,
-        "menuType": "btn",
-        "meta": {
-          "title": "Edit"
-        },
-        "auth": "user.edit",
-        "createTime": "2024-09-04T15:20:51.881Z",
-        "updateTime": "2024-09-04T15:20:51.881Z"
-      },
-      {
-        "id": 20,
-        "parentId": 5,
-        "menuType": "btn",
-        "meta": {
-          "title": "Del"
-        },
-        "auth": "user.del",
-        "createTime": "2024-09-04T15:21:05.194Z",
-        "updateTime": "2024-09-04T15:21:05.194Z"
-      }
-    ],
     "parentId": 1
   },
   {
     "id": 6,
     "parentId": 2,
     "menuType": "btn",
-    "meta": {
-      "title": "Add"
-    },
+    "meta": { "title": "Add" },
     "auth": "user.add",
     "createTime": "2024-09-03T09:13:51.117Z",
     "updateTime": "2024-09-03T09:13:51.119Z"
@@ -116,9 +106,7 @@
     "id": 7,
     "parentId": 2,
     "menuType": "btn",
-    "meta": {
-      "title": "Edit"
-    },
+    "meta": { "title": "Edit" },
     "auth": "user.edit",
     "createTime": "2024-09-04T15:00:06.630Z",
     "updateTime": "2024-09-04T15:00:06.630Z"
@@ -127,9 +115,7 @@
     "id": 10,
     "parentId": 2,
     "menuType": "btn",
-    "meta": {
-      "title": "Del"
-    },
+    "meta": { "title": "Del" },
     "auth": "user.del",
     "createTime": "2024-09-04T15:01:34.713Z",
     "updateTime": "2024-09-04T15:01:34.713Z"
@@ -138,9 +124,7 @@
     "id": 11,
     "parentId": 3,
     "menuType": "btn",
-    "meta": {
-      "title": "新增"
-    },
+    "meta": { "title": "新增" },
     "auth": "dept.add",
     "createTime": "2024-09-04T15:17:38.750Z",
     "updateTime": "2024-09-04T15:17:38.750Z"
@@ -149,9 +133,7 @@
     "id": 12,
     "parentId": 3,
     "menuType": "btn",
-    "meta": {
-      "title": "编辑"
-    },
+    "meta": { "title": "编辑" },
     "auth": "dept.edit",
     "createTime": "2024-09-04T15:17:55.385Z",
     "updateTime": "2024-09-04T15:17:55.385Z"
@@ -160,9 +142,7 @@
     "id": 13,
     "parentId": 3,
     "menuType": "btn",
-    "meta": {
-      "title": "删除"
-    },
+    "meta": { "title": "删除" },
     "auth": "dept.del",
     "createTime": "2024-09-04T15:18:20.094Z",
     "updateTime": "2024-09-04T15:18:20.094Z"
@@ -171,9 +151,7 @@
     "id": 15,
     "parentId": 4,
     "menuType": "btn",
-    "meta": {
-      "title": "新增"
-    },
+    "meta": { "title": "新增" },
     "auth": "role.add",
     "createTime": "2024-09-04T15:18:46.495Z",
     "updateTime": "2024-09-04T15:18:46.495Z"
@@ -182,9 +160,7 @@
     "id": 16,
     "parentId": 4,
     "menuType": "btn",
-    "meta": {
-      "title": "编辑"
-    },
+    "meta": { "title": "编辑" },
     "auth": "role.edit",
     "createTime": "2024-09-04T15:19:01.738Z",
     "updateTime": "2024-09-04T15:19:01.738Z"
@@ -193,9 +169,7 @@
     "id": 17,
     "parentId": 4,
     "menuType": "btn",
-    "meta": {
-      "title": "删除"
-    },
+    "meta": { "title": "删除" },
     "auth": "role.del",
     "createTime": "2024-09-04T15:19:29.431Z",
     "updateTime": "2024-09-04T15:19:29.431Z"
@@ -204,9 +178,7 @@
     "id": 18,
     "parentId": 5,
     "menuType": "btn",
-    "meta": {
-      "title": "Add"
-    },
+    "meta": { "title": "Add" },
     "auth": "menu.add",
     "createTime": "2024-09-04T15:20:37.350Z",
     "updateTime": "2024-09-04T15:20:37.350Z"
@@ -215,9 +187,7 @@
     "id": 19,
     "parentId": 5,
     "menuType": "btn",
-    "meta": {
-      "title": "Edit"
-    },
+    "meta": { "title": "Edit" },
     "auth": "menu.edit",
     "createTime": "2024-09-04T15:20:51.881Z",
     "updateTime": "2024-09-04T15:20:51.881Z"
@@ -226,9 +196,7 @@
     "id": 20,
     "parentId": 5,
     "menuType": "btn",
-    "meta": {
-      "title": "Del"
-    },
+    "meta": { "title": "Del" },
     "auth": "menu.del",
     "createTime": "2024-09-04T15:21:05.194Z",
     "updateTime": "2024-09-04T15:21:05.194Z"

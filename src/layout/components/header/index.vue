@@ -61,7 +61,7 @@ const toggleSideMenu = () => {
 
 .soon-header-menu-icon {
   @apply w-8 h-8 cursor-pointer p-1 rounded-sm;
-  color: var(--el-menu-hover-text-color);
-  background-color: var(--el-menu-hover-bg-color);
+  color: var(--soon-menu-hover-text-color);
+  background-color: var(--soon-menu-hover-bg-color);
 }
 </style>

@@ -1,4 +1,8 @@
 export const en_menu = {
+  home: "Dashboard",
+  link: "Link",
+  iframe: "Open in Iframe",
+  external: "Open in Browser Tab",
   system: "System",
   user: "User",
   pwd: "Password",

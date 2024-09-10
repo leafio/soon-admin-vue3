@@ -22,7 +22,7 @@ const compList = shallowRef<any[]>([])
 const { setMap, getMap, MAP, delMap } = useMultiFrame()
 
 const keepShow = computed(() => {
-  return props.currRoute.meta?.isKeepAlive && !!props.currRoute.meta?.isIframe && props.currRoute.meta.link
+  return !!props.currRoute.meta?.isIframe && props.currRoute.meta.link
 })
 
 watch(
@@ -40,7 +40,7 @@ watch(
 watch(
   [() => props.currRoute.fullPath, () => props.refreshing],
   ([path, refreshing]) => {
-    if (refreshing) {
+    if (refreshing || !props.currRoute.meta?.isKeepAlive) {
       delMap(props.currRoute.fullPath)
       compList.value = getMap()
     }

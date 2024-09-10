@@ -10,6 +10,9 @@
       label-width="7em"
       class="dialog-form"
     >
+      <el-form-item :label="t('label.menuType')" class="dialog-form-item-full">
+        <el-segmented v-model="formData.menuType" :options="menuTypeOptions" size="default" />
+      </el-form-item>
       <el-form-item :label="t('label.parentMenu')" class="dialog-form-item">
         <el-cascader v-model="cascader_value" :options="deptOptions" :props="{ checkStrictly: true, value: 'id' }" clearable>
           <template #default="{ node, data }">
@@ -18,65 +21,51 @@
           </template>
         </el-cascader>
       </el-form-item>
-
-      <el-form-item :label="t('label.menuType')" class="dialog-form-item">
-        <el-radio-group v-model="formData.menuType">
-          <el-radio value="page">{{ t("menuType.page") }}</el-radio>
-          <el-radio value="btn">{{ t("menuType.button") }}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-
       <el-form-item :label="t('label.menuTitle')" class="dialog-form-item">
         <el-input v-model="formData.meta.title" clearable></el-input>
       </el-form-item>
-
-      <template v-if="formData.menuType === 'page'">
-        <el-form-item :label="t('label.routePath')" class="dialog-form-item">
-          <el-input v-model="formData.path" clearable></el-input>
-        </el-form-item>
-
-        <el-form-item :label="t('label.redirect')" class="dialog-form-item">
-          <el-input v-model="formData.redirect" clearable></el-input>
-        </el-form-item>
-
-        <el-form-item :label="t('label.menuIcon')" class="dialog-form-item">
-          <el-input v-model="formData.meta.icon" clearable></el-input>
-        </el-form-item>
-
-        <el-form-item :label="t('label.linkUrl')" class="dialog-form-item">
-          <el-input v-model="formData.meta.link" clearable> </el-input>
-        </el-form-item>
-      </template>
-
       <el-form-item :label="t('label.auth')" class="dialog-form-item">
         <el-input v-model="formData.auth" clearable></el-input>
       </el-form-item>
 
-      <!-- <el-form-item :label="t('label.sort')" class="dialog-form-item">
+      <el-form-item :label="t('label.sort')" class="dialog-form-item">
         <el-input-number v-model="formData.sort" controls-position="right" class="w100" />
-      </el-form-item> -->
-
-      <template v-if="formData.menuType === 'page'">
-        <!-- <el-form-item :label="t('hidden.title')" class="dialog-form-item">
-          <el-radio-group v-model="formData.meta.isHide">
-            <el-radio :value="true">{{ t("hidden.true") }}</el-radio>
-            <el-radio :value="false">{{ t("hidden.false") }}</el-radio>
-          </el-radio-group>
-        </el-form-item> -->
-
-        <el-form-item :label="t('pageCache.title')" class="dialog-form-item">
-          <el-radio-group v-model="formData.meta.isKeepAlive">
-            <el-radio :value="true">{{ t("pageCache.true") }}</el-radio>
-            <el-radio :value="false">{{ t("pageCache.false") }}</el-radio>
-          </el-radio-group>
+      </el-form-item>
+      <template v-if="formData.menuType !== 'btn'">
+        <el-form-item :label="t('label.menuIcon')" class="dialog-form-item">
+          <el-input v-model="formData.meta.icon" clearable></el-input>
         </el-form-item>
 
-        <el-form-item :label="t('fixed.title')" class="dialog-form-item">
-          <el-radio-group v-model="formData.meta.isAffix">
-            <el-radio :value="true">{{ t("fixed.true") }}</el-radio>
-            <el-radio :value="false">{{ t("fixed.false") }}</el-radio>
-          </el-radio-group>
+        <template v-if="formData.menuType !== 'link'">
+          <el-form-item :label="t('label.routePath')" class="dialog-form-item">
+            <el-input v-model="formData.path" clearable></el-input>
+          </el-form-item>
+
+          <el-form-item :label="t('label.layout')" class="dialog-form-item">
+            <el-select v-model="formData.meta.layout" clearable>
+              <el-option :value="'layout'">{{ t("layout.default") }}</el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item :label="t('pageCache.title')" class="dialog-form-item">
+            <el-switch v-model="formData.meta.isKeepAlive" />
+          </el-form-item>
+
+          <el-form-item :label="t('fixed.title')" class="dialog-form-item">
+            <el-switch v-model="formData.meta.isAffix" />
+          </el-form-item>
+          <el-form-item :label="t('hidden.title')" class="dialog-form-item">
+            <el-switch v-model="formData.meta.isHide" />
+          </el-form-item>
+        </template>
+        <el-form-item v-if="formData.menuType === 'page'" :label="t('label.redirect')" class="dialog-form-item">
+          <el-input v-model="formData.redirect" clearable></el-input>
         </el-form-item>
+        <template v-if="formData.menuType === 'iframe' || formData.menuType === 'link'">
+          <el-form-item :label="t('label.linkUrl')" class="dialog-form-item">
+            <el-input v-model="formData.meta.link" clearable> </el-input>
+          </el-form-item>
+        </template>
       </template>
     </el-form>
     <template #footer>
@@ -107,8 +96,28 @@ const titles = computed(() => ({
 }))
 const { visible, open, close, type, formData } = useDialog<Menu>({
   formRef,
-  initFormData: { menuType: "page", meta: {} },
+  initFormData: { menuType: "page", meta: { cached: true } },
 })
+
+const menuTypeOptions = computed(() => [
+  {
+    label: t("menuType.page"),
+    value: "page",
+  },
+  {
+    label: t("menuType.iframe"),
+    value: "iframe",
+  },
+  {
+    label: t("menuType.link"),
+    value: "link",
+  },
+
+  {
+    label: t("menuType.button"),
+    value: "btn",
+  },
+])
 
 const cascader_value = computed({
   get() {
@@ -119,6 +128,7 @@ const cascader_value = computed({
     formData.value.parentId = last ?? null
   },
 })
+
 watchEffect(() => {
   if (visible.value) {
     tree_menu({ hasBtn: false }).then((res) => {
@@ -141,6 +151,7 @@ const submit = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
     const data = Object.assign({}, formData.value) as Menu
+    data.meta.isIframe = data.menuType === "iframe"
     if (type.value === "add") {
       add_menu(data).then((res) => {
         ElMessage.success(t("tip.addSuccess"))

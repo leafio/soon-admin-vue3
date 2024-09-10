@@ -1,3 +1,5 @@
+import { title } from "process"
+
 export const zh_system_menu = {
   label: {
     menuTitle: "菜单名称",
@@ -11,6 +13,10 @@ export const zh_system_menu = {
     linkUrl: "链接地址",
     menuIcon: "菜单图标",
     parentMenu: "上级菜单",
+    layout: "布局",
+  },
+  layout: {
+    default: "默认布局",
   },
   menuType: {
     page: "页面",

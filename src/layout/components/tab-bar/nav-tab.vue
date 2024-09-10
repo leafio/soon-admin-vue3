@@ -38,11 +38,11 @@ const handleCloseClick = (e: MouseEvent) => {
 .tab.active,
 .tab:hover {
   @apply shadow;
-  color: var(--el-menu-hover-text-color);
+  color: var(--soon-menu-hover-text-color);
 }
 
 .tab.active {
-  border-color: var(--el-menu-hover-text-color);
+  border-color: var(--soon-menu-hover-text-color);
 }
 
 /* .tab.active,

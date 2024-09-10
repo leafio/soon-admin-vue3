@@ -6,6 +6,8 @@ import router from "@/router/index"
 
 import { RouteRecordRaw } from "vue-router"
 
+const iframe = () => import("@/layout/components/iframe.vue")
+
 // 引入 views 文件夹下所有 vue 文件
 const modules = import.meta.glob("@/views/**/*.vue")
 
@@ -23,10 +25,12 @@ const getComponent = (path: string) => {
   return result
 }
 
-function parseRouteComponent(routes: { component?: string | any; path: string; children?: any[] }[]) {
+function parseRouteComponent(routes: { component?: string | any; path: string; children?: any[]; meta: any }[]) {
   return routes.map((item) => {
     const result = Object.assign({}, item)
-    if (typeof item.component !== "object") Object.assign(result, { component: getComponent(item.path) })
+    if (item.meta?.isIframe) {
+      Object.assign(result, { component: iframe })
+    } else if (item.component === null || typeof item.component !== "object") Object.assign(result, { component: getComponent(item.path) })
     if (item.children) Object.assign(result, { children: parseRouteComponent(item.children) })
     return result as RouteRecordRaw
   })
@@ -39,7 +43,7 @@ export const parseMenuTitle = (menus: Menu[]): Menu[] => {
       ...m,
       meta: {
         ...m.meta,
-        title: () => t((m.meta.title ?? "") as any),
+        title: typeof m.meta.title === "string" ? () => t((m.meta.title ?? "") as any) : m.meta.title,
       },
       children: m.children ? parseMenuTitle(m.children) : [],
     }

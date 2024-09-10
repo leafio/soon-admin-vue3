@@ -67,7 +67,7 @@ const handleFullscreen = () => {}
 }
 
 .context-menu:hover {
-  background-color: var(--el-menu-hover-bg-color);
-  color: var(--el-menu-hover-text-color);
+  background-color: var(--soon-menu-hover-bg-color);
+  color: var(--soon-menu-hover-text-color);
 }
 </style>
