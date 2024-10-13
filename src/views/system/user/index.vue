@@ -25,7 +25,7 @@
     </el-form>
     <div class="btn-bar">
       <BtnAdd @click="handleShowAdd" />
-      <BtnExport v-if="auth('user.export')" @click="exportExcel" />
+      <BtnExport v-if="auth('user.export')" @click="download_user_table(queryForm)" />
       <BtnCols v-model="cols" @reset="resetCols" />
       <BtnSearch v-model="showSearch" />
       <BtnRefresh @click="refresh" />
@@ -33,28 +33,20 @@
     <div class="table-container">
       <el-table v-loading="loading" :data="list" class="h-full">
         <el-table-column align="center" type="index" width="50px" />
-        <el-table-column v-for="col in checkedCols" :key="col.prop" v-bind="col" align="center">
+        <el-table-column v-for="col in [...checkedCols, actionCol]" :key="col.prop" v-bind="col" align="center">
           <template #default="{ row }">
             <template v-if="col.render">
               <component :is="col.render" :item="row" />
             </template>
           </template>
         </el-table-column>
-        <el-table-column :label="t('action')" align="center" fixed="right">
-          <template #default="{ row }">
-            <el-button v-if="row.username != 'admin'" size="small" text type="danger" @click="handleDelete(row)">{{ t("del") }} </el-button>
-            <el-button size="small" text type="primary" @click="handleShowEdit(row)">{{ t("edit") }} </el-button>
-            <el-button size="small" text type="primary" @click="handleShowDetail(row)">{{ t("detail") }} </el-button>
-            <!-- <el-button size="small" text type="warning" @click="handleShowAdd(row)">重置密码 </el-button> -->
-          </template>
-        </el-table-column>
       </el-table>
     </div>
     <div class="md:hidden mt-2">
-      <div v-for="(item, index) in list" :key="index" class="mb-2">
+      <div v-for="(item, index) in list" :key="index" class="mb-2 bg-white">
         <soon-detail :cols="checkedCols" :item="item">
-          <div class="flex-1 flex p-1">
-            <el-image class="w-12 mr-1 h-12" :src="item.avatar ?? ''"></el-image>
+          <div class="flex-1 flex p-1 border-b border-solid items-center">
+            <el-avatar class="mr-1" :src="item.avatar ?? ''"> {{ item.username }} </el-avatar>
             <div class="flex-1">
               <div class="flex justify-between">
                 <div class="text-lg">
@@ -64,24 +56,19 @@
                     <Female v-if="item.gender === 2" class="text-pink-600" />
                     <Male v-if="item.gender === 1" class="text-blue-600" />
                   </el-icon>
-                </div>
-
-                <div class="text-base pr-4">
-                  <el-button v-if="item.username != 'admin'" size="small" text type="danger" @click.stop="handleDelete(item)">{{ t("del") }} </el-button>
-                  <el-button size="small" text type="primary" @click.stop="handleShowEdit(item)">{{ t("edit") }} </el-button>
+                  <el-tag v-if="item.status" size="small" class="ml-0.5" type="success">{{ t("status.enabled") }}</el-tag>
+                  <el-tag v-else size="small" class="ml-0.5">{{ t("status.disabled") }}</el-tag>
                 </div>
               </div>
-              <div class="flex">
-                <span>{{ item.phone }}</span>
-                <el-tag v-if="item.status" size="small" class="ml-0.5" type="success">{{ t("status.enabled") }}</el-tag>
-                <el-tag v-else size="small" class="ml-0.5">{{ t("status.disabled") }}</el-tag>
-              </div>
-              <div class="flex justify-between">
-                <span>{{ item.name }}</span>
+              <div class="flex justify-between text-gray-600">
+                <div>{{ item.phone }}</div>
                 <span>{{ dateFormat(item.createTime) }}</span>
               </div>
             </div>
           </div>
+          <template #action>
+            <component :is="actionCol.render" :item="item" />
+          </template>
         </soon-detail>
       </div>
     </div>
@@ -109,26 +96,27 @@ import SoonDetail from "@/components/soon-detail/index.vue"
 import { Female, Male } from "@element-plus/icons-vue"
 import { list_user, download_user_table, del_user, UserInfo } from "@/api"
 
-import { defaultTime, dateFormat, timePickerOptions, curMonth } from "@/utils/tools"
+import { dateFormat } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 import { useAuth } from "@/hooks/auth"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
-import { tMessages } from "@/i18n"
-import { zh_system_user } from "@/i18n/zh/system/user"
-import { en_system_user } from "@/i18n/en/system/user"
+import { tLocales } from "@/i18n"
+
 import { useCols } from "@/hooks/cols"
 import { useAppStore } from "@/store/modules/app"
+import { Zh_System_User } from "@/i18n/zh/system/user"
+import { En_System_User } from "@/i18n/en/system/user"
 type Item = UserInfo
 const paginationSize = computed(() => (useAppStore().responsive === "mobile" ? "small" : ""))
 
 const showSearch = ref(true)
 const auth = useAuth()
 
-const t = tMessages({
-  zh: zh_system_user,
-  en: en_system_user,
+const t = tLocales<Zh_System_User | En_System_User>({
+  zh: () => import("@/i18n/zh/system/user"),
+  en: () => import("@/i18n/en/system/user"),
 })
 
 const {
@@ -136,14 +124,12 @@ const {
   refresh,
   total,
   loading,
-  exportExcel,
   search,
   reset,
   params: queryForm,
   pageInfo,
 } = usePageList({
   searchApi: list_user,
-  excelApi: download_user_table,
   // initParams: { timeRange: curMonth() },
   autoSearchDelay: 300,
 })
@@ -208,6 +194,29 @@ const {
     },
   },
 ])
+const actionCol = {
+  prop: "action",
+  label: t("action"),
+  width: "",
+  fixed: "right",
+  render({ item }: { item: Item }) {
+    return (
+      <div>
+        {item.username != "admin" && (
+          <el-button size="small" text type="danger" onClick={() => handleDelete(item)}>
+            {t("del")}
+          </el-button>
+        )}
+        <el-button size="small" text type="primary" onClick={() => handleShowEdit(item)}>
+          {t("edit")}
+        </el-button>
+        <el-button size="small" text type="primary" onClick={() => handleShowDetail(item)}>
+          {t("detail")}
+        </el-button>
+      </div>
+    )
+  },
+}
 
 const handleDelete = (item: Item) => {
   ElMessageBox.confirm(t("tip.confirmDel", { name: item.name ?? item.username }), t("tip.title"), {

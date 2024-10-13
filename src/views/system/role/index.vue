@@ -48,11 +48,15 @@
                 <el-tag v-else size="small">{{ t("status.disabled") }}</el-tag>
               </div>
             </div>
-            <div class="pr-6">
-              <el-button v-if="item.id !== 'admin'" size="small" text type="danger" @click="handleDelete(item)">{{ t("del") }} </el-button>
-              <el-button size="small" text type="primary" @click="handleShowEdit(item)">{{ t("edit") }} </el-button>
-            </div>
           </div>
+          <template #action>
+            <div class="pr-6">
+              <el-button v-if="item.id !== 'admin'" class="!border-none" size="small" plain type="danger" @click="handleDelete(item)"
+                >{{ t("del") }}
+              </el-button>
+              <el-button class="!border-none" size="small" plain type="primary" @click="handleShowEdit(item)">{{ t("edit") }} </el-button>
+            </div>
+          </template>
         </soon-detail>
       </div>
     </div>
@@ -71,15 +75,20 @@
 <script setup lang="tsx">
 import SoonDetail from "@/components/soon-detail/index.vue"
 import { list_role, Role, del_role } from "@/api"
-
+import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
+import BtnExport from "@/components/soon-tool-bar/btn-export.vue"
+import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
+import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
+import BtnCols from "@/components/soon-tool-bar/btn-cols.vue"
 import { dateFormat } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox, ElTag } from "element-plus"
-import { tMessages } from "@/i18n"
-import { zh_system_role } from "@/i18n/zh/system/role"
-import { en_system_role } from "@/i18n/en/system/role"
+import { tLocales } from "@/i18n"
+import zh_system_role, { Zh_System_Role } from "@/i18n/zh/system/role"
+import en_system_role, { En_System_Role } from "@/i18n/en/system/role"
+
 type Item = Role
 
 const showSearch = ref(true)
@@ -89,7 +98,6 @@ const {
   refresh,
   total,
   loading,
-  exportExcel,
   search,
   reset,
   params: queryForm,
@@ -98,7 +106,7 @@ const {
   searchApi: list_role,
 })
 refresh()
-const t = tMessages({ zh: zh_system_role, en: en_system_role })
+const t = tLocales<Zh_System_Role | En_System_Role>({ zh: () => import("@/i18n/zh/system/role"), en: () => import("@/i18n/en/system/role") })
 const cols = computed(() => [
   {
     prop: "name",
@@ -114,8 +122,8 @@ const cols = computed(() => [
     prop: "status",
     label: t("label.status"),
     width: "",
-    render: (props: { item?: Item }) =>
-      props.item?.status == 1 ? <el-tag type="success">{t("status.enabled")}</el-tag> : <el-tag>{t("status.disabled")}</el-tag>,
+    render: ({ item }: { item?: Item }) =>
+      item?.status == 1 ? <el-tag type="success">{t("status.enabled")}</el-tag> : <el-tag>{t("status.disabled")}</el-tag>,
   },
 ])
 const handleDelete = (item: Item) => {

@@ -25,13 +25,14 @@
 </template>
 <script setup lang="ts">
 import { getCaptcha, login } from "@/api"
-import { tMessages } from "@/i18n"
-import { en_login } from "@/i18n/en/login"
-import { zh_login } from "@/i18n/zh/login"
+import { tLocales } from "@/i18n"
+
 import { FormInstance } from "element-plus"
 
 import LangSwitch from "@/layout/components/lang-switch.vue"
-const t = tMessages({ zh: zh_login, en: en_login })
+import en_login from "@/i18n/en/login"
+import zh_login from "@/i18n/zh/login"
+const t = tLocales({ zh: zh_login, en: en_login })
 
 const form = ref({
   username: "",

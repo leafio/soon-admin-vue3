@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="langData[lang as keyof typeof langData]">
+  <el-config-provider :locale="langData[lang]">
     <router-view />
   </el-config-provider>
 </template>
@@ -31,6 +31,9 @@ const smallerThanMd = breakpoints.smaller("md")
 watchEffect(() => {
   appStore.responsive = smallerThanMd.value ? "mobile" : "pc"
 })
-
+const obj: any = {
+  aa: "",
+}
+console.log(obj[""])
 console.log("### app start ###")
 </script>

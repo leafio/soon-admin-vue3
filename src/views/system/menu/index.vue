@@ -22,9 +22,6 @@
               <el-tag v-else-if="row.menuType == 'iframe'" effect="plain" type="danger">{{ t("menuType.iframe") }}</el-tag>
               <el-tag v-else-if="row.menuType == 'btn'" effect="plain" type="success">{{ t("menuType.button") }}</el-tag>
             </template>
-            <template v-if="col.prop == 'createTime'">
-              {{ dateFormat(row.createTime) }}
-            </template>
           </template>
         </el-table-column>
         <el-table-column :label="t('action')" align="center" fixed="right">
@@ -85,9 +82,10 @@ import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
-import { tMessages } from "@/i18n"
-import { zh_system_menu } from "@/i18n/zh/system/menu"
-import { en_system_menu } from "@/i18n/en/system/menu"
+import { tLocales } from "@/i18n"
+import en_system_menu, { En_System_Menu } from "@/i18n/en/system/menu"
+import zh_system_menu, { Zh_System_Menu } from "@/i18n/zh/system/menu"
+
 type Item = Menu
 
 const showSearch = ref(true)
@@ -97,7 +95,6 @@ const {
   refresh,
   total,
   loading,
-  exportExcel,
   search,
   reset,
   params: queryForm,
@@ -107,7 +104,7 @@ const {
   initParams: { hasBtn: true },
 })
 refresh()
-const t = tMessages({ zh: zh_system_menu, en: en_system_menu })
+const t = tLocales<Zh_System_Menu | En_System_Menu>({ zh: zh_system_menu, en: en_system_menu })
 const cols = computed(() => [
   {
     prop: "meta.title",

@@ -3,7 +3,6 @@ import { watchDebounced } from "@vueuse/core"
 
 type ListHookProps<R, T extends (args: any) => Promise<{ list: R[]; total?: number }>, MapFun extends (item: Awaited<ReturnType<T>>["list"][0]) => R> = {
   searchApi: T
-  excelApi?: (args: any) => Promise<any>
   initParams?: Parameters<T>[0]
   initPageInfo?: { pageIndex?: number; pageSize?: number }
   mapFun?: MapFun
@@ -14,7 +13,7 @@ export function usePageList<
   R,
   T extends (args: any) => Promise<{ list: any[]; total?: number }>,
   MapFun extends (item: Awaited<ReturnType<T>>["list"][0]) => R,
->({ searchApi, excelApi, initPageInfo, mapFun, initParams, autoSearchDelay }: ListHookProps<R, T, MapFun>) {
+>({ searchApi, initPageInfo, mapFun, initParams, autoSearchDelay }: ListHookProps<R, T, MapFun>) {
   type Item = Awaited<ReturnType<T>>["list"][0]
   const list = ref<(R extends unknown ? Item : R)[]>([])
   const total = ref(0)
@@ -65,11 +64,6 @@ export function usePageList<
     Object.assign(params, obj, initParams)
   }
 
-  const exportExcel = async () => {
-    if (excelApi) {
-      excelApi(params)
-    }
-  }
   if (autoSearchDelay !== undefined)
     watchDebounced(
       () => [params],
@@ -104,7 +98,6 @@ export function usePageList<
     list,
     refresh,
     total,
-    exportExcel,
     loading,
     resData,
     search,

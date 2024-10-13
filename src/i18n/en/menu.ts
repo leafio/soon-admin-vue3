@@ -1,4 +1,4 @@
-export const en_menu = {
+const en_menu = {
   home: "Dashboard",
   link: "Link",
   iframe: "Open in Iframe",
@@ -10,3 +10,4 @@ export const en_menu = {
   menu: "Menu",
   role: "Role",
 }
+export default en_menu

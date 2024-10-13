@@ -14,7 +14,7 @@
         <el-segmented v-model="formData.menuType" :options="menuTypeOptions" size="default" />
       </el-form-item>
       <el-form-item :label="t('label.parentMenu')" class="dialog-form-item">
-        <el-cascader v-model="cascader_value" :options="deptOptions" :props="{ checkStrictly: true, value: 'id' }" clearable>
+        <el-cascader v-model="cascader_value" :options="menuTree" :props="{ checkStrictly: true, value: 'id' }" clearable>
           <template #default="{ node, data }">
             <span>{{ data.meta.title }}</span>
             <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -81,14 +81,14 @@
 import { FormInstance } from "element-plus"
 import { tree_menu, Menu, add_menu, update_menu } from "@/api"
 import { useDialog } from "@/hooks/dialog"
-import { tMessages } from "@/i18n"
-import { zh_system_menu } from "@/i18n/zh/system/menu"
-import { en_system_menu } from "@/i18n/en/system/menu"
+import { tLocales } from "@/i18n"
+import zh_system_menu, { Zh_System_Menu } from "@/i18n/zh/system/menu"
+import en_system_menu, { En_System_Menu } from "@/i18n/en/system/menu"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
-const deptOptions = ref<any[]>([])
-const t = tMessages({ zh: zh_system_menu, en: en_system_menu })
+const menuTree = ref<any[]>([])
+const t = tLocales<Zh_System_Menu | En_System_Menu>({ zh: zh_system_menu, en: en_system_menu })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),
@@ -142,7 +142,7 @@ watchEffect(() => {
         })
       }
       parseChildren(data)
-      deptOptions.value = res.list
+      menuTree.value = res.list
     })
   }
 })
@@ -173,7 +173,7 @@ const onCancel = () => {
   close()
 }
 const rules = reactive({
-  "meta.title": [{ required: true, message: "请输入部门", trigger: "blur" }],
+  "meta.title": [{ required: true, message: "请输入名称", trigger: "blur" }],
 })
 defineExpose({ open, close })
 </script>

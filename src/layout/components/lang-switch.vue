@@ -12,11 +12,11 @@
   </el-dropdown>
 </template>
 <script setup lang="ts">
-import { lang } from "@/i18n"
+import { Lang, lang } from "@/i18n"
 import { BIconTranslate } from "bootstrap-icons-vue"
 const props = defineProps<{ iconClass?: string }>()
 const { iconClass } = toRefs(props)
-const handleLangChange = (e: string) => {
+const handleLangChange = (e: Lang) => {
   lang.value = e
   localStorage.setItem("lang", lang.value)
 }

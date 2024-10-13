@@ -43,11 +43,13 @@ export default defineConfig(({ mode }) => {
         resolvers: [ElementPlusResolver()],
         dts: "./types/auto-imports.d.ts",
       }),
-      Components({
-        dirs: ["src/components", "src/layout"],
-        resolvers: [ElementPlusResolver()],
-        dts: "./types/components.d.ts",
-      }),
+      isDev
+        ? undefined
+        : Components({
+            dirs: [],
+            resolvers: [ElementPlusResolver()],
+            dts: "./types/components.d.ts",
+          }),
       eslintPlugin(),
       visualizer({
         open: true, //注意这里要设置为true，否则无效
@@ -56,15 +58,16 @@ export default defineConfig(({ mode }) => {
         brotliSize: true, // 收集 brotli 大小并将其显示
       }),
     ],
-    // css: {
-    //   // css预处理器
-    //   preprocessorOptions: {
-    //     scss: {
-    //       charset: false,
-    //       additionalData: '@import "./src/css/index.scss";',
-    //     },
-    //   },
-    // },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          //       charset: false,
+          //       additionalData: '@import "./src/css/index.scss";',
+          api: "modern-compiler", // or 'modern'
+        },
+      },
+    },
+
     server: {
       // 端口号
       port: Number(env.VITE_PORT),

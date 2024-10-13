@@ -1,4 +1,4 @@
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import dayjs from "dayjs"
 const dayjsDateTimeFormat = "YYYY-MM-DD HH:mm:ss"
 
@@ -18,7 +18,7 @@ export const today = function () {
 
 export const defaultTime: [Date, Date] = [dayjs("00:00:00", "hh:mm:ss").toDate(), dayjs("23:59:59", "hh:mm:ss").toDate()]
 
-const t = tMessages({
+const t = tLocales({
   zh: {
     yesterday: "昨天",
     today: "今天",

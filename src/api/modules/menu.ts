@@ -11,7 +11,7 @@ export type Menu = {
   auth: string
   path: string
   redirect: string
-  children: Menu[]
+  children?: Menu[]
   createTime: string
   updateTime: string
   meta: RouteMeta & { title?: string; icon?: string }

@@ -72,7 +72,8 @@ watch(
   border-right: solid 1px var(--soon-menu-hover-text-color);
 }
 .current .base {
-  color: var(--soon-menu-hover-text-colorr);
+  color: var(--soon-menu-hover-text-color);
+  font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {

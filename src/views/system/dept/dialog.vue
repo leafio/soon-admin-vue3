@@ -46,13 +46,13 @@
 import { FormInstance } from "element-plus"
 import { tree_dept, add_dept, update_dept, Dept } from "@/api"
 import { useDialog } from "@/hooks/dialog"
-import { tMessages } from "@/i18n"
-import { zh_system_dept } from "@/i18n/zh/system/dept"
-import { en_system_dept } from "@/i18n/en/system/dept"
+import { tLocales } from "@/i18n"
+import en_system_dept, { En_System_Dept } from "@/i18n/en/system/dept"
+import zh_system_dept, { Zh_System_Dept } from "@/i18n/zh/system/dept"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
-const t = tMessages({ zh: zh_system_dept, en: en_system_dept })
+const t = tLocales<Zh_System_Dept | En_System_Dept>({ zh: zh_system_dept, en: en_system_dept })
 const deptOptions = ref<any[]>([])
 const titles = computed(() => ({
   add: t("add"),

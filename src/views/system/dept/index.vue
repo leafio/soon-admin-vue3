@@ -72,9 +72,10 @@ import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
-import { tMessages } from "@/i18n"
-import { zh_system_dept } from "@/i18n/zh/system/dept"
-import { en_system_dept } from "@/i18n/en/system/dept"
+import { tLocales } from "@/i18n"
+import en_system_dept, { En_System_Dept } from "@/i18n/en/system/dept"
+import zh_system_dept, { Zh_System_Dept } from "@/i18n/zh/system/dept"
+
 type Item = Dept
 
 const showSearch = ref(true)
@@ -84,7 +85,6 @@ const {
   refresh,
   total,
   loading,
-  exportExcel,
   search,
   reset,
   params: queryForm,
@@ -93,7 +93,7 @@ const {
   searchApi: tree_dept,
 })
 refresh()
-const t = tMessages({ zh: zh_system_dept, en: en_system_dept })
+const t = tLocales<Zh_System_Dept | En_System_Dept>({ zh: zh_system_dept, en: en_system_dept })
 const cols = computed(() => [
   {
     prop: "name",

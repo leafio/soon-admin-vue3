@@ -6,6 +6,10 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user"
 import menuItem from "./menu-item.vue"
+const props = defineProps<{
+  isCollapse?: boolean
+}>()
+
 const route = useRoute()
 const userStore = useUserStore()
 const filterChildrenNotHide = (arr?: any[]): any[] | undefined => {
@@ -17,10 +21,6 @@ const filterChildrenNotHide = (arr?: any[]): any[] | undefined => {
 const menus = computed(() => {
   return filterChildrenNotHide(userStore.menus)
 })
-
-const props = defineProps<{
-  isCollapse?: boolean
-}>()
 
 const selectedPath = ref("")
 watchEffect(() => {

@@ -3,7 +3,7 @@
     "id": 21,
     "menuType": "page",
     "path": "/home",
-    "meta": { "cached": true, "title": "home", "layout": "layout", "isIframe": false, "isAffix": true },
+    "meta": { "cached": true, "title": "home", "layout": "layout", "isIframe": false, "isAffix": true, "icon": "BIconHouse" },
     "createTime": "2024-09-09T15:29:46.582Z",
     "updateTime": "2024-09-09T15:29:46.583Z",
     "children": []
@@ -12,9 +12,32 @@
     "id": 22,
     "menuType": "page",
     "path": "/link",
-    "meta": { "cached": true, "title": "link", "isIframe": false, "layout": "layout" },
+    "meta": { "cached": true, "title": "link", "isIframe": false, "layout": "layout", "icon": "BIconLink45deg" },
     "createTime": "2024-09-09T15:30:21.146Z",
-    "updateTime": "2024-09-09T15:30:21.146Z"
+    "updateTime": "2024-09-09T15:30:21.146Z",
+    "children": [
+      {
+        "id": 23,
+        "parentId": 22,
+        "menuType": "iframe",
+        "path": "/link/iframe",
+        "meta": { "cached": true, "title": "iframe", "isIframe": true, "link": "https://www.baidu.com" },
+        "createTime": "2024-09-09T15:31:06.719Z",
+        "updateTime": "2024-09-09T15:31:06.719Z",
+        "children": []
+      },
+      {
+        "id": 24,
+        "parentId": 22,
+        "menuType": "link",
+        "path": "/link/external",
+        "meta": { "cached": true, "title": "external", "isIframe": false, "link": "https://github.com/leafio/soon-admin-vue3" },
+        "createTime": "2024-09-09T15:31:29.742Z",
+        "updateTime": "2024-09-09T15:31:29.742Z",
+        "children": [],
+        "redirect": ""
+      }
+    ]
   },
   {
     "id": 23,

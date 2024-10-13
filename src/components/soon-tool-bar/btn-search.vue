@@ -8,13 +8,13 @@
   </el-tooltip>
 </template>
 <script setup lang="ts">
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { Search } from "@element-plus/icons-vue"
 const showSearch = defineModel<boolean>()
 const toggleSearch = () => {
   showSearch.value = !showSearch.value
 }
-const t = tMessages({
+const t = tLocales({
   zh: {
     hide: "隐藏搜索",
     show: "显示搜索",

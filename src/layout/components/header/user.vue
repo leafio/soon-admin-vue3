@@ -17,11 +17,11 @@
 import { BIconChevronDown } from "bootstrap-icons-vue"
 import { logout } from "@/api"
 import { useUserStore } from "@/store/modules/user"
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { useTabsStore } from "@/store/modules/tabs"
 import { useKeepAliveStore } from "@/store/modules/keepAlive"
 import { useAppStore } from "@/store/modules/app"
-const t = tMessages({
+const t = tLocales({
   zh: {
     logout: "退出登录",
     loggedOut: "已退出!",

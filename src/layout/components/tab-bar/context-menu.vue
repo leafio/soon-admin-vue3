@@ -14,7 +14,7 @@
   </el-popover>
 </template>
 <script setup lang="ts">
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { useTabsStore } from "@/store/modules/tabs"
 import { RouteLocationNormalized } from "vue-router"
 const props = defineProps<{
@@ -25,7 +25,7 @@ const props = defineProps<{
 }>()
 const { curIndex, targetRef, tab, visible } = toRefs(props)
 
-const t = tMessages({
+const t = tLocales({
   zh: {
     refresh: "刷新",
     close: "关闭当前",

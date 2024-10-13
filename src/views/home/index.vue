@@ -10,16 +10,16 @@
           <div class="mt-2">
             <el-tag v-for="tag in item.tags" :key="tag" class="mr-2">{{ tag }}</el-tag>
           </div>
-          <a :href="item.github" class="flex items-center mt-2"> <BIconGithub class="mr-1" /> {{ item.github }} </a>
+          <a :href="item.github" target="_blank" class="flex items-center mt-2"> <BIconGithub class="mr-1" /> {{ item.github }} </a>
         </el-card>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { lang, tMessages } from "@/i18n"
+import { lang, tLocales } from "@/i18n"
 import { BIconGithub } from "bootstrap-icons-vue"
-const t = tMessages({ zh: { msg: "请赏个star吧" }, en: { msg: "Your star is important for me" } })
+const t = tLocales({ zh: { msg: "请赏个star吧" }, en: { msg: "Your star is important for me" } })
 
 const zh = [
   {
@@ -35,10 +35,10 @@ const zh = [
     github: "https://github.com/leafio/soon-fetch",
   },
   {
-    title: "grig",
+    title: "soon-i18n",
     description: "react , vue , svelte , solid 均可使用的i18n库",
     tags: ["不到3K", "ts智能提醒", "适配框架, 数据状态不丢失"],
-    github: "https://github.com/leafio/grig",
+    github: "https://github.com/leafio/soon-i18n",
   },
   {
     title: "react-vmodel",
@@ -73,10 +73,10 @@ const en = [
     github: "https://github.com/leafio/soon-fetch",
   },
   {
-    title: "grig",
+    title: "soon-i18n",
     description: "i18n lib for react , vue , svelte , solid ...",
     tags: ["less than 3K", "ts prompt", "state keeping"],
-    github: "https://github.com/leafio/grig",
+    github: "https://github.com/leafio/soon-i18n",
   },
   {
     title: "react-vmodel",

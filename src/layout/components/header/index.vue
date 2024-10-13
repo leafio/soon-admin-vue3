@@ -20,7 +20,7 @@
       <div class="mr-4 cursor-pointer hidden md:block">
         <BIconBell />
       </div> -->
-
+      <!-- <soon-tooltip></soon-tooltip> -->
       <a href="https://github.com/leafio/soon-admin-vue3" target="_blank">
         <el-tooltip :content="t('star')">
           <BIconGithub class="mr-4" />
@@ -41,9 +41,9 @@ import Breadcrumb from "./soon-breadcrumb.vue"
 import LangSwitch from "../lang-switch.vue"
 import User from "./user.vue"
 import { useAppStore } from "@/store/modules/app"
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 
-const t = tMessages({
+const t = tLocales({
   zh: { msg: "我在上海找工作，如果有机会给到我，请联系我，email: leafnote@outlook.com ", star: "给个⭐" },
   en: { msg: "I'm looking for job in Shanghai, if you have a offer for me , email me : leafnote@outlook.com ", star: "⭐ me" },
 })

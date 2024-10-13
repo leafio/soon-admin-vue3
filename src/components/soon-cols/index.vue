@@ -21,7 +21,7 @@
           ></div> -->
             <DCaret class="drag-btn mr-2 w-4 h-4 text-gray-400 cursor-move" />
             <el-checkbox v-model="model.find((col) => col.prop === item.prop)!.checked">
-              <span class="inline-block w-[120px] truncate hover:text-text_color_primary">
+              <span class="inline-block w-[120px] truncate">
                 {{ item.label }}
               </span>
             </el-checkbox>
@@ -37,7 +37,7 @@ import { DCaret } from "@element-plus/icons-vue"
 import { Col } from "./type"
 import { useThrottleFn } from "@vueuse/core"
 import Sortable from "sortablejs"
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 const popoverRef = ref()
 
 const props = defineProps<{
@@ -46,7 +46,7 @@ const props = defineProps<{
 
 const emit = defineEmits(["reset"])
 const model = defineModel<Col[]>({ default: [] })
-const t = tMessages()
+const t = tLocales()
 
 const cachedCols = computed(() => {
   return model.value.map(({ prop, label }) => ({ prop, label }))

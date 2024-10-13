@@ -9,13 +9,13 @@
   <soon-cols ref="colsRef" v-model="model" :trigger-ref="buttonRef" @reset="emit('reset')" />
 </template>
 <script setup lang="ts">
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { Operation } from "@element-plus/icons-vue"
 import { Col } from "@/components/soon-cols/type"
 import { ClickOutside as vClickOutside } from "element-plus"
 import SoonCols from "@/components/soon-cols/index.vue"
 const emit = defineEmits(["reset"])
-const t = tMessages()
+const t = tLocales()
 const model = defineModel<Col[]>({ default: [] })
 
 const buttonRef = ref()

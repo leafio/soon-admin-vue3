@@ -14,6 +14,12 @@
   --soon-menu-hover-text-color: var(--soon-color-primary);
 }
 
+@components {
+  .soon-bg {
+    background-color: (--soon-menu-hover-bg-color);
+  }
+}
+
 :root body {
   --el-color-primary-rgb: 126, 78, 229;
 

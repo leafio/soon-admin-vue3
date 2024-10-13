@@ -67,12 +67,12 @@
 import { FormInstance } from "element-plus"
 import { add_role, update_role, Role, tree_menu, Menu } from "@/api"
 import { useDialog } from "@/hooks/dialog"
-import { tMessages } from "@/i18n"
-import { zh_system_role } from "@/i18n/zh/system/role"
-import { en_system_role } from "@/i18n/en/system/role"
+import { tLocales } from "@/i18n"
+import zh_system_role, { Zh_System_Role } from "@/i18n/zh/system/role"
+import en_system_role, { En_System_Role } from "@/i18n/en/system/role"
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
-const t = tMessages({ zh: zh_system_role, en: en_system_role })
+const t = tLocales<Zh_System_Role | En_System_Role>({ zh: zh_system_role, en: en_system_role })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),

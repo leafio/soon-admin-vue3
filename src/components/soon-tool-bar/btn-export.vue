@@ -8,10 +8,10 @@
   </el-tooltip>
 </template>
 <script setup lang="ts">
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { Download } from "@element-plus/icons-vue"
 const emit = defineEmits(["click"])
-const t = tMessages({
+const t = tLocales({
   zh: {
     export: "导出Excel",
   },

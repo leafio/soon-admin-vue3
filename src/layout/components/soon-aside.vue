@@ -1,6 +1,9 @@
 <template>
   <aside>
-    <div :class="`${!isHide && isMobile ? ' fixed left-0  w-lvw h-lvh bg-opacity-50 bg-black z-[1]' : ''}`" @click="appStore.sideBar.isHide = true"></div>
+    <div
+      :class="`opacity-0  duration-300 transition-opacity ${!isHide && isMobile ? ' opacity-100 fixed left-0  w-lvw h-lvh bg-opacity-50 bg-black z-[1]' : ''}`"
+      @click="appStore.sideBar.isHide = true"
+    ></div>
     <div
       ref="refAside"
       :class="`w-[208px] ${isHide ? ' translate-x-[-208px] ' : isCollapse ? 'w-[50px]' : ''}  bg-white z-50   fixed left-0 flex h-svh flex-col border-r border-solid border-gray-100 transition-transform duration-300 `"
@@ -18,7 +21,7 @@
 <script setup lang="ts">
 import { useAppStore } from "@/store/modules/app"
 import { BIconPin } from "bootstrap-icons-vue"
-
+import Menu from "./menu/index.vue"
 const appStore = useAppStore()
 const isHide = computed(() => appStore.sideBar.isHide)
 const isCollapse = computed(() => appStore.sideBar.isCollapse)
@@ -31,6 +34,7 @@ const refAside = ref(null)
 if (isMobile.value) {
   appStore.sideBar.isHide = true
 }
+watch(isMobile, () => (appStore.sideBar.isHide = isMobile.value))
 // onClickOutside(refAside, () => {
 //   if (isMobile.value) appStore.sideBar.isHide = true
 // })

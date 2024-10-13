@@ -7,6 +7,7 @@
 Soon-Admin is full stuck admin system written by Typescript。
 
 - 🧑‍🤝‍🧑Frontend soon-admin-vue3`(this project)`
+- 🧑‍🤝‍🧑Frontend [soon-admin-react-nextjs](https://github.com/leafio/soon-admin-react-nextjs)
 
 - 👭Backend [soon-admin-express](https://github.com/leafio/soon-admin-express)
 
@@ -23,7 +24,7 @@ Soon-Admin is full stuck admin system written by Typescript。
 - auto-import: unplugin-auto-import unplugin-vue-components , element-plus
 - state management: pinia
 - http request: soon-fetch
-- i18n: grig
+- i18n: soon-i18n
 - mock: soon-mock
 - router: vue-router ,dynamic routes and permissions for pages and buttons
 - keep-alive: cached multiply page tabs
@@ -116,6 +117,7 @@ Soon-Admin-Vue3
 ├─ postcss.config.js       #
 ├─ prettier.config.js      #
 ├─ README.md               # introduction
+├─ tailwind.config.js      # 
 ├─ tsconfig.json           # type script config
 └─ vite.config.ts          #
 
@@ -139,6 +141,7 @@ If you like this project, just star it.🚀
 Soon-Admin 是一套完全以typescript开发的后台管理系统。
 
 - 🧑‍🤝‍🧑前端 soon-admin-vue3`(本项目)`
+- 🧑‍🤝‍🧑前端 [soon-admin-react-nextjs](https://github.com/leafio/soon-admin-react-nextjs)
 
 - 👭后端 [soon-admin-express](https://github.com/leafio/soon-admin-express)
 
@@ -155,7 +158,7 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 - 使用 unplugin-auto-import unplugin-vue-components 自动导入element-plus 组件
 - 采用 Pinia 作为状态管理
 - 使用 soon-fetch进行http请求,不到3K
-- 使用 grig实现i18n,有良好的type提示约束,不到3K
+- 使用 soon-i18n实现国际化,有良好的type提示约束,不到3K
 - 使用 soon-mock 可视化配置模拟API
 - 使用 vue-router 配置动态路由权限拦截、路由懒加载，支持页面按钮权限控制
 - 使用 KeepAlive 对页面进行缓存，支持多级嵌套路由缓存

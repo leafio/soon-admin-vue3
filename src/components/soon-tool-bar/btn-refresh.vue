@@ -6,10 +6,10 @@
   </el-tooltip>
 </template>
 <script setup lang="ts">
-import { tMessages } from "@/i18n"
+import { tLocales } from "@/i18n"
 import { Refresh } from "@element-plus/icons-vue"
 const emit = defineEmits(["click"])
-const t = tMessages()
+const t = tLocales()
 </script>
 <style lang="scss" scoped>
 :deep(.el-button) {
