@@ -4,14 +4,14 @@ import waterMarker from "./modules/waterMarker"
 import draggable from "./modules/draggable"
 
 import longpress from "./modules/longpress"
-import scroll from "./modules/scoll"
+// import scroll from "./modules/scoll"
 
 const directivesList: { [key: string]: Directive } = {
   waterMarker,
   draggable,
 
   longpress,
-  scroll,
+  // scroll,
 }
 
 const directives = {

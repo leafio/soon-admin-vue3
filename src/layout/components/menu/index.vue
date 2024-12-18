@@ -1,7 +1,9 @@
 <template>
-  <ul v-scroll class="h-screen overflow-hidden">
-    <menu-item v-for="menu in menus ?? []" :key="menu.path" :menu="menu" />
-  </ul>
+  <el-scrollbar>
+    <ul>
+      <menu-item v-for="menu in menus ?? []" :key="menu.path" :menu="menu" />
+    </ul>
+  </el-scrollbar>
 </template>
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user"

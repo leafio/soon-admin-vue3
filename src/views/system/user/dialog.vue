@@ -81,15 +81,14 @@ import { FormInstance } from "element-plus"
 import { list_role, add_user, update_user, Role, tree_dept, Dept, User } from "@/api"
 import { useDialog } from "@/hooks/dialog"
 import { tLocales } from "@/i18n"
-import { Zh_System_User } from "@/i18n/zh/system/user"
-import { En_System_User } from "@/i18n/en/system/user"
 
 type Item = User
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
-const t = tLocales<Zh_System_User | En_System_User>({
+const t = tLocales({
   zh: () => import("@/i18n/zh/system/user"),
   en: () => import("@/i18n/en/system/user"),
+  ko: () => import("@/i18n/ko/system/user"),
 })
 
 const titles = computed(() => ({

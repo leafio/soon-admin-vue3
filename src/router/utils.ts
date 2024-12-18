@@ -1,6 +1,7 @@
 import { Menu } from "@/api"
 import { tLocales } from "@/i18n"
 import en_menu from "@/i18n/en/menu"
+import ko_menu from "@/i18n/ko/menu"
 import zh_menu from "@/i18n/zh/menu"
 
 import router from "@/router/index"
@@ -36,17 +37,20 @@ function parseRouteComponent(routes: { component?: string | any; path: string; c
     return result as RouteRecordRaw
   })
 }
-const t = tLocales({ zh: zh_menu, en: en_menu })
+const t = tLocales({ zh: zh_menu, en: en_menu, ko: ko_menu })
+export const parseMenuTitle = (title?: string | (() => string)) => {
+  return typeof title === "string" ? () => t((title ?? "") as any) : title
+}
 
-export const parseMenuTitle = (menus: Menu[]): Menu[] => {
+export const parseMenusTitle = (menus: Menu[]): Menu[] => {
   return menus.map((m) => {
     return {
       ...m,
       meta: {
         ...m.meta,
-        title: typeof m.meta.title === "string" ? () => t((m.meta.title ?? "") as any) : m.meta.title,
+        title: parseMenuTitle(m.meta.title),
       },
-      children: m.children ? parseMenuTitle(m.children) : [],
+      children: m.children ? parseMenusTitle(m.children) : [],
     }
   }) as unknown as Menu[]
 }

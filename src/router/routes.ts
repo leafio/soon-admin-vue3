@@ -1,11 +1,12 @@
 import { tLocales } from "@/i18n"
 import en_menu from "@/i18n/en/menu"
+import ko_menu from "@/i18n/ko/menu"
 import zh_menu from "@/i18n/zh/menu"
 
 import { Document } from "@element-plus/icons-vue"
 import { RouteRecordRaw } from "vue-router"
 
-const t = tLocales({ zh: zh_menu, en: en_menu })
+const t = tLocales({ zh: zh_menu, en: en_menu, ko: ko_menu })
 export const staticRoutes = [
   {
     path: "/login",

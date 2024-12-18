@@ -15,6 +15,9 @@
 </template>
 <script setup lang="ts">
 import { tLocales } from "@/i18n"
+import en_tabbar from "@/i18n/en/tabbar"
+import ko_tabbar from "@/i18n/ko/tabbar"
+import zh_tabbar from "@/i18n/zh/tabbar"
 import { useTabsStore } from "@/store/modules/tabs"
 import { RouteLocationNormalized } from "vue-router"
 const props = defineProps<{
@@ -26,20 +29,9 @@ const props = defineProps<{
 const { curIndex, targetRef, tab, visible } = toRefs(props)
 
 const t = tLocales({
-  zh: {
-    refresh: "刷新",
-    close: "关闭当前",
-    closeOthers: "关闭其它",
-    closeAll: "关闭所有",
-    fullscreen: "全屏",
-  },
-  en: {
-    refresh: "Refresh",
-    close: "Close",
-    closeOthers: "Close Others",
-    closeAll: "Close All",
-    fullscreen: "Fullscreen",
-  },
+  zh: zh_tabbar,
+  en: en_tabbar,
+  ko: ko_tabbar,
 })
 const router = useRouter()
 const tabStore = useTabsStore()

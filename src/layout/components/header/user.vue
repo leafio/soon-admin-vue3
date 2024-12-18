@@ -21,15 +21,13 @@ import { tLocales } from "@/i18n"
 import { useTabsStore } from "@/store/modules/tabs"
 import { useKeepAliveStore } from "@/store/modules/keepAlive"
 import { useAppStore } from "@/store/modules/app"
+import zh_logout from "@/i18n/zh/logout"
+import en_logout from "@/i18n/en/logout"
+import ko_logout from "@/i18n/ko/logout"
 const t = tLocales({
-  zh: {
-    logout: "退出登录",
-    loggedOut: "已退出!",
-  },
-  en: {
-    logout: "Logout",
-    loggedOut: "Successfully logged out !",
-  },
+  zh: zh_logout,
+  en: en_logout,
+  ko: ko_logout,
 })
 
 const router = useRouter()

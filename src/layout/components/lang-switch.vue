@@ -7,6 +7,7 @@
       <el-dropdown-menu>
         <el-dropdown-item command="zh" :disabled="lang === 'zh'">中文</el-dropdown-item>
         <el-dropdown-item command="en" :disabled="lang === 'en'">English</el-dropdown-item>
+        <el-dropdown-item command="ko" :disabled="lang === 'ko'">한국어</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>

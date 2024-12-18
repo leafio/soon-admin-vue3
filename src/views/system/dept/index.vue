@@ -14,13 +14,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column align="center" type="index" width="50px" />
-        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width">
-          <template #default="{ row }">
-            <template v-if="col.prop == 'createTime'">
-              {{ dateFormat(row.createTime) }}
-            </template>
-          </template>
-        </el-table-column>
+        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"> </el-table-column>
         <el-table-column :label="t('action')" align="center" fixed="right" width="200px">
           <template #default="{ row }">
             <el-button size="small" text type="danger" @click="handleDelete(row)">{{ t("del") }}</el-button>
@@ -67,14 +61,15 @@ import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
 
 import { tree_dept, Dept, del_dept } from "@/api"
 
-import { dateFormat } from "@/utils/tools"
+import { formatDateTime } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
 import { tLocales } from "@/i18n"
-import en_system_dept, { En_System_Dept } from "@/i18n/en/system/dept"
-import zh_system_dept, { Zh_System_Dept } from "@/i18n/zh/system/dept"
+import en_system_dept from "@/i18n/en/system/dept"
+import zh_system_dept from "@/i18n/zh/system/dept"
+import ko_system_dept from "@/i18n/ko/system/dept"
 
 type Item = Dept
 
@@ -93,7 +88,7 @@ const {
   searchApi: tree_dept,
 })
 refresh()
-const t = tLocales<Zh_System_Dept | En_System_Dept>({ zh: zh_system_dept, en: en_system_dept })
+const t = tLocales({ zh: zh_system_dept, en: en_system_dept, ko: ko_system_dept })
 const cols = computed(() => [
   {
     prop: "name",
@@ -104,14 +99,6 @@ const cols = computed(() => [
     prop: "desc",
     label: t("label.remark"),
     width: "",
-  },
-  {
-    prop: "createTime",
-    label: t("label.createTime"),
-    width: "165px",
-    // render(item: Item) {
-    //   return dateFormat(item?.createTime)
-    // },
   },
 ])
 const handleDelete = (item: Item) => {

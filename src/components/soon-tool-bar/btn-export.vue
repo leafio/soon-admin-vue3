@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip class="btn-item" effect="dark" :content="t('export')" placement="top">
+  <el-tooltip class="btn-item" effect="dark" :content="t('export.excel')" placement="top">
     <el-button circle @click="emit('click')">
       <el-icon>
         <Download></Download>
@@ -11,14 +11,7 @@
 import { tLocales } from "@/i18n"
 import { Download } from "@element-plus/icons-vue"
 const emit = defineEmits(["click"])
-const t = tLocales({
-  zh: {
-    export: "导出Excel",
-  },
-  en: {
-    export: "Export Excel",
-  },
-})
+const t = tLocales()
 </script>
 <style lang="scss" scoped>
 :deep(.el-button) {

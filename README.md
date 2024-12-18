@@ -111,14 +111,17 @@ Soon-Admin-Vue3
 ├─ .gitignore              #
 ├─ .prettierignore         #
 ├─ CHANGELOG.md            #
+├─ Dockerfile              #
 ├─ eslint.config.js        #
 ├─ index.html              #
+├─ nginx.conf              #
 ├─ package.json            # project info and dependencies
 ├─ postcss.config.js       #
 ├─ prettier.config.js      #
 ├─ README.md               # introduction
 ├─ tailwind.config.js      # 
 ├─ tsconfig.json           # type script config
+├─ tsconfig.node.json      # type script config
 └─ vite.config.ts          #
 
 ```
@@ -245,13 +248,16 @@ Soon-Admin-Vue3
 ├─ .gitignore              # 忽略 git 提交
 ├─ .prettierignore         # 忽略 Prettier 格式化
 ├─ CHANGELOG.md            # 项目更新日志
+├─ Dockerfile              # docker 镜像生成文件
 ├─ eslint.config.js        # Eslint 校验配置文件
 ├─ index.html              # 入口 html
+├─ nginx.conf              # nginx配置文件
 ├─ package.json            # 依赖包管理
 ├─ postcss.config.js       # postcss 配置
 ├─ prettier.config.js      # Prettier 格式化配置
 ├─ README.md               # README 介绍
 ├─ tsconfig.json           # typescript 全局配置
+├─ tsconfig.node.json      # typescript 全局配置
 └─ vite.config.ts          # vite 全局配置文件
 
 ```

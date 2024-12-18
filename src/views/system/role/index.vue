@@ -25,7 +25,7 @@
               <component :is="col.render" :item="row" />
             </template>
             <template v-else-if="col.prop == 'createTime'">
-              {{ dateFormat(row.createTime) }}
+              {{ formatDateTime(row.createTime) }}
             </template>
           </template>
         </el-table-column>
@@ -76,18 +76,14 @@
 import SoonDetail from "@/components/soon-detail/index.vue"
 import { list_role, Role, del_role } from "@/api"
 import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
-import BtnExport from "@/components/soon-tool-bar/btn-export.vue"
 import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
 import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
-import BtnCols from "@/components/soon-tool-bar/btn-cols.vue"
-import { dateFormat } from "@/utils/tools"
+import { formatDateTime } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox, ElTag } from "element-plus"
 import { tLocales } from "@/i18n"
-import zh_system_role, { Zh_System_Role } from "@/i18n/zh/system/role"
-import en_system_role, { En_System_Role } from "@/i18n/en/system/role"
 
 type Item = Role
 
@@ -106,7 +102,11 @@ const {
   searchApi: list_role,
 })
 refresh()
-const t = tLocales<Zh_System_Role | En_System_Role>({ zh: () => import("@/i18n/zh/system/role"), en: () => import("@/i18n/en/system/role") })
+const t = tLocales({
+  zh: () => import("@/i18n/zh/system/role"),
+  en: () => import("@/i18n/en/system/role"),
+  ko: () => import("@/i18n/ko/system/role"),
+})
 const cols = computed(() => [
   {
     prop: "name",

@@ -32,7 +32,8 @@ import { FormInstance } from "element-plus"
 import LangSwitch from "@/layout/components/lang-switch.vue"
 import en_login from "@/i18n/en/login"
 import zh_login from "@/i18n/zh/login"
-const t = tLocales({ zh: zh_login, en: en_login })
+import ko_login from "@/i18n/ko/login"
+const t = tLocales({ zh: zh_login, en: en_login, ko: ko_login })
 
 const form = ref({
   username: "",
@@ -58,6 +59,7 @@ const handleLogin = () => {
     if (!valid) return
     login(form.value).then((res) => {
       localStorage.setItem("token", res.token)
+      localStorage.setItem("refresh_token", res.refreshToken)
       router.push("/")
     })
   })

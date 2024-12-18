@@ -20,7 +20,6 @@
       <div class="mr-4 cursor-pointer hidden md:block">
         <BIconBell />
       </div> -->
-      <!-- <soon-tooltip></soon-tooltip> -->
       <a href="https://github.com/leafio/soon-admin-vue3" target="_blank">
         <el-tooltip :content="t('star')">
           <BIconGithub class="mr-4" />

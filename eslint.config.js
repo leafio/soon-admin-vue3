@@ -37,6 +37,8 @@ export default [
       "@typescript-eslint/ban-ts-comment": "off",
       "vue/multi-word-component-names": "off",
       "vue/first-attribute-linebreak": "off",
+      "no-async-promise-executor": "off",
+
       // "vue/no-parsing-error": "off",
       "no-undef": "off",
     },

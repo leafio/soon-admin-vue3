@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="page-container">
     <div class="m-6 lg:m-12">
       <div class="text-4xl mb-2">{{ t("msg") }}</div>
 
-      <div class="flex flex-wrap justify-between">
+      <div class="flex flex-wrap justify-around">
         <el-card v-for="(item, index) in list" :key="index" class="shadow my-2 lg:m-4 p-4 w-[90%] lg:w-[45%] xl:w-[30%]">
           <h3 class="text-3xl">{{ item.title }}</h3>
           <div class="mt-2">{{ item.description }}</div>
@@ -101,6 +101,7 @@ const en = [
 const data = {
   zh,
   en,
+  ko: en,
 }
 const list = computed(() => data[lang.value as "zh"])
 </script>

@@ -7,6 +7,7 @@
 import { lang } from "@/i18n"
 import zhCn from "element-plus/es/locale/lang/zh-cn"
 import en from "element-plus/es/locale/lang/en"
+import ko from "element-plus/es/locale/lang/ko"
 import { useTitle } from "@vueuse/core"
 import { useAppStore } from "./store/modules/app"
 import { runStrFun } from "./utils"
@@ -14,6 +15,7 @@ import { useBreakpoints, breakpointsTailwind } from "@vueuse/core"
 const langData = {
   zh: zhCn,
   en: en,
+  ko,
 }
 
 const route = useRoute()
@@ -31,9 +33,5 @@ const smallerThanMd = breakpoints.smaller("md")
 watchEffect(() => {
   appStore.responsive = smallerThanMd.value ? "mobile" : "pc"
 })
-const obj: any = {
-  aa: "",
-}
-console.log(obj[""])
 console.log("### app start ###")
 </script>

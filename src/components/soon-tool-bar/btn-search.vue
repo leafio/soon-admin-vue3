@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip class="btn-item" effect="dark" :content="showSearch ? t('hide') : t('show')" placement="top">
+  <el-tooltip class="btn-item" effect="dark" :content="showSearch ? t('searchArea.hide') : t('searchArea.show')" placement="top">
     <el-button circle @click="toggleSearch()">
       <el-icon>
         <Search></Search>
@@ -14,16 +14,7 @@ const showSearch = defineModel<boolean>()
 const toggleSearch = () => {
   showSearch.value = !showSearch.value
 }
-const t = tLocales({
-  zh: {
-    hide: "隐藏搜索",
-    show: "显示搜索",
-  },
-  en: {
-    hide: "Hide Search Section",
-    show: "Show Search Section",
-  },
-})
+const t = tLocales()
 </script>
 <style lang="scss" scoped>
 :deep(.el-button) {

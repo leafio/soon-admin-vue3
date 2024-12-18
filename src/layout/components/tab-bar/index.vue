@@ -1,18 +1,25 @@
 <template>
-  <nav class="h-fit w-full bg-white">
-    <div ref="tabContainerRef" v-click-outside="onClickOutside" v-scroll class="flex w-full" @wheel.prevent="onHandleScroll">
-      <nav-tab
-        v-for="(item, index) in tabsMenuList"
-        :key="index"
-        :ref="(el) => mapRefList(el, index)"
-        :label="runStrFun(item.meta?.title)"
-        :active="tabStore.activeIndex === index"
-        :closable="!item.meta.isAffix"
-        @close="handleCloseByIndex(index)"
-        @contextmenu.prevent="showContext(index)"
-        @click="handleGoTo(item)"
-      />
+  <nav class="h-fit w-full bg-white flex" @wheel.prevent="onHandleScroll">
+    <el-scrollbar ref="scrollRef" class="flex-1">
+      <div ref="tabContainerRef" class="flex">
+        <nav-tab
+          v-for="(item, index) in tabsMenuList"
+          :key="index"
+          :ref="(el) => mapRefList(el, index)"
+          v-click-outside="onClickOutside"
+          :label="runStrFun(item.meta?.title)"
+          :active="tabStore.activeIndex === index"
+          :closable="!item.meta.isAffix"
+          @close="handleCloseByIndex(index)"
+          @contextmenu.prevent="showContext(index)"
+          @click="handleGoTo(item)"
+        />
+      </div>
+    </el-scrollbar>
+    <div class="md:hidden h-full flex justify-center items-center cursor-pointer mx-1" @click="showContext()">
+      <BIconThreeDotsVertical class="w-6 h-6 p-1 rounded-full hover:bg-soon-light" />
     </div>
+
     <context-menu v-if="tabsMenuList[curIndex]" :visible="visible" :target-ref="targetRefList[curIndex]" :tab="tabsMenuList[curIndex]" :cur-index="curIndex" />
   </nav>
 </template>
@@ -22,7 +29,7 @@ import Sortable from "sortablejs"
 import { ref, computed, watch, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useTabsStore } from "@/store/modules/tabs"
-import { ClickOutside as vClickOutside } from "element-plus"
+import { ElScrollbar, ClickOutside as vClickOutside } from "element-plus"
 import NavTab from "./nav-tab.vue"
 import { RouteLocationRaw } from "vue-router"
 import { runStrFun } from "@/utils"
@@ -30,8 +37,10 @@ import { useAppStore } from "@/store/modules/app"
 import { useUserStore } from "@/store/modules/user"
 import contextMenu from "./context-menu.vue"
 import { unrefElement } from "@vueuse/core"
+import { BIconThreeDotsVertical } from "bootstrap-icons-vue"
 
 const tabContainerRef = ref<HTMLElement | null>(null)
+const scrollRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
 const visible = ref(false)
 const targetRefList = ref<Element[]>([])
 const mapRefList = (el: any, index: number) => {
@@ -40,8 +49,12 @@ const mapRefList = (el: any, index: number) => {
 
 const curIndex = ref(-1)
 
-const showContext = (index: number) => {
-  curIndex.value = index
+const showContext = (index?: number) => {
+  if (index !== undefined) {
+    curIndex.value = index
+  } else {
+    curIndex.value = tabStore.activeIndex
+  }
   visible.value = true
 }
 const onClickOutside = () => {
@@ -95,13 +108,16 @@ watch(
   () => {
     nextTick(() => {
       const el = targetRefList.value[tabStore.activeIndex]
-      if (el) tabContainerRef.value?.scrollTo({ left: unrefElement(el as any)?.getBoundingClientRect().left })
+      // if (el) tabContainerRef.value?.scrollTo({ left: unrefElement(el as any)?.getBoundingClientRect().left })
+      if (el) scrollRef.value?.scrollTo({ left: unrefElement(el as any)?.getBoundingClientRect().left })
     })
   },
 )
 // 鼠标滚轮滚动
 const onHandleScroll = (e: any) => {
-  if (tabContainerRef.value) tabContainerRef.value.scrollLeft += e.deltaY / 4
+  // if (tabContainerRef.value) tabContainerRef.value.scrollLeft += e.deltaY / 4
+  console.log(scrollRef.value?.wrapRef)
+  if (scrollRef.value) scrollRef.value.wrapRef!.scrollLeft += e.deltaY / 4
 }
 
 const handleGoTo = (r: RouteLocationRaw) => {

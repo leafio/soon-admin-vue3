@@ -43,7 +43,7 @@
 
           <el-form-item :label="t('label.layout')" class="dialog-form-item">
             <el-select v-model="formData.meta.layout" clearable>
-              <el-option :value="'layout'">{{ t("layout.default") }}</el-option>
+              <el-option :value="'layout'" :label="t('layout.default')" />
             </el-select>
           </el-form-item>
 
@@ -82,13 +82,14 @@ import { FormInstance } from "element-plus"
 import { tree_menu, Menu, add_menu, update_menu } from "@/api"
 import { useDialog } from "@/hooks/dialog"
 import { tLocales } from "@/i18n"
-import zh_system_menu, { Zh_System_Menu } from "@/i18n/zh/system/menu"
-import en_system_menu, { En_System_Menu } from "@/i18n/en/system/menu"
+import zh_system_menu from "@/i18n/zh/system/menu"
+import en_system_menu from "@/i18n/en/system/menu"
+import ko_system_menu from "@/i18n/ko/system/menu"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
 const menuTree = ref<any[]>([])
-const t = tLocales<Zh_System_Menu | En_System_Menu>({ zh: zh_system_menu, en: en_system_menu })
+const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),

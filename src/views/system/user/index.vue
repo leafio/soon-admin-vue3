@@ -11,7 +11,6 @@
           :shortcuts="timePickerOptions.shortcuts"
           value-format="YYYY-MM-DD HH:mm:ss"
           type="daterange"
-          :range-separator="t('label.timeTo')"
           :start-placeholder="t('label.startTime')"
           :end-placeholder="t('label.endTime')"
           clearable
@@ -62,7 +61,7 @@
               </div>
               <div class="flex justify-between text-gray-600">
                 <div>{{ item.phone }}</div>
-                <span>{{ dateFormat(item.createTime) }}</span>
+                <span>{{ formatDateTime(item.createTime) }}</span>
               </div>
             </div>
           </div>
@@ -96,7 +95,7 @@ import SoonDetail from "@/components/soon-detail/index.vue"
 import { Female, Male } from "@element-plus/icons-vue"
 import { list_user, download_user_table, del_user, UserInfo } from "@/api"
 
-import { dateFormat } from "@/utils/tools"
+import { formatDateTime } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 import { useAuth } from "@/hooks/auth"
 
@@ -106,17 +105,16 @@ import { tLocales } from "@/i18n"
 
 import { useCols } from "@/hooks/cols"
 import { useAppStore } from "@/store/modules/app"
-import { Zh_System_User } from "@/i18n/zh/system/user"
-import { En_System_User } from "@/i18n/en/system/user"
 type Item = UserInfo
 const paginationSize = computed(() => (useAppStore().responsive === "mobile" ? "small" : ""))
 
 const showSearch = ref(true)
 const auth = useAuth()
 
-const t = tLocales<Zh_System_User | En_System_User>({
+const t = tLocales({
   zh: () => import("@/i18n/zh/system/user"),
   en: () => import("@/i18n/en/system/user"),
+  ko: () => import("@/i18n/ko/system/user"),
 })
 
 const {
@@ -190,7 +188,7 @@ const {
     label: t("label.createTime"),
     width: "",
     render({ item }) {
-      return dateFormat(item?.createTime)
+      return formatDateTime(item?.createTime)
     },
   },
 ])

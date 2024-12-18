@@ -1,5 +1,5 @@
 import { Menu, own_auth_codes, own_menus, own_userinfo, User } from "@/api"
-import { parseMenuTitle, parseRedirectNext, initRoute } from "@/router/utils"
+import { parseMenusTitle, parseRedirectNext, initRoute } from "@/router/utils"
 import router from "@/router/index"
 import { defineStore } from "pinia"
 import { useAppStore } from "./app"
@@ -29,7 +29,7 @@ export const useUserStore = defineStore({
 
       let _menus = menus ?? (await own_menus()) ?? []
       // i18n title
-      _menus = parseMenuTitle(_menus)
+      _menus = parseMenusTitle(_menus)
       //dynamic redirect
       _menus = parseRedirectNext(_menus)
 

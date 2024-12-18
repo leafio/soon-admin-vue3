@@ -14,21 +14,19 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column align="center" type="index" width="50px" />
-        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width">
+        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :min-width="col['min-width']">
           <template #default="{ row }">
+            <template v-if="col.prop == 'meta.title'">
+              <MenuTitle :row="row"></MenuTitle>
+            </template>
             <template v-if="col.prop == 'menuType'">
-              <el-tag v-if="row.menuType == 'page'" effect="plain">{{ t("menuType.page") }}</el-tag>
-              <el-tag v-else-if="row.menuType == 'link'" effect="plain" type="warning">{{ t("menuType.link") }}</el-tag>
-              <el-tag v-else-if="row.menuType == 'iframe'" effect="plain" type="danger">{{ t("menuType.iframe") }}</el-tag>
-              <el-tag v-else-if="row.menuType == 'btn'" effect="plain" type="success">{{ t("menuType.button") }}</el-tag>
+              <MenuTag :row="row"></MenuTag>
             </template>
           </template>
         </el-table-column>
         <el-table-column :label="t('action')" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button size="small" text type="danger" @click="handleDelete(row)">{{ t("del") }}</el-button>
-            <el-button v-if="row.menuType !== 'btn'" size="small" text type="primary" @click="handleShowAdd(row)">{{ t("add") }} </el-button>
-            <el-button size="small" text type="primary" @click="handleShowEdit(row)">{{ t("edit") }} </el-button>
+            <MenuAction :row="row"></MenuAction>
           </template>
         </el-table-column>
       </el-table>
@@ -39,20 +37,13 @@
           <div class="flex-1 flex justify-between text-lg py-1">
             <div class="flex">
               <div class="mr-1">
-                <el-tag v-if="row.menuType == 'page'" size="small" effect="plain">{{ t("menuType.page") }}</el-tag>
-                <el-tag v-else-if="row.menuType == 'link'" size="small" effect="plain" type="warning">{{ t("menuType.link") }}</el-tag>
-                <el-tag v-else-if="row.menuType == 'iframe'" size="small" effect="plain" type="danger">{{ t("menuType.iframe") }}</el-tag>
-                <el-tag v-else-if="row.menuType == 'btn'" size="small" effect="plain" type="success">{{ t("menuType.button") }}</el-tag>
+                <MenuTag :row="row"></MenuTag>
               </div>
-              <span>
-                {{ row.name ?? row.meta.title }}
-              </span>
+              <MenuTitle :row="row"></MenuTitle>
               <span v-if="row.children?.length">({{ row.children.length }})</span>
             </div>
             <div>
-              <el-button size="small" text type="danger" @click="handleDelete(row)">{{ t("del") }}</el-button>
-              <el-button v-if="row.menuType !== 'btn'" size="small" text type="primary" @click="handleShowAdd(row)">{{ t("add") }} </el-button>
-              <el-button size="small" text type="primary" @click="handleShowEdit(row)">{{ t("edit") }} </el-button>
+              <MenuAction :row="row"></MenuAction>
             </div>
           </div>
         </template>
@@ -70,23 +61,75 @@
     <FormDialog ref="refFormDialog" @success="refresh" />
   </div>
 </template>
-<script setup lang="ts">
+<script setup lang="tsx">
 import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
 import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
-import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
 
 import { tree_menu, Menu, del_menu } from "@/api"
 
-import { dateFormat } from "@/utils/tools"
 import { usePageList } from "@/hooks/list"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
 import { tLocales } from "@/i18n"
-import en_system_menu, { En_System_Menu } from "@/i18n/en/system/menu"
-import zh_system_menu, { Zh_System_Menu } from "@/i18n/zh/system/menu"
+import en_system_menu from "@/i18n/en/system/menu"
+import zh_system_menu from "@/i18n/zh/system/menu"
+import { runStrFun } from "@/utils"
+import { parseMenuTitle } from "@/router/utils"
+import ko_system_menu from "@/i18n/ko/system/menu"
 
 type Item = Menu
+
+const MenuTitle = ({ row }: { row: Item }) => {
+  const title = row.meta?.title ?? ""
+  const parsedTitle = runStrFun(parseMenuTitle(title))
+  return (
+    <span>
+      {title}
+      {parsedTitle !== title && <span class="text-sm text-gray-400">({parsedTitle})</span>}
+    </span>
+  )
+}
+
+const MenuTag = ({ row }: { row: Item }) => {
+  return (
+    <>
+      {row.menuType == "page" && <el-tag effect="plain">{t("menuType.page")}</el-tag>}
+      {row.menuType == "link" && (
+        <el-tag effect="plain" type="warning">
+          {t("menuType.link")}
+        </el-tag>
+      )}
+      {row.menuType == "iframe" && (
+        <el-tag effect="plain" type="danger">
+          {t("menuType.iframe")}
+        </el-tag>
+      )}
+      {row.menuType == "btn" && (
+        <el-tag effect="plain" type="success">
+          {t("menuType.button")}
+        </el-tag>
+      )}
+    </>
+  )
+}
+const MenuAction = ({ row }: { row: Item }) => {
+  return (
+    <>
+      <el-button size="small" text type="danger" onClick={() => handleDelete(row)}>
+        {t("del")}
+      </el-button>
+      {row.menuType !== "btn" && (
+        <el-button size="small" text type="primary" onClick={() => handleShowAdd(row)}>
+          {t("add")}
+        </el-button>
+      )}
+      <el-button size="small" text type="primary" onClick={() => handleShowEdit(row)}>
+        {t("edit")}
+      </el-button>
+    </>
+  )
+}
 
 const showSearch = ref(true)
 
@@ -104,28 +147,31 @@ const {
   initParams: { hasBtn: true },
 })
 refresh()
-const t = tLocales<Zh_System_Menu | En_System_Menu>({ zh: zh_system_menu, en: en_system_menu })
+const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 const cols = computed(() => [
   {
     prop: "meta.title",
     label: t("label.menuTitle"),
-    width: "",
+    "min-width": "200",
+    render(item: Item) {
+      return item.meta?.title
+    },
   },
   {
     prop: "menuType",
     label: t("label.menuType"),
-    width: "",
+    "min-width": "64",
   },
   {
     prop: "path",
     label: t("label.routePath"),
-    width: "",
+    "min-width": "120",
   },
 
   {
     prop: "auth",
     label: t("label.auth"),
-    width: "",
+    "min-width": "64",
   },
   // {
   //   prop: "sort",

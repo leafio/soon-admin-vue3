@@ -9,7 +9,7 @@
       "query": { "dataType": "object", "fields": [] }
     },
     "actions": [],
-    "actionCode": "const menus=await action.menu.read()\nconst result=menus.filter(d=>!d.parentId).map(d=>({...d,children:menus.filter(ch=>ch.parentId===d.id).map(t=>({...t,children:menus.filter(m=>m.parentId===t.id)}))}))\nres.success({list:result} )",
+    "actionCode": "const parseChildren = (data) => {\n  data.forEach((item) => {\n    if (item.children?.length) {\n      parseChildren(item.children)\n    } else {\n      item.children = undefined\n    }\n  })\n}\n\nconst menus=await action.menu.read()\nconst result=menus.filter(d=>!d.parentId).map(d=>({...d,children:menus.filter(ch=>ch.parentId===d.id).map(t=>({...t,children:menus.filter(m=>m.parentId===t.id)}))}))\nparseChildren(result)\nres.success({list:result} )",
     "id": "a43479fe-7a62-4d29-831b-07f3998c19ae",
     "group": "menu"
   },
@@ -66,7 +66,7 @@
   {
     "method": "GET",
     "path": "auth/code",
-    "response": { "body": { "dataType": "object", "fields": [] } },
+    "response": { "body": { "dataType": "string", "fields": [], "isArray": true, "required": true } },
     "request": {
       "params": { "dataType": "object", "fields": [] },
       "body": { "dataType": "object", "fields": [] },
@@ -74,7 +74,7 @@
     },
     "actions": [],
     "id": "159e152f-4898-4018-a294-d4b35b7fee2f",
-    "actionCode": "const menus=await action.menu.read()\nconst user=(await action.user.read()).find(u=>u.username=req.username)\nconst role=(await action.role.read()).find(r=>r.id===user?.roleId)\nconst result=menus.filter(m=>role?.permissions?.includes(m.auth)).map(m=>m.auth)\nres.success(result)",
+    "actionCode": "const menus=await action.menu.read()\nconst user=(await action.user.read()).find(u=>u.username=req.username)\nconst role=(await action.role.read()).find(r=>r.id===user?.roleId)\nif(role.id==='admin'){\n  return res.success(menus.map(m=>m.auth))\n}\nconst result=menus.filter(m=>role?.permissions?.includes(m.auth)).map(m=>m.auth)\nres.success(result)",
     "auth": true
   },
   {

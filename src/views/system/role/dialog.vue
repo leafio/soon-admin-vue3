@@ -48,7 +48,7 @@
           :placeholder="t('label.selectPermissions')"
         >
           <template #default="{ node, data }">
-            <span>{{ data.meta.title }}</span>
+            <span>{{ runStrFun(data.meta.title) }}</span>
             <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
           </template>
         </el-cascader-panel>
@@ -68,11 +68,14 @@ import { FormInstance } from "element-plus"
 import { add_role, update_role, Role, tree_menu, Menu } from "@/api"
 import { useDialog } from "@/hooks/dialog"
 import { tLocales } from "@/i18n"
-import zh_system_role, { Zh_System_Role } from "@/i18n/zh/system/role"
-import en_system_role, { En_System_Role } from "@/i18n/en/system/role"
+import zh_system_role from "@/i18n/zh/system/role"
+import en_system_role from "@/i18n/en/system/role"
+import { runStrFun } from "@/utils"
+import { parseMenusTitle } from "@/router/utils"
+import ko_system_role from "@/i18n/ko/system/role"
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
-const t = tLocales<Zh_System_Role | En_System_Role>({ zh: zh_system_role, en: en_system_role })
+const t = tLocales({ zh: zh_system_role, en: en_system_role, ko: ko_system_role })
 const titles = computed(() => ({
   add: t("add"),
   edit: t("edit"),
@@ -88,17 +91,7 @@ const menuOptions = ref<Menu[]>([])
 watchEffect(() => {
   if (visible.value) {
     tree_menu({ hasBtn: true }).then((res) => {
-      const data = res.list
-      const parseChildren = (data: { children: any[]; label: any; meta: any }[]) => {
-        data.forEach((item) => {
-          item.label = item.meta.title
-          if (item.children) {
-            parseChildren(item.children)
-          }
-        })
-      }
-      parseChildren(data as any)
-      menuOptions.value = data
+      menuOptions.value = parseMenusTitle(res.list)
     })
   }
 })

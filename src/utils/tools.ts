@@ -1,8 +1,11 @@
 import { tLocales } from "@/i18n"
+import en_datetime from "@/i18n/en/datetime"
+import ko_datetime from "@/i18n/ko/datetime"
+import zh_datetime from "@/i18n/zh/datetime"
 import dayjs from "dayjs"
 const dayjsDateTimeFormat = "YYYY-MM-DD HH:mm:ss"
 
-export const dateFormat = (date: string | Date, fmt?: string) => {
+export const formatDateTime = (date: string | Date, fmt?: string) => {
   return dayjs(date).format(fmt ?? dayjsDateTimeFormat)
 }
 export const curMonth = function () {
@@ -19,26 +22,9 @@ export const today = function () {
 export const defaultTime: [Date, Date] = [dayjs("00:00:00", "hh:mm:ss").toDate(), dayjs("23:59:59", "hh:mm:ss").toDate()]
 
 const t = tLocales({
-  zh: {
-    yesterday: "昨天",
-    today: "今天",
-    lastWeek: "上周",
-    thisWeek: "本周",
-    lastMonth: "上月",
-    thisMonth: "本月",
-    lastYear: "去年",
-    soFarThisYear: "今年至今",
-  },
-  en: {
-    yesterday: "Yesterday",
-    today: "Today",
-    lastWeek: "Last Week",
-    thisWeek: "This Week",
-    lastMonth: "Last Month",
-    thisMonth: "This Month",
-    lastYear: "Last Year",
-    soFarThisYear: "So Far",
-  },
+  zh: zh_datetime,
+  en: en_datetime,
+  ko: ko_datetime,
 })
 export const timePickerOptions = computed(() => ({
   shortcuts: [
