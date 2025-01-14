@@ -28,6 +28,7 @@ const handleCloseClick = (e: MouseEvent) => {
   border-bottom: 3px solid transparent;
   white-space: nowrap;
 }
+
 /* .tab::after {
   content: "";
   height: 70%;
@@ -37,12 +38,11 @@ const handleCloseClick = (e: MouseEvent) => {
 } */
 .tab.active,
 .tab:hover {
-  @apply shadow;
-  color: var(--soon-menu-hover-text-color);
+  @apply shadow text-primary-600;
 }
 
 .tab.active {
-  border-color: var(--soon-menu-hover-text-color);
+  @apply border-primary-600;
 }
 
 /* .tab.active,

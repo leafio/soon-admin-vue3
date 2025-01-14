@@ -1,5 +1,5 @@
 import PerfectScrollbar from "perfect-scrollbar"
-import { DirectiveBinding, VNode } from "vue"
+import type { DirectiveBinding, VNode } from "vue"
 import "perfect-scrollbar/css/perfect-scrollbar.css"
 
 const scroll = {

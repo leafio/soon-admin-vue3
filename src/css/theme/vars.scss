@@ -1,0 +1,12 @@
+// cover element-plus color vars
+
+:root {
+  @each $type in primary, warning, success, danger, error, info {
+    --el-color-#{$type}: rgb(var(--color-#{$type}-600) / var(--tw-text-opacity, 1));
+    --el-color-#{$type}-dark-2: rgb(var(--color-#{$type}-700) / var(--tw-text-opacity, 1));
+
+    @each $index, $number in (3, 500), (5, 400), (7, 300), (8, 200), (9, 100) {
+      --el-color-#{$type}-light-#{$index}: rgb(var(--color-#{$type}-#{$number}) / var(--tw-text-opacity, 1));
+    }
+  }
+}

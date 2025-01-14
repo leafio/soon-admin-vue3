@@ -1,5 +1,5 @@
 import { soon } from "../request"
-import { PageParams } from "../types"
+import type { PageParams } from "../types"
 export type Role = {
   id: string
   name: string

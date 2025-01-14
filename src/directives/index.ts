@@ -1,4 +1,4 @@
-import { App, Directive } from "vue"
+import type { App, Directive } from "vue"
 
 import waterMarker from "./modules/waterMarker"
 import draggable from "./modules/draggable"

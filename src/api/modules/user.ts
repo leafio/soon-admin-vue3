@@ -1,7 +1,7 @@
 import { downloadBlob, getAttachmentFilenameFormHeader } from "@/utils/download"
-import { PageParams } from "../types"
-import { Dept } from "./dept"
-import { Role } from "./role"
+import type { PageParams } from "../types"
+import type { Dept } from "./dept"
+import type { Role } from "./role"
 import { soon } from "../request"
 
 export type User = {

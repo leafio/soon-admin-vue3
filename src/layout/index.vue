@@ -1,11 +1,18 @@
 <template>
   <div class="flex">
-    <soon-aside />
+    <Aside />
     <main class="flex-1 overflow-x-hidden h-screen flex flex-col">
-      <Header />
-      <TabBar class="border-t border-solid border-gray-100" />
+      <Header v-show="!isHeaderHide" />
+      <TabBar v-if="!isTabbarHide" class="border-t border-solid border-gray-100 dark:border-black px-1" />
       <router-view v-slot="{ Component, route }">
-        <KeepComp :curr-comp="Component" :curr-route="route" :refreshing="refreshing" />
+        <IframeKeepAlive
+          :comp="Component"
+          :name="route.fullPath"
+          :iframe-src="route.meta.link"
+          :is-keep-alive="route.meta.isKeepAlive"
+          :names="keepAliveNames"
+          :refreshing="refreshing"
+        />
         <transition appear name="fade-transform" mode="out-in">
           <keep-alive :include="keepAliveNames">
             <component :is="createComponentWrapper(Component, route)" v-if="!refreshing && !(route.meta?.link && route.meta?.isIframe)" :key="route.fullPath" />
@@ -19,11 +26,14 @@
 <script setup lang="ts">
 import Header from "./components/header/index.vue"
 import TabBar from "./components/tab-bar/index.vue"
-import KeepComp from "./components/keep-comp/index.vue"
-import soonAside from "./components/soon-aside.vue"
 
-import { useKeepAliveStore } from "@/store/modules/keepAlive"
+import IframeKeepAlive from "./components/iframe-keep-alive/index.vue"
+import Aside from "./components/aside/index.vue"
+
 import { storeToRefs } from "pinia"
+import { useKeepAliveStore } from "@/store/modules/keepAlive"
+
+import { useAppStore } from "@/store/modules/app"
 
 const keepAliveStore = useKeepAliveStore()
 const { keepAliveNames, refreshing } = storeToRefs(keepAliveStore)
@@ -39,4 +49,9 @@ function createComponentWrapper(component: any, route: { fullPath: any }) {
   }
   return h(wrapper)
 }
+
+const appStore = useAppStore()
+
+const isHeaderHide = computed(() => appStore.header.isHide)
+const isTabbarHide = computed(() => appStore.tabbar.isHide)
 </script>

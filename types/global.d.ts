@@ -9,6 +9,7 @@ export {}
 
 declare module "vue-router" {
   interface RouteMeta {
+    requiresAuth?: boolean
     title?: string | (() => string)
     link?: string
     isHide?: boolean

@@ -48,7 +48,7 @@
           :placeholder="t('label.selectPermissions')"
         >
           <template #default="{ node, data }">
-            <span>{{ runStrFun(data.meta.title) }}</span>
+            <span>{{ showMenuTitle(data.meta.title) }}</span>
             <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
           </template>
         </el-cascader-panel>
@@ -64,15 +64,16 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from "element-plus"
-import { add_role, update_role, Role, tree_menu, Menu } from "@/api"
-import { useDialog } from "@/hooks/dialog"
+import type { FormInstance } from "element-plus"
+import type { Role, Menu } from "@/api"
+import { add_role, update_role, tree_menu } from "@/api"
+
 import { tLocales } from "@/i18n"
-import zh_system_role from "@/i18n/zh/system/role"
-import en_system_role from "@/i18n/en/system/role"
-import { runStrFun } from "@/utils"
-import { parseMenusTitle } from "@/router/utils"
-import ko_system_role from "@/i18n/ko/system/role"
+import zh_system_role from "@/i18n/locales/zh/system/role"
+import en_system_role from "@/i18n/locales/en/system/role"
+import { showMenuTitle } from "@/router/utils"
+import ko_system_role from "@/i18n/locales/ko/system/role"
+import { useDialog } from "@/biz/dialog"
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
 const t = tLocales({ zh: zh_system_role, en: en_system_role, ko: ko_system_role })
@@ -91,7 +92,7 @@ const menuOptions = ref<Menu[]>([])
 watchEffect(() => {
   if (visible.value) {
     tree_menu({ hasBtn: true }).then((res) => {
-      menuOptions.value = parseMenusTitle(res.list)
+      menuOptions.value = res.list
     })
   }
 })

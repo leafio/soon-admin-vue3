@@ -62,27 +62,28 @@
   </div>
 </template>
 <script setup lang="tsx">
-import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
-import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
+import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
+import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
 
-import { tree_menu, Menu, del_menu } from "@/api"
-
-import { usePageList } from "@/hooks/list"
+import type { Menu } from "@/api"
+import { tree_menu, del_menu } from "@/api"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
+import { showMenuTitle } from "@/router/utils"
+
 import { tLocales } from "@/i18n"
-import en_system_menu from "@/i18n/en/system/menu"
-import zh_system_menu from "@/i18n/zh/system/menu"
-import { runStrFun } from "@/utils"
-import { parseMenuTitle } from "@/router/utils"
-import ko_system_menu from "@/i18n/ko/system/menu"
+import en_system_menu from "@/i18n/locales/en/system/menu"
+import zh_system_menu from "@/i18n/locales/zh/system/menu"
+import ko_system_menu from "@/i18n/locales/ko/system/menu"
+import { usePageList } from "@/biz/list"
+const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 
 type Item = Menu
 
 const MenuTitle = ({ row }: { row: Item }) => {
   const title = row.meta?.title ?? ""
-  const parsedTitle = runStrFun(parseMenuTitle(title))
+  const parsedTitle = showMenuTitle(title)
   return (
     <span>
       {title}
@@ -147,7 +148,7 @@ const {
   initParams: { hasBtn: true },
 })
 refresh()
-const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
+
 const cols = computed(() => [
   {
     prop: "meta.title",

@@ -56,20 +56,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
-import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
+import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
+import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
 
-import { tree_dept, Dept, del_dept } from "@/api"
+import type { Dept } from "@/api"
+import { tree_dept, del_dept } from "@/api"
 
-import { formatDateTime } from "@/utils/tools"
-import { usePageList } from "@/hooks/list"
+import { formatDateTime } from "@/biz/time"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
 import { tLocales } from "@/i18n"
-import en_system_dept from "@/i18n/en/system/dept"
-import zh_system_dept from "@/i18n/zh/system/dept"
-import ko_system_dept from "@/i18n/ko/system/dept"
+import en_system_dept from "@/i18n/locales/en/system/dept"
+import zh_system_dept from "@/i18n/locales/zh/system/dept"
+import ko_system_dept from "@/i18n/locales/ko/system/dept"
+import { usePageList } from "@/biz/list"
 
 type Item = Dept
 

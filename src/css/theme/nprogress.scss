@@ -1,0 +1,8 @@
+#nprogress .bar {
+  background: rgb(var(--color-primary-600) / var(--tw-text-opacity, 1));
+}
+
+#nprogress .spinner-icon {
+  border-top-color: rgb(var(--color-primary-600) / var(--tw-text-opacity, 1));
+  border-left-color: rgb(var(--color-primary-600) / var(--tw-text-opacity, 1));
+}

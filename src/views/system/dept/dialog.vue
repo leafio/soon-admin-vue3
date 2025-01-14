@@ -7,10 +7,10 @@
       :rules="rules"
       :disabled="type === 'detail'"
       size="default"
-      label-width="7em"
+      label-width="12em"
       class="dialog-form"
     >
-      <el-form-item :label="t('label.superiorDepartment')" prop="parentId" class="dialog-form-item">
+      <el-form-item :label="t('label.superiorDepartment')" prop="parentId" class="dialog-form-item-full">
         <el-cascader
           v-model="formData.parentId"
           :options="deptOptions"
@@ -25,7 +25,7 @@
           </template>
         </el-cascader>
       </el-form-item>
-      <el-form-item :label="t('label.name')" prop="name" class="dialog-form-item">
+      <el-form-item :label="t('label.name')" prop="name" class="dialog-form-item-full">
         <el-input v-model="formData.name" clearable></el-input>
       </el-form-item>
 
@@ -43,13 +43,15 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from "element-plus"
-import { tree_dept, add_dept, update_dept, Dept } from "@/api"
-import { useDialog } from "@/hooks/dialog"
+import type { FormInstance } from "element-plus"
+import type { Dept } from "@/api"
+import { tree_dept, add_dept, update_dept } from "@/api"
+
 import { tLocales } from "@/i18n"
-import en_system_dept from "@/i18n/en/system/dept"
-import zh_system_dept from "@/i18n/zh/system/dept"
-import ko_system_dept from "@/i18n/ko/system/dept"
+import en_system_dept from "@/i18n/locales/en/system/dept"
+import zh_system_dept from "@/i18n/locales/zh/system/dept"
+import ko_system_dept from "@/i18n/locales/ko/system/dept"
+import { useDialog } from "@/biz/dialog"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])

@@ -4,7 +4,7 @@
       <el-form-item :label="t('label.keyword')" class="query-form-item">
         <el-input v-model="queryForm.keyword" clearable :placeholder="t('label.inputKeyword')"></el-input>
       </el-form-item>
-      <!-- <el-form-item :label="t('label.createTimeRange')" class="query-form-item-2">
+      <el-form-item :label="t('label.createTimeRange')" class="query-form-item-2">
         <el-date-picker
           v-model="queryForm.timeRange"
           :default-time="defaultTime"
@@ -16,7 +16,7 @@
           clearable
         >
         </el-date-picker>
-      </el-form-item> -->
+      </el-form-item>
       <div class="query-btn-container">
         <el-button type="primary" @click="search">{{ t("search") }}</el-button>
         <el-button @click="reset">{{ t("reset") }}</el-button>
@@ -42,9 +42,9 @@
       </el-table>
     </div>
     <div class="md:hidden mt-2">
-      <div v-for="(item, index) in list" :key="index" class="mb-2 bg-white">
+      <div v-for="(item, index) in list" :key="index" class="mb-2 bg-white dark:bg-neutral-900">
         <soon-detail :cols="checkedCols" :item="item">
-          <div class="flex-1 flex p-1 border-b border-solid items-center">
+          <div class="flex-1 flex p-1 border-b border-solid border-neutral-200 dark:border-neutral-800 items-center">
             <el-avatar class="mr-1" :src="item.avatar ?? ''"> {{ item.username }} </el-avatar>
             <div class="flex-1">
               <div class="flex justify-between">
@@ -86,35 +86,37 @@
   </div>
 </template>
 <script setup lang="tsx">
-import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
-import BtnExport from "@/components/soon-tool-bar/btn-export.vue"
-import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
-import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
-import BtnCols from "@/components/soon-tool-bar/btn-cols.vue"
-import SoonDetail from "@/components/soon-detail/index.vue"
+import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
+import BtnExport from "@/components/soon/soon-tool-bar/btn-export.vue"
+import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
+import BtnSearch from "@/components/soon/soon-tool-bar/btn-search.vue"
+import BtnCols from "@/components/soon/soon-tool-bar/btn-cols.vue"
+import SoonDetail from "@/components/soon/soon-detail/index.vue"
 import { Female, Male } from "@element-plus/icons-vue"
-import { list_user, download_user_table, del_user, UserInfo } from "@/api"
+import type { UserInfo } from "@/api"
+import { list_user, download_user_table, del_user } from "@/api"
+import { defaultTime, timePickerOptions } from "@/biz/time"
 
-import { formatDateTime } from "@/utils/tools"
-import { usePageList } from "@/hooks/list"
-import { useAuth } from "@/hooks/auth"
+import { formatDateTime } from "@/biz/time"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
 import { tLocales } from "@/i18n"
+import { useAuth } from "@/biz/auth"
+import { useCols } from "@/biz/cols"
+import { usePageList } from "@/biz/list"
+import { useViewer } from "@/biz/viewer"
 
-import { useCols } from "@/hooks/cols"
-import { useAppStore } from "@/store/modules/app"
 type Item = UserInfo
-const paginationSize = computed(() => (useAppStore().responsive === "mobile" ? "small" : ""))
+const paginationSize = computed(() => (useViewer() === "mobile" ? "small" : ""))
 
 const showSearch = ref(true)
 const auth = useAuth()
 
 const t = tLocales({
-  zh: () => import("@/i18n/zh/system/user"),
-  en: () => import("@/i18n/en/system/user"),
-  ko: () => import("@/i18n/ko/system/user"),
+  zh: () => import("@/i18n/locales/zh/system/user"),
+  en: () => import("@/i18n/locales/en/system/user"),
+  ko: () => import("@/i18n/locales/ko/system/user"),
 })
 
 const {

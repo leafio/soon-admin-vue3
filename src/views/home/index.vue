@@ -8,7 +8,7 @@
           <h3 class="text-3xl">{{ item.title }}</h3>
           <div class="mt-2">{{ item.description }}</div>
           <div class="mt-2">
-            <el-tag v-for="tag in item.tags" :key="tag" class="mr-2">{{ tag }}</el-tag>
+            <el-tag v-for="tag in item.tags" :key="tag" class="mr-2 mb-1">{{ tag }}</el-tag>
           </div>
           <a :href="item.github" target="_blank" class="flex items-center mt-2"> <BIconGithub class="mr-1" /> {{ item.github }} </a>
         </el-card>
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { lang, tLocales } from "@/i18n"
 import { BIconGithub } from "bootstrap-icons-vue"
-const t = tLocales({ zh: { msg: "请赏个star吧" }, en: { msg: "Your star is important for me" } })
+const t = tLocales({ zh: { msg: "请给个star支持一下吧" }, en: { msg: "Your star is important for me" } })
 
 const zh = [
   {
@@ -47,10 +47,10 @@ const zh = [
     github: "https://github.com/leafio/react-vmodel",
   },
   {
-    title: "soon-admin-vue3",
-    description: "vue3，完全 script setup 写成",
-    tags: ["多标签", "i18n", "table页模板", "支持mobile"],
-    github: "https://github.com/leafio/soon-admin-vue3",
+    title: "soon-admin-react-nextjs",
+    description: "next15 react19",
+    tags: ["i18n", "table页模板", "支持mobile"],
+    github: "https://github.com/leafio/soon-admin-react-nextjs",
   },
   {
     title: "soon-admin-express",

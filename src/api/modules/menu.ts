@@ -1,5 +1,5 @@
-import { RouteMeta } from "vue-router"
-import { PageParams } from "../types"
+import type { RouteMeta } from "vue-router"
+import type { PageParams } from "../types"
 import { soon } from "../request"
 export type Menu = {
   id: number

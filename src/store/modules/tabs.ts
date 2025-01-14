@@ -2,8 +2,8 @@ import router from "@/router"
 import { defineStore } from "pinia"
 
 import { useKeepAliveStore } from "./keepAlive"
-import pinia from "@/store"
-import { RouteLocationNormalized } from "vue-router"
+import pinia from "@/store/instance"
+import type { RouteLocationNormalized } from "vue-router"
 
 /* TabsState */
 interface TabsState {
@@ -13,8 +13,7 @@ interface TabsState {
 
 const keepAliveStore = useKeepAliveStore(pinia)
 
-export const useTabsStore = defineStore({
-  id: "tabs",
+export const useTabsStore = defineStore("tabs", {
   state: (): TabsState => ({
     tabList: [],
     activeIndex: -1,
@@ -46,10 +45,11 @@ export const useTabsStore = defineStore({
       })
     },
     closeOthers(index: number) {
-      this.tabList = [this.tabList[index]]
-      this.activeIndex = 0
-      const curTab = this.tabList[this.activeIndex]
-      keepAliveStore.keepAliveNames = [curTab.fullPath]
+      const curTab = this.tabList[index]
+      this.tabList = [...this.tabList.filter((t) => t.meta.isAffix), curTab]
+      this.activeIndex = this.tabList.length - 1
+
+      keepAliveStore.keepAliveNames = this.tabList.filter((t) => t.meta.isKeepAlive).map((t) => t.fullPath)
       router.push(curTab)
     },
     closeAll() {
@@ -58,8 +58,9 @@ export const useTabsStore = defineStore({
       keepAliveStore.keepAliveNames = []
       router.push("/")
     },
-    refreshTabByIndex(index: number) {
-      const curTab = this.tabList[index]
+    refreshTabByIndex(index?: number) {
+      const _index = index ?? this.activeIndex
+      const curTab = this.tabList[_index]
 
       keepAliveStore.removeKeepAliveName(curTab.fullPath)
       keepAliveStore.refreshing = true

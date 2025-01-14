@@ -33,6 +33,7 @@ export default defineConfig(({ mode }) => {
       }
     }
   }
+
   return {
     plugins: [
       vue(),
@@ -40,16 +41,15 @@ export default defineConfig(({ mode }) => {
       svgLoader(),
       AutoImport({
         imports: ["vue", "vue-router", "pinia"],
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver({ importStyle: isDev ? undefined : "sass" })],
         dts: "./types/auto-imports.d.ts",
       }),
-      isDev
-        ? undefined
-        : Components({
-            dirs: [],
-            resolvers: [ElementPlusResolver()],
-            dts: "./types/components.d.ts",
-          }),
+
+      Components({
+        dirs: [],
+        resolvers: [ElementPlusResolver({ importStyle: isDev ? undefined : "sass" })],
+        dts: "./types/components.d.ts",
+      }),
       eslintPlugin(),
       visualizer({
         open: true, //注意这里要设置为true，否则无效
@@ -72,6 +72,7 @@ export default defineConfig(({ mode }) => {
       // 端口号
       port: Number(env.VITE_PORT),
       host: "0.0.0.0",
+      open: true,
       // 本地跨域代理 https://cn.vitejs.dev/config/server-options.html#server-proxy
       proxy: createDevProxy(),
       // {

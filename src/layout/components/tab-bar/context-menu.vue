@@ -14,12 +14,19 @@
   </el-popover>
 </template>
 <script setup lang="ts">
+import type { RouteLocationNormalized } from "vue-router"
+
 import { tLocales } from "@/i18n"
-import en_tabbar from "@/i18n/en/tabbar"
-import ko_tabbar from "@/i18n/ko/tabbar"
-import zh_tabbar from "@/i18n/zh/tabbar"
+import en_tabbar from "@/i18n/locales/en/tabbar"
+import ko_tabbar from "@/i18n/locales/ko/tabbar"
+import zh_tabbar from "@/i18n/locales/zh/tabbar"
 import { useTabsStore } from "@/store/modules/tabs"
-import { RouteLocationNormalized } from "vue-router"
+const t = tLocales({
+  zh: zh_tabbar,
+  en: en_tabbar,
+  ko: ko_tabbar,
+})
+
 const props = defineProps<{
   curIndex: number
   targetRef: Element
@@ -28,11 +35,6 @@ const props = defineProps<{
 }>()
 const { curIndex, targetRef, tab, visible } = toRefs(props)
 
-const t = tLocales({
-  zh: zh_tabbar,
-  en: en_tabbar,
-  ko: ko_tabbar,
-})
 const router = useRouter()
 const tabStore = useTabsStore()
 
@@ -51,7 +53,6 @@ const handleCloseAll = () => {
   tabStore.closeAll()
   router.push("/")
 }
-const handleFullscreen = () => {}
 </script>
 <style scoped lang="scss">
 .context-menu {
@@ -59,7 +60,6 @@ const handleFullscreen = () => {}
 }
 
 .context-menu:hover {
-  background-color: var(--soon-menu-hover-bg-color);
-  color: var(--soon-menu-hover-text-color);
+  @apply bg-primary-100 text-primary-600;
 }
 </style>

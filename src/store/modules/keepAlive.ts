@@ -6,8 +6,7 @@ interface KeepAliveState {
   refreshing: boolean
 }
 
-export const useKeepAliveStore = defineStore({
-  id: "keep-alive",
+export const useKeepAliveStore = defineStore("keep-alive", {
   state: (): KeepAliveState => ({
     keepAliveNames: [],
     refreshing: false,

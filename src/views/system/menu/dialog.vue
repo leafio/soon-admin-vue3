@@ -78,13 +78,15 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from "element-plus"
-import { tree_menu, Menu, add_menu, update_menu } from "@/api"
-import { useDialog } from "@/hooks/dialog"
+import type { FormInstance } from "element-plus"
+import type { Menu } from "@/api"
+import { tree_menu, add_menu, update_menu } from "@/api"
+
 import { tLocales } from "@/i18n"
-import zh_system_menu from "@/i18n/zh/system/menu"
-import en_system_menu from "@/i18n/en/system/menu"
-import ko_system_menu from "@/i18n/ko/system/menu"
+import zh_system_menu from "@/i18n/locales/zh/system/menu"
+import en_system_menu from "@/i18n/locales/en/system/menu"
+import ko_system_menu from "@/i18n/locales/ko/system/menu"
+import { useDialog } from "@/biz/dialog"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -97,7 +99,7 @@ const titles = computed(() => ({
 }))
 const { visible, open, close, type, formData } = useDialog<Menu>({
   formRef,
-  initFormData: { menuType: "page", meta: { cached: true } },
+  initFormData: { menuType: "page", meta: { cached: true, requiresAuth: true } },
 })
 
 const menuTypeOptions = computed(() => [

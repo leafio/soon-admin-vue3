@@ -1,37 +1,45 @@
 <template>
-  <el-config-provider :locale="langData[lang]">
+  <el-config-provider :locale="elementPlusLocale">
     <router-view />
   </el-config-provider>
 </template>
 <script setup lang="ts">
-import { lang } from "@/i18n"
-import zhCn from "element-plus/es/locale/lang/zh-cn"
-import en from "element-plus/es/locale/lang/en"
-import ko from "element-plus/es/locale/lang/ko"
-import { useTitle } from "@vueuse/core"
-import { useAppStore } from "./store/modules/app"
-import { runStrFun } from "./utils"
-import { useBreakpoints, breakpointsTailwind } from "@vueuse/core"
-const langData = {
-  zh: zhCn,
-  en: en,
-  ko,
-}
+import { useDark, useTitle } from "@vueuse/core"
+import { showMenuTitle } from "./router/utils"
 
+import { createThemeColors, themeColors2cssText } from "./biz/app/theme"
+import { useAppStore } from "./store/modules/app"
+
+import { autoDayjsLocale } from "./i18n/third/dayjs"
+import { elementPlusLocale } from "./i18n/third/element-plus"
+import { addStyleTag } from "./utils/style"
+
+autoDayjsLocale()
+
+// dynamic set document title
 const route = useRoute()
 const title = useTitle()
-const appStore = useAppStore()
-// dynamic set document title
 watchEffect(() => {
   const appTitle = "Soon Admin"
-  const metaTitle = runStrFun(route.meta.title)
+  const metaTitle = showMenuTitle(route.meta.title)
   title.value = metaTitle ? `${metaTitle} | ${appTitle}` : appTitle
 })
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const smallerThanMd = breakpoints.smaller("md")
-watchEffect(() => {
-  appStore.responsive = smallerThanMd.value ? "mobile" : "pc"
-})
+// dynamic theme
+const isDark = useDark()
+const appStore = useAppStore()
+
+watch(
+  [() => isDark.value, () => appStore.colors],
+  ([_isDark, _colors]) => {
+    const colors = createThemeColors(_colors, _isDark)
+    const text = themeColors2cssText(colors)
+    addStyleTag("theme-vars", text)
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
+)
 console.log("### app start ###")
 </script>

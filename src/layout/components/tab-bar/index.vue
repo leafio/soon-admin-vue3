@@ -1,5 +1,5 @@
 <template>
-  <nav class="h-fit w-full bg-white flex" @wheel.prevent="onHandleScroll">
+  <nav class="h-fit w-full bg-white dark:bg-neutral-900 flex" @wheel.prevent="onHandleScroll">
     <el-scrollbar ref="scrollRef" class="flex-1">
       <div ref="tabContainerRef" class="flex">
         <nav-tab
@@ -7,7 +7,7 @@
           :key="index"
           :ref="(el) => mapRefList(el, index)"
           v-click-outside="onClickOutside"
-          :label="runStrFun(item.meta?.title)"
+          :label="showMenuTitle(item.meta?.title)"
           :active="tabStore.activeIndex === index"
           :closable="!item.meta.isAffix"
           @close="handleCloseByIndex(index)"
@@ -16,8 +16,16 @@
         />
       </div>
     </el-scrollbar>
+
+    <div class="h-full flex justify-center items-center cursor-pointer mx-1" @click="handleRefresh">
+      <BIconArrowClockwise class="w-6 h-6 p-1 rounded hover:bg-primary-100" />
+    </div>
+    <div class="h-full flex justify-center items-center cursor-pointer mx-1" @click="handleToggleFullscreen">
+      <BIconFullscreenExit v-if="isContentFullscreen" class="w-6 h-6 p-1 rounded-full hover:bg-primary-100" />
+      <BIconFullscreen v-else class="w-6 h-6 p-1 rounded hover:bg-primary-100" />
+    </div>
     <div class="md:hidden h-full flex justify-center items-center cursor-pointer mx-1" @click="showContext()">
-      <BIconThreeDotsVertical class="w-6 h-6 p-1 rounded-full hover:bg-soon-light" />
+      <BIconThreeDotsVertical class="w-6 h-6 p-1 rounded hover:bg-primary-100" />
     </div>
 
     <context-menu v-if="tabsMenuList[curIndex]" :visible="visible" :target-ref="targetRefList[curIndex]" :tab="tabsMenuList[curIndex]" :cur-index="curIndex" />
@@ -27,17 +35,22 @@
 <script setup lang="ts">
 import Sortable from "sortablejs"
 import { ref, computed, watch, onMounted } from "vue"
+import type { RouteLocationRaw } from "vue-router"
 import { useRoute, useRouter } from "vue-router"
-import { useTabsStore } from "@/store/modules/tabs"
+
 import { ElScrollbar, ClickOutside as vClickOutside } from "element-plus"
 import NavTab from "./nav-tab.vue"
-import { RouteLocationRaw } from "vue-router"
-import { runStrFun } from "@/utils"
-import { useAppStore } from "@/store/modules/app"
-import { useUserStore } from "@/store/modules/user"
+
 import contextMenu from "./context-menu.vue"
 import { unrefElement } from "@vueuse/core"
-import { BIconThreeDotsVertical } from "bootstrap-icons-vue"
+import { BIconThreeDotsVertical, BIconArrowClockwise, BIconFullscreenExit, BIconFullscreen } from "bootstrap-icons-vue"
+
+import { showMenuTitle } from "@/router/utils"
+import { useTabsStore } from "@/store/modules/tabs"
+import { useAppStore } from "@/store/modules/app"
+import { useUserStore } from "@/store/modules/user"
+import { useKeepAliveStore } from "@/store/modules/keepAlive"
+import { useViewer } from "@/biz/viewer"
 
 const tabContainerRef = ref<HTMLElement | null>(null)
 const scrollRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
@@ -66,6 +79,12 @@ const router = useRouter()
 const tabStore = useTabsStore()
 const appStore = useAppStore()
 const userStore = useUserStore()
+const keepaliveStore = useKeepAliveStore()
+
+onUnmounted(() => {
+  tabStore.$reset()
+  keepaliveStore.$reset()
+})
 
 const addAffixRoute = (routes: any[] | undefined) => {
   routes?.forEach((item) => {
@@ -124,6 +143,27 @@ const handleGoTo = (r: RouteLocationRaw) => {
   router.push(r)
 }
 
+const handleRefresh = () => {
+  tabStore.refreshTabByIndex()
+}
+
+const isContentFullscreen = computed(() => {
+  return appStore.header.isHide && appStore.sidebar.isHide
+})
+
+const isMobile = computed(() => useViewer() === "mobile")
+const handleToggleFullscreen = () => {
+  if (isContentFullscreen.value) {
+    appStore.header.isHide = false
+    if (!isMobile.value) appStore.sidebar.isHide = false
+  } else {
+    appStore.header.isHide = true
+    appStore.sidebar.isHide = true
+  }
+}
+
+//-------
+//拖动排序
 const tabsMenuList = computed(() => tabStore.tabList)
 
 onMounted(() => {

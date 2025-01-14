@@ -24,7 +24,7 @@ export default [
 
       // processor: vue.processors[".vue"],
     },
-    ignores: ["./types/auto-imports.d.ts", "./types/components.d.ts"],
+    // ignores: ["./types/auto-imports.d.ts", "./types/components.d.ts"],
   },
   js.configs.recommended,
   ...ts.configs.recommended,
@@ -38,9 +38,21 @@ export default [
       "vue/multi-word-component-names": "off",
       "vue/first-attribute-linebreak": "off",
       "no-async-promise-executor": "off",
+      "prefer-const": [
+        "error",
+        {
+          destructuring: "all",
+        },
+      ],
 
       // "vue/no-parsing-error": "off",
       "no-undef": "off",
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+        },
+      ],
     },
   },
 ]

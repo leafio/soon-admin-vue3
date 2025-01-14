@@ -1,39 +1,11 @@
 @use "./tailwind.scss";
-@use "./element.scss";
-@use "./loading.scss";
-@use "./biz.scss";
-@use "./theme.scss";
 
-/* logo 过渡动画
-------------------------------- */
-@keyframes logoAnimation {
-  0% {
-    transform: scale(0);
-  }
+@use "./element-plus/override.scss";
+@use "./element-plus/dark.scss";
 
-  80% {
-    transform: scale(1.2);
-  }
+@use "./theme/vars.scss";
+@use "./theme/loading.scss";
+@use "./theme/nprogress.scss";
+@use "./theme/transition.scss";
 
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.2s;
-}
-
-.fade-transform-enter-from {
-  opacity: 0;
-  transition: all 0.2s;
-  transform: translateX(-30px);
-}
-
-.fade-transform-leave-to {
-  opacity: 0;
-  transition: all 0.2s;
-  transform: translateX(30px);
-}
+@use "./theme/page.scss";

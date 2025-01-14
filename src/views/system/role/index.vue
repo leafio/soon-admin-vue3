@@ -38,7 +38,7 @@
       </el-table>
     </div>
     <div class="md:hidden mt-2">
-      <div v-for="(item, index) in list" :key="index" class="mb-2 rounded-sm p-1 pb-0 bg-white">
+      <div v-for="(item, index) in list" :key="index" class="mb-2 rounded-sm p-1 pb-0 bg-white dark:bg-neutral-900">
         <soon-detail :cols="cols" :item="item">
           <div class="flex justify-between w-full">
             <div class="flex">
@@ -73,17 +73,18 @@
   </div>
 </template>
 <script setup lang="tsx">
-import SoonDetail from "@/components/soon-detail/index.vue"
-import { list_role, Role, del_role } from "@/api"
-import BtnAdd from "@/components/soon-tool-bar/btn-add.vue"
-import BtnRefresh from "@/components/soon-tool-bar/btn-refresh.vue"
-import BtnSearch from "@/components/soon-tool-bar/btn-search.vue"
-import { formatDateTime } from "@/utils/tools"
-import { usePageList } from "@/hooks/list"
+import SoonDetail from "@/components/soon/soon-detail/index.vue"
+import type { Role } from "@/api"
+import { list_role, del_role } from "@/api"
+import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
+import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
+import BtnSearch from "@/components/soon/soon-tool-bar/btn-search.vue"
+import { formatDateTime } from "@/biz/time"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox, ElTag } from "element-plus"
 import { tLocales } from "@/i18n"
+import { usePageList } from "@/biz/list"
 
 type Item = Role
 
@@ -103,9 +104,9 @@ const {
 })
 refresh()
 const t = tLocales({
-  zh: () => import("@/i18n/zh/system/role"),
-  en: () => import("@/i18n/en/system/role"),
-  ko: () => import("@/i18n/ko/system/role"),
+  zh: () => import("@/i18n/locales/zh/system/role"),
+  en: () => import("@/i18n/locales/en/system/role"),
+  ko: () => import("@/i18n/locales/ko/system/role"),
 })
 const cols = computed(() => [
   {

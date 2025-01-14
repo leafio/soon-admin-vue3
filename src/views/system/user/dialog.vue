@@ -77,18 +77,20 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from "element-plus"
-import { list_role, add_user, update_user, Role, tree_dept, Dept, User } from "@/api"
-import { useDialog } from "@/hooks/dialog"
+import type { FormInstance } from "element-plus"
+import type { Role, Dept, User } from "@/api"
+import { list_role, add_user, update_user, tree_dept } from "@/api"
+
 import { tLocales } from "@/i18n"
+import { useDialog } from "@/biz/dialog"
 
 type Item = User
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
 const t = tLocales({
-  zh: () => import("@/i18n/zh/system/user"),
-  en: () => import("@/i18n/en/system/user"),
-  ko: () => import("@/i18n/ko/system/user"),
+  zh: () => import("@/i18n/locales/zh/system/user"),
+  en: () => import("@/i18n/locales/en/system/user"),
+  ko: () => import("@/i18n/locales/ko/system/user"),
 })
 
 const titles = computed(() => ({

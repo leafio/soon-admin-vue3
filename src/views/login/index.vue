@@ -8,12 +8,12 @@
         <el-input v-model="form.username" :placeholder="t('username') + ':  admin'"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="form.password" :placeholder="t('password') + ':  admin'" type="password"></el-input>
+        <el-input v-model="form.password" show-password :placeholder="t('password') + ':  admin'" type="password"></el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="form.code" :placeholder="t('code')">
           <template #append>
-            <div ref="refImg" class="cursor-pointer" @click="refreshCaptcha" />
+            <div ref="refImg" class="cursor-pointer min-w-24" @click="refreshCaptcha" />
           </template>
         </el-input>
       </el-form-item>
@@ -27,12 +27,12 @@
 import { getCaptcha, login } from "@/api"
 import { tLocales } from "@/i18n"
 
-import { FormInstance } from "element-plus"
+import type { FormInstance } from "element-plus"
 
-import LangSwitch from "@/layout/components/lang-switch.vue"
-import en_login from "@/i18n/en/login"
-import zh_login from "@/i18n/zh/login"
-import ko_login from "@/i18n/ko/login"
+import LangSwitch from "@/components/lang-switch.vue"
+import en_login from "@/i18n/locales/en/login"
+import zh_login from "@/i18n/locales/zh/login"
+import ko_login from "@/i18n/locales/ko/login"
 const t = tLocales({ zh: zh_login, en: en_login, ko: ko_login })
 
 const form = ref({
@@ -54,13 +54,14 @@ onMounted(() => {
 
 const formRef = ref<FormInstance>()
 const router = useRouter()
+const route = useRoute()
 const handleLogin = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
     login(form.value).then((res) => {
       localStorage.setItem("token", res.token)
       localStorage.setItem("refresh_token", res.refreshToken)
-      router.push("/")
+      router.push((route.query.redirect ?? "/") as string)
     })
   })
 }
@@ -70,19 +71,17 @@ const rules = computed(() => ({
   password: [{ required: true, message: t("error.password"), trigger: "blur" }],
   code: [{ required: true, message: t("error.code"), trigger: "blur" }],
 }))
-watch(
-  () => rules.value,
-  () => {
-    nextTick(() => {
-      setTimeout(() => {
-        formRef.value?.clearValidate()
-      })
-    })
-  },
-)
+watch(rules, () => {
+  setTimeout(() => {
+    formRef.value?.clearValidate()
+  })
+})
 </script>
 <style scoped>
 :deep(.el-input--large) {
   --el-input-height: 50px;
+}
+:deep(.el-input-group__append) {
+  padding: 0;
 }
 </style>

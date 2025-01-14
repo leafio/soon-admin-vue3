@@ -14,12 +14,13 @@ Soon-Admin is full stuck admin system written by Typescript。
 ### Snapshot
 
 ![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-en.png)
+![settings](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/settings-en.png)
 ![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile-en.png)
 
 ### Features 🔨
 
-- Vue3.4 + TypeScript ,SFC **＜script setup＞**
-- package: vite5
+- Vue3 + TypeScript  **＜script setup＞**
+- package: vite 6
 - style: scss tailwind-css
 - auto-import: unplugin-auto-import unplugin-vue-components , element-plus
 - state management: pinia
@@ -63,8 +64,6 @@ yarn dev:mock
 - **Build：**
 
 ```bash
-# development
-yarn build:dev
 
 # production
 yarn build
@@ -91,6 +90,7 @@ Soon-Admin-Vue3
 ├─ src
 │  ├─ api                  #
 │  ├─ assets               # static files
+│  ├─ biz                  # biz logic
 │  ├─ components           #
 │  ├─ css                  #
 │  ├─ directives           #
@@ -119,7 +119,7 @@ Soon-Admin-Vue3
 ├─ postcss.config.js       #
 ├─ prettier.config.js      #
 ├─ README.md               # introduction
-├─ tailwind.config.js      # 
+├─ tailwind.config.ts      # 
 ├─ tsconfig.json           # type script config
 ├─ tsconfig.node.json      # type script config
 └─ vite.config.ts          #
@@ -130,7 +130,6 @@ Soon-Admin-Vue3
 
 If you like this project, just star it.🚀
 
-> I'm looking for a frontend job in Shanghai , hope a offer for me.
 > Email: leafnote@outlook.com
 
 <br />
@@ -151,12 +150,13 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 ### 截图
 
 ![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-zh.png)
+![settings](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-settings.png)
 ![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile-zh.png)
 
 ### 项目功能 🔨
 
-- Vue3.4 + TypeScript 开发，单文件组件**＜script setup＞**
-- 采用 Vite 5 作为项目开发、打包工具
+- Vue3 + TypeScript 开发，单文件组件**＜script setup＞**
+- 采用 Vite 6 作为项目开发、打包工具
 - 样式采用 scss 和 Tailwind Css
 - 使用 unplugin-auto-import unplugin-vue-components 自动导入element-plus 组件
 - 采用 Pinia 作为状态管理
@@ -200,9 +200,6 @@ yarn dev:mock
 - **Build：**
 
 ```bash
-# 开发环境
-yarn build:dev
-
 # 生产环境
 yarn build
 ```
@@ -228,15 +225,15 @@ Soon-Admin-Vue3
 ├─ src
 │  ├─ api                  # API 接口管理
 │  ├─ assets               # 静态资源文件
+│  ├─ biz                  # 业务逻辑
 │  ├─ components           # 全局组件
 │  ├─ css                  # 全局样式文件
 │  ├─ directives           # 全局指令文件
-│  ├─ hooks                # 常用 Hooks 封装
 │  ├─ i18n                 # 语言国际化 i18n
 │  ├─ layout               # 框架布局模块
 │  ├─ router               # 路由管理
 │  ├─ store                # pinia store
-│  ├─ utils                # 常用工具库
+│  ├─ utils                # 通用工具库
 │  ├─ views                # 项目所有页面
 │  ├─ App.vue              # 项目主组件
 │  └─ main.ts              # 项目入口文件
@@ -256,6 +253,7 @@ Soon-Admin-Vue3
 ├─ postcss.config.js       # postcss 配置
 ├─ prettier.config.js      # Prettier 格式化配置
 ├─ README.md               # README 介绍
+├─ tailwind.config.ts      # tailwind css 配置
 ├─ tsconfig.json           # typescript 全局配置
 ├─ tsconfig.node.json      # typescript 全局配置
 └─ vite.config.ts          # vite 全局配置文件
@@ -265,6 +263,4 @@ Soon-Admin-Vue3
 ### 项目支持 🍵
 
 喜欢 soon-admin 的话 , 在 github 上给个 star 吧.
-
-> 我目前在找前端的工作，位置上海。有岗位机会的话，可以联系我。
 > Email: leafnote@outlook.com
