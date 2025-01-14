@@ -150,7 +150,7 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 ### 截图
 
 ![pc](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-zh.png)
-![settings](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/pc-settings.png)
+![settings](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/settings-zh.png)
 ![mobile](https://raw.githubusercontent.com/leafio/soon-admin-vue3/main/public/mobile-zh.png)
 
 ### 项目功能 🔨
