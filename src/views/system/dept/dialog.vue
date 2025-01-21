@@ -25,7 +25,7 @@
           </template>
         </el-cascader>
       </el-form-item>
-      <el-form-item :label="t('label.name')" prop="name" class="dialog-form-item-full">
+      <el-form-item :label="t('label.name')" :prop="rulesKey.name" class="dialog-form-item-full">
         <el-input v-model="formData.name" clearable></el-input>
       </el-form-item>
 
@@ -51,7 +51,8 @@ import { tLocales } from "@/i18n"
 import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
-import { useDialog } from "@/biz/dialog"
+import { useDialog } from "@/biz"
+import { useKeyName } from "@/biz/hooks/object"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -62,7 +63,7 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useDialog<Dept>({ formRef })
+const { visible, open, close, type, formData } = useDialog<Dept>()
 
 const submit = () => {
   formRef.value?.validate((valid, fields) => {
@@ -99,6 +100,8 @@ const onCancel = () => {
 const rules = computed(() => ({
   name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
 }))
+
+const rulesKey = useKeyName(rules.value)
 defineExpose({ open, close })
 </script>
 

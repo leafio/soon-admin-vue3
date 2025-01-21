@@ -497,5 +497,14 @@
     "auth": "menu.del",
     "createTime": "2024-09-04T15:21:05.194Z",
     "updateTime": "2024-09-04T15:21:05.194Z"
+  },
+  {
+    "id": 25,
+    "parentId": 2,
+    "menuType": "btn",
+    "meta": { "cached": true, "requiresAuth": true, "title": "Export", "isIframe": false },
+    "auth": "user.export",
+    "createTime": "2025-01-21T08:52:37.225Z",
+    "updateTime": "2025-01-21T08:52:37.227Z"
   }
 ]

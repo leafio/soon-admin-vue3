@@ -22,10 +22,10 @@
 <script setup lang="ts">
 import AsideMenu from "./menu/index.vue"
 
-import type { Menu } from "@/api"
 import { useAppStore } from "@/store/modules/app"
 import { useUserStore } from "@/store/modules/user"
-import { useViewer } from "@/biz/viewer"
+import { useViewer } from "@/biz"
+import type { SoonMenu } from "./menu/type"
 const appStore = useAppStore()
 const isHide = computed(() => appStore.sidebar.isHide)
 const isCollapse = computed(() => appStore.sidebar.isCollapse)
@@ -45,7 +45,7 @@ const filterChildrenNotHide = (arr?: any[]): any[] | undefined => {
   return undefined
 }
 const menus = computed(() => {
-  return (filterChildrenNotHide(userStore.menus) ?? []) as Menu[]
+  return (filterChildrenNotHide(userStore.menus) ?? []) as SoonMenu[]
 })
 
 const selectedPath = ref("")
@@ -53,7 +53,7 @@ watchEffect(() => {
   selectedPath.value = route.path
 })
 const router = useRouter()
-const onMenuItemClick = (menu: Menu) => {
+const onMenuItemClick = (menu: SoonMenu) => {
   if (isMobile.value) appStore.sidebar.isHide = true
   if (!menu.meta.isIframe && menu.meta?.link) return window.open(menu.meta?.link, "_blank")
   // if (selectedPath) selectedPath.value = menu.path

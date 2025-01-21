@@ -15,11 +15,12 @@
 import type { Lang } from "@/i18n"
 import { lang } from "@/i18n"
 import { BIconTranslate } from "bootstrap-icons-vue"
+import { soon_local } from "@/biz/app/local"
 const props = defineProps<{ iconClass?: string }>()
 const { iconClass } = toRefs(props)
 const handleLangChange = (e: Lang) => {
   lang.value = e
-  localStorage.setItem("lang", lang.value)
+  soon_local.setItem("lang", lang.value)
 }
 watch(
   lang,

@@ -1,4 +1,4 @@
-import { downloadBlob, getAttachmentFilenameFormHeader } from "@/utils/download"
+import { downloadBlob, getHeaderFilename } from "soon-utils"
 import type { PageParams } from "../types"
 import type { Dept } from "./dept"
 import type { Role } from "./role"
@@ -19,13 +19,13 @@ export type User = {
   gender: number
   desc: string | null
 }
-export type UserInfo = Expand<
+export type UserInfo = ExpandRecursively<
   User & {
     id: number
-    createTime: Date
-    updateTime: Date | null
-    dept?: Expand<Pick<Dept, "id" | "name">>
-    role?: Expand<Pick<Role, "id" | "name">>
+    createTime: string
+    updateTime: string | null
+    dept?: Pick<Dept, "id" | "name">
+    role?: Pick<Role, "id" | "name">
   }
 >
 
@@ -38,7 +38,7 @@ export const detail_user = soon.API("/user/:id").GET<undefined, UserInfo>()
 
 export const download_user_table = async (query: ListQueryUser) => {
   return soon.get<Response>("/user/export", { query }).then(async (res) => {
-    const filename = getAttachmentFilenameFormHeader(res.headers) ?? "user.xlsx"
+    const filename = getHeaderFilename(res.headers) ?? "user.xlsx"
     const body = await res.blob()
     downloadBlob(body, filename)
   })

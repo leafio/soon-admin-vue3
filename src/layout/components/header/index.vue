@@ -1,8 +1,8 @@
 <template>
   <header class="flex justify-between p-2 app-header">
-    <div class="flex items-center" @click="toggleSideMenu">
-      <BIconTextIndentLeft v-if="isHide" class="soon-header-menu-icon" />
-      <BIconTextIndentRight v-else class="soon-header-menu-icon" />
+    <div class="flex items-center">
+      <BIconTextIndentLeft v-if="isHide" class="soon-header-menu-icon" @click="toggleSideMenu" />
+      <BIconTextIndentRight v-else class="soon-header-menu-icon" @click="toggleSideMenu" />
       <Breadcrumb class="ml-4" />
     </div>
 

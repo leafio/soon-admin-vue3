@@ -140,6 +140,27 @@
     "actionCode": "const {pageIndex,pageSize}=req.query;\nconst {list,total,page,limit}= await action.user.list({page:pageIndex,limit:pageSize})\nconst depts=await action.dept.read()\nconst roles=await action.role.read()\nconst _list=list.map( u=>({...u,dept:depts.find(d=>d.id===u.deptId),role:roles.find(r=>r.id===u.roleId)}))\nres.success({pageIndex:page,pageSize:limit,total,list:_list})"
   },
   {
+    "method": "GET",
+    "path": "user/export",
+    "response": { "body": { "dataType": "object", "fields": [] } },
+    "request": {
+      "params": { "dataType": "object", "fields": [] },
+      "body": { "dataType": "object", "fields": [] },
+      "query": {
+        "dataType": "object",
+        "fields": [
+          { "dataType": "int", "name": "pageIndex", "fields": [], "isArray": false },
+          { "dataType": "int", "name": "pageSize", "fields": [], "isArray": false }
+        ]
+      },
+      "bodyType": "json"
+    },
+    "actions": [],
+    "id": "c3e0366f-649c-4300-a1a2-bd986c2cb474",
+    "group": "user",
+    "actionCode": "const {pageIndex,pageSize}=req.query;\nconst {list,total,page,limit}= await action.user.list({page:pageIndex,limit:pageSize})\nconst depts=await action.dept.read()\nconst roles=await action.role.read()\nconst _list=list.map( u=>({...u,dept:depts.find(d=>d.id===u.deptId),role:roles.find(r=>r.id===u.roleId)}))\nconst file = genExcel(_list, {  fitWidth: true }) \nres.setHeader(\"Content-Type\", \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\" )   \nres.setHeader(\"Content-Disposition\", \"attachment; filename=user.xlsx\")   \nres.send(file)"
+  },
+  {
     "id": "20c387d1-95c2-49a2-bd5b-1b8664f3101b",
     "path": "user/:id",
     "method": "GET",

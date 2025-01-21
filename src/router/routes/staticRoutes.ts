@@ -4,11 +4,13 @@ import ko_login from "@/i18n/locales/ko/login"
 import zh_login from "@/i18n/locales/zh/login"
 
 import type { RouteRecordRaw } from "vue-router"
-
 const t = tLocales({ zh: zh_login, en: en_login, ko: ko_login })
+
+const PAGE_404_NAME = "notFound"
+const PAGE_LOGIN_URL = "/login"
 const staticRoutes: RouteRecordRaw[] = [
   {
-    path: "/login",
+    path: PAGE_LOGIN_URL,
     name: "login",
     component: () => import("@/views/login/index.vue"),
     meta: {
@@ -23,7 +25,7 @@ const staticRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "/:path(.*)*",
-        name: "notFound",
+        name: PAGE_404_NAME,
         component: () => import("@/views/error/404.vue"),
         meta: {
           title: () => "Not Found",
@@ -34,4 +36,4 @@ const staticRoutes: RouteRecordRaw[] = [
   },
 ]
 
-export default staticRoutes
+export { staticRoutes, PAGE_404_NAME, PAGE_LOGIN_URL }

@@ -27,11 +27,11 @@
 import { BIconChevronLeft } from "bootstrap-icons-vue"
 import SoonIcon from "@/components/soon/soon-icon/index.vue"
 
-import type { Menu } from "@/api"
 import { showMenuTitle } from "@/router/utils"
 import { RouterLink } from "vue-router"
+import type { SoonMenu } from "./type"
 
-const props = defineProps<{ menu: Menu; level?: number }>()
+const props = defineProps<{ menu: SoonMenu; level?: number }>()
 
 const emit = defineEmits(["item-click"])
 
@@ -47,7 +47,7 @@ const handleClickMenu = (menu?: any) => {
     emit("item-click", _menu)
   }
 }
-const hasPath = (item: Menu, path: string): boolean => {
+const hasPath = (item: SoonMenu, path: string): boolean => {
   if (item.redirect === path || item.path === path) return true
   return (
     item.children?.some((ch) => {

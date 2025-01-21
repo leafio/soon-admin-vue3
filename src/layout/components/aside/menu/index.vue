@@ -4,18 +4,18 @@
   </ul>
 </template>
 <script setup lang="ts">
-import type { Menu } from "@/api"
 import menuItem from "./menu-item.vue"
+import type { SoonMenu } from "./type"
 const props = defineProps<{
   isCollapse?: boolean
-  menus: Menu[]
+  menus: SoonMenu[]
   selectedPath: string
 }>()
 const emit = defineEmits<{
-  "item-click": [menu: Menu]
+  "item-click": [menu: SoonMenu]
 }>()
 
-const handleItemClick = (item: Menu) => {
+const handleItemClick = (item: SoonMenu) => {
   emit("item-click", item)
 }
 const selectedPath = computed(() => props.selectedPath)

@@ -12,7 +12,7 @@ import { useAppStore } from "./store/modules/app"
 
 import { autoDayjsLocale } from "./i18n/third/dayjs"
 import { elementPlusLocale } from "./i18n/third/element-plus"
-import { addStyleTag } from "./utils/style"
+import { replaceStyleTag } from "soon-utils"
 
 autoDayjsLocale()
 
@@ -34,7 +34,7 @@ watch(
   ([_isDark, _colors]) => {
     const colors = createThemeColors(_colors, _isDark)
     const text = themeColors2cssText(colors)
-    addStyleTag("theme-vars", text)
+    replaceStyleTag("theme-vars", text)
   },
   {
     deep: true,

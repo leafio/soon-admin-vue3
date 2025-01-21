@@ -50,7 +50,7 @@ import { useTabsStore } from "@/store/modules/tabs"
 import { useAppStore } from "@/store/modules/app"
 import { useUserStore } from "@/store/modules/user"
 import { useKeepAliveStore } from "@/store/modules/keepAlive"
-import { useViewer } from "@/biz/viewer"
+import { useViewer } from "@/biz"
 
 const tabContainerRef = ref<HTMLElement | null>(null)
 const scrollRef = ref<InstanceType<typeof ElScrollbar> | null>(null)

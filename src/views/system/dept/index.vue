@@ -44,8 +44,8 @@
       </el-tree>
     </div>
     <el-pagination
-      v-model:current-page="pageInfo.pageIndex"
-      v-model:page-size="pageInfo.pageSize"
+      v-model:current-page="queryForm.pageIndex"
+      v-model:page-size="queryForm.pageSize"
       class="pagination-container"
       background
       layout="total, sizes, prev, pager, next, jumper"
@@ -56,13 +56,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
-import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
+import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
 
 import type { Dept } from "@/api"
 import { tree_dept, del_dept } from "@/api"
-
-import { formatDateTime } from "@/biz/time"
 
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
@@ -70,7 +67,7 @@ import { tLocales } from "@/i18n"
 import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
-import { usePageList } from "@/biz/list"
+import { usePageList } from "@/biz"
 
 type Item = Dept
 
@@ -83,8 +80,7 @@ const {
   loading,
   search,
   reset,
-  params: queryForm,
-  pageInfo,
+  query: queryForm,
 } = usePageList({
   searchApi: tree_dept,
 })

@@ -12,7 +12,6 @@ export const useAppStore = defineStore("app", {
   persist: true,
   state: () => ({
     route: {
-      loginUrl: "/login",
       homeUrl: "",
     },
     colors: {

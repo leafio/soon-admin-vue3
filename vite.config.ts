@@ -51,18 +51,18 @@ export default defineConfig(({ mode }) => {
         dts: "./types/components.d.ts",
       }),
       eslintPlugin(),
-      visualizer({
-        open: true, //注意这里要设置为true，否则无效
-        filename: "stats.html", //分析图生成的文件名
-        gzipSize: true, // 收集 gzip 大小并将其显示
-        brotliSize: true, // 收集 brotli 大小并将其显示
-      }),
+      env.ANALYZE === "true"
+        ? visualizer({
+            open: true, //注意这里要设置为true，否则无效
+            filename: "stats.html", //分析图生成的文件名
+            gzipSize: true, // 收集 gzip 大小并将其显示
+            brotliSize: true, // 收集 brotli 大小并将其显示
+          })
+        : undefined,
     ],
     css: {
       preprocessorOptions: {
         scss: {
-          //       charset: false,
-          //       additionalData: '@import "./src/css/index.scss";',
           api: "modern-compiler", // or 'modern'
         },
       },

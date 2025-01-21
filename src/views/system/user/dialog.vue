@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-model="visible" :title="titles[type]" draggable>
     <el-form ref="formRef" :model="formData" :rules="rules" :disabled="type === 'detail'" size="default" label-width="7em" class="dialog-form">
-      <el-form-item :label="t('label.username')" prop="username" class="dialog-form-item">
+      <el-form-item :label="t('label.username')" :prop="rulesKey.username" class="dialog-form-item">
         <el-input v-model="formData.username" clearable :disabled="type === 'edit'" />
       </el-form-item>
       <el-form-item :label="t('label.password')" prop="password" class="dialog-form-item">
@@ -77,12 +77,14 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from "element-plus"
+import type { FormInstance, FormItemRule, FormRules } from "element-plus"
 import type { Role, Dept, User } from "@/api"
 import { list_role, add_user, update_user, tree_dept } from "@/api"
 
 import { tLocales } from "@/i18n"
-import { useDialog } from "@/biz/dialog"
+import { useDialog } from "@/biz"
+import type { Arrayable } from "@vueuse/core"
+import { useKeyName } from "@/biz/hooks/object"
 
 type Item = User
 const formRef = ref<FormInstance>()
@@ -102,7 +104,7 @@ const initFormData = {
   status: 1,
 }
 
-const { visible, open, close, type, formData } = useDialog<Item>({ formRef, initFormData })
+const { visible, open, close, type, formData } = useDialog<Item>(initFormData)
 
 const roleOptions = ref<Role[]>([])
 const deptOptions = ref<Dept[]>([])
@@ -159,22 +161,12 @@ const submit = () => {
 const onCancel = () => {
   close()
 }
-const rules = computed(() => ({
+
+const rules = computed<Partial<{ [Key in keyof Item]: Arrayable<FormItemRule> }>>(() => ({
   username: [{ required: true, message: t("label.inputUsername"), trigger: "blur" }],
-  // nickname: [{ required: true, message: "请输入名字", trigger: "blur" }],
-  // phone: [
-  //   {
-  //     required: true,
-  //     validator: (rule: any, value: any, callback: any) => {
-  //       if (!value || !verifyPhone(value)) {
-  //         callback(new Error("电话号码格式不正确"))
-  //       }
-  //       callback()
-  //     },
-  //     trigger: "blur",
-  //   },
-  // ],
 }))
+
+const rulesKey = useKeyName(rules.value)
 
 defineExpose({ open, close })
 </script>

@@ -5,19 +5,20 @@ import { refresh_token } from "./modules/auth"
 import { createSilentRefresh } from "./addons/silentRefreshToken"
 import type { SoonOptions } from "soon-fetch"
 import { createSoon, parseUrlOptions } from "soon-fetch"
+import { soon_local } from "@/biz/app/local"
 
 export const baseURL = parseBaseUrl(import.meta.env, import.meta.env.DEV)
 console.log(`baseURL: ${baseURL}`)
 const t = tLocales()
 
 const silentRefresh = createSilentRefresh(() =>
-  refresh_token({ token: localStorage.getItem("refresh_token") ?? "" })
+  refresh_token({ token: soon_local.getItem("refresh_token") ?? "" })
     .then((res) => {
-      localStorage.setItem("token", res.token)
+      soon_local.setItem("token", res.token)
     })
     .catch(() => {
-      localStorage.removeItem("token")
-      localStorage.removeItem("refresh_token")
+      soon_local.removeItem("token")
+      soon_local.removeItem("refresh_token")
       location.href = "/login"
     }),
 )
@@ -37,7 +38,7 @@ function request<T = any>(url: string, options?: RequestOptions) {
       baseOptions: {
         timeout: 20 * 1000,
         headers: new Headers({
-          Authorization: localStorage.getItem("token") ?? "",
+          Authorization: soon_local.getItem("token") ?? "",
           "soon-lang": lang.value,
         }),
       },
@@ -69,6 +70,7 @@ function request<T = any>(url: string, options?: RequestOptions) {
         }
       } else if (res.status === 401) {
         silentRefresh(() => resolve(request(url, options)))
+        return
       } else {
         errMsg = res.statusText
         err = res.statusText

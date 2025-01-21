@@ -72,8 +72,8 @@
       </div>
     </div>
     <el-pagination
-      v-model:current-page="pageInfo.pageIndex"
-      v-model:page-size="pageInfo.pageSize"
+      v-model:current-page="queryForm.pageIndex"
+      v-model:page-size="queryForm.pageSize"
       class="pagination-container"
       :background="paginationSize !== 'small'"
       layout="total, sizes, prev, pager, next, jumper"
@@ -86,26 +86,14 @@
   </div>
 </template>
 <script setup lang="tsx">
-import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
-import BtnExport from "@/components/soon/soon-tool-bar/btn-export.vue"
-import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
-import BtnSearch from "@/components/soon/soon-tool-bar/btn-search.vue"
-import BtnCols from "@/components/soon/soon-tool-bar/btn-cols.vue"
-import SoonDetail from "@/components/soon/soon-detail/index.vue"
+import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
 import { Female, Male } from "@element-plus/icons-vue"
 import type { UserInfo } from "@/api"
 import { list_user, download_user_table, del_user } from "@/api"
-import { defaultTime, timePickerOptions } from "@/biz/time"
-
-import { formatDateTime } from "@/biz/time"
-
+import { formatDateTime, useAuth, useCols, usePageList, useViewer, defaultTime, timePickerOptions } from "@/biz"
 import FormDialog from "./dialog.vue"
 import { ElMessageBox } from "element-plus"
 import { tLocales } from "@/i18n"
-import { useAuth } from "@/biz/auth"
-import { useCols } from "@/biz/cols"
-import { usePageList } from "@/biz/list"
-import { useViewer } from "@/biz/viewer"
 
 type Item = UserInfo
 const paginationSize = computed(() => (useViewer() === "mobile" ? "small" : ""))
@@ -126,8 +114,7 @@ const {
   loading,
   search,
   reset,
-  params: queryForm,
-  pageInfo,
+  query: queryForm,
 } = usePageList({
   searchApi: list_user,
   // initParams: { timeRange: curMonth() },
@@ -194,7 +181,7 @@ const {
     },
   },
 ])
-const actionCol = {
+const actionCol = computed(() => ({
   prop: "action",
   label: t("action"),
   width: "",
@@ -216,7 +203,7 @@ const actionCol = {
       </div>
     )
   },
-}
+}))
 
 const handleDelete = (item: Item) => {
   ElMessageBox.confirm(t("tip.confirmDel", { name: item.name ?? item.username }), t("tip.title"), {

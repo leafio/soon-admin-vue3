@@ -6,7 +6,12 @@
 
 <script setup lang="ts">
 import { type Component, shallowRef, watch, computed } from "vue"
-import { useMultiFrame } from "./func"
+
+const Iframe_MAP = new Map<string, { Comp: any; link: string }>()
+
+function getMap() {
+  return [...Iframe_MAP.entries()]
+}
 
 const props = defineProps<{
   comp: Component
@@ -20,14 +25,13 @@ const props = defineProps<{
 const iframeList = computed(() => props.names)
 
 const compList = shallowRef<[string, { Comp: Component; link: string }][]>([])
-const { setMap, getMap, MAP, delMap } = useMultiFrame()
 
 watch(
   () => iframeList.value.length,
   () => {
-    for (const i of MAP.keys()) {
+    for (const i of Iframe_MAP.keys()) {
       if (!iframeList.value.some((s) => s === i)) {
-        delMap(i)
+        Iframe_MAP.delete(i)
         compList.value = getMap()
       }
     }
@@ -38,17 +42,17 @@ watch(
   [() => props.name, () => props.refreshing],
   ([path, refreshing]) => {
     if (refreshing || !props.isKeepAlive) {
-      delMap(props.name)
+      Iframe_MAP.delete(props.name)
       compList.value = getMap()
     }
 
     nextTick(() => {
       if (!props.iframeSrc) return
 
-      const sameKey = [...MAP.keys()].find((i) => path === i)
+      const sameKey = [...Iframe_MAP.keys()].find((i) => path === i)
       if (!sameKey) {
         // 添加缓存
-        setMap(path, props.comp, props.iframeSrc)
+        Iframe_MAP.set(path, { Comp: props.comp, link: props.iframeSrc })
         compList.value = getMap()
       }
     })

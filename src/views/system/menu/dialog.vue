@@ -21,7 +21,7 @@
           </template>
         </el-cascader>
       </el-form-item>
-      <el-form-item :label="t('label.menuTitle')" class="dialog-form-item">
+      <el-form-item :label="t('label.menuTitle')" class="dialog-form-item" :prop="rulesKey['meta.title']">
         <el-input v-model="formData.meta.title" clearable></el-input>
       </el-form-item>
       <el-form-item :label="t('label.auth')" class="dialog-form-item">
@@ -86,7 +86,8 @@ import { tLocales } from "@/i18n"
 import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import en_system_menu from "@/i18n/locales/en/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
-import { useDialog } from "@/biz/dialog"
+import { useDialog } from "@/biz"
+import { useKeyName } from "@/biz/hooks/object"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -97,10 +98,7 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useDialog<Menu>({
-  formRef,
-  initFormData: { menuType: "page", meta: { cached: true, requiresAuth: true } },
-})
+const { visible, open, close, type, formData } = useDialog<Menu>({ menuType: "page", meta: { cached: true, requiresAuth: true } })
 
 const menuTypeOptions = computed(() => [
   {
@@ -175,9 +173,10 @@ const submit = () => {
 const onCancel = () => {
   close()
 }
-const rules = reactive({
+const rules = computed(() => ({
   "meta.title": [{ required: true, message: "请输入名称", trigger: "blur" }],
-})
+}))
+const rulesKey = useKeyName(rules.value)
 defineExpose({ open, close })
 </script>
 

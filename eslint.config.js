@@ -48,7 +48,7 @@ export default [
       // "vue/no-parsing-error": "off",
       "no-undef": "off",
       "@typescript-eslint/consistent-type-imports": [
-        "error",
+        "warn",
         {
           prefer: "type-imports",
         },

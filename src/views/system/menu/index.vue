@@ -50,8 +50,8 @@
       </el-tree>
     </div>
     <el-pagination
-      v-model:current-page="pageInfo.pageIndex"
-      v-model:page-size="pageInfo.pageSize"
+      v-model:current-page="queryForm.pageIndex"
+      v-model:page-size="queryForm.pageSize"
       class="pagination-container"
       background
       layout="total, sizes, prev, pager, next, jumper"
@@ -62,8 +62,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import BtnAdd from "@/components/soon/soon-tool-bar/btn-add.vue"
-import BtnRefresh from "@/components/soon/soon-tool-bar/btn-refresh.vue"
+import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
 
 import type { Menu } from "@/api"
 import { tree_menu, del_menu } from "@/api"
@@ -76,7 +75,7 @@ import { tLocales } from "@/i18n"
 import en_system_menu from "@/i18n/locales/en/system/menu"
 import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
-import { usePageList } from "@/biz/list"
+import { usePageList } from "@/biz"
 const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 
 type Item = Menu
@@ -141,11 +140,10 @@ const {
   loading,
   search,
   reset,
-  params: queryForm,
-  pageInfo,
+  query: queryForm,
 } = usePageList({
   searchApi: tree_menu,
-  initParams: { hasBtn: true },
+  initQuery: { hasBtn: true },
 })
 refresh()
 
