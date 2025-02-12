@@ -1,6 +1,6 @@
 import { obj2keyObj } from "soon-utils"
 
-export function useKeyName<T extends object>(data: T) {
+export function useKeys<T extends object>(data: T) {
   return computed(() => obj2keyObj(data))
 }
 

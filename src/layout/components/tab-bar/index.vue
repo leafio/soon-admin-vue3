@@ -50,7 +50,7 @@ import { useTabsStore } from "@/store/modules/tabs"
 import { useAppStore } from "@/store/modules/app"
 import { useUserStore } from "@/store/modules/user"
 import { useKeepAliveStore } from "@/store/modules/keepAlive"
-import { useViewer } from "@/biz"
+import { useMobile } from "@/biz/app/responsive"
 
 const tabContainerRef = ref<HTMLElement | null>(null)
 const scrollRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
@@ -151,7 +151,7 @@ const isContentFullscreen = computed(() => {
   return appStore.header.isHide && appStore.sidebar.isHide
 })
 
-const isMobile = computed(() => useViewer() === "mobile")
+const { isMobile } = useMobile()
 const handleToggleFullscreen = () => {
   if (isContentFullscreen.value) {
     appStore.header.isHide = false

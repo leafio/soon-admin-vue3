@@ -1,6 +1,6 @@
 import type { UnwrapRef } from "vue"
 
-export function useDialog<T>(initFormData?: Partial<T>) {
+export function useFormDialog<T>(initFormData?: Partial<T>) {
   const formData = ref(Object.assign({}, initFormData) as T)
   const _type = ref<"add" | "edit" | "detail">("add")
   const visible = ref(false)
@@ -39,5 +39,6 @@ export function useDialog<T>(initFormData?: Partial<T>) {
     close,
     type: _type,
     formData,
+    loading,
   }
 }

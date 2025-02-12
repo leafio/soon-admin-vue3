@@ -82,9 +82,8 @@ import type { Role, Dept, User } from "@/api"
 import { list_role, add_user, update_user, tree_dept } from "@/api"
 
 import { tLocales } from "@/i18n"
-import { useDialog } from "@/biz"
+import { useFormDialog, useKeys } from "@/biz"
 import type { Arrayable } from "@vueuse/core"
-import { useKeyName } from "@/biz/hooks/object"
 
 type Item = User
 const formRef = ref<FormInstance>()
@@ -104,7 +103,7 @@ const initFormData = {
   status: 1,
 }
 
-const { visible, open, close, type, formData } = useDialog<Item>(initFormData)
+const { visible, open, close, type, formData } = useFormDialog<Item>(initFormData)
 
 const roleOptions = ref<Role[]>([])
 const deptOptions = ref<Dept[]>([])
@@ -166,7 +165,7 @@ const rules = computed<Partial<{ [Key in keyof Item]: Arrayable<FormItemRule> }>
   username: [{ required: true, message: t("label.inputUsername"), trigger: "blur" }],
 }))
 
-const rulesKey = useKeyName(rules.value)
+const rulesKey = useKeys(rules.value)
 
 defineExpose({ open, close })
 </script>

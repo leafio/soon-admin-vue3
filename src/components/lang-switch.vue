@@ -12,15 +12,16 @@
   </el-dropdown>
 </template>
 <script setup lang="ts">
+import { soon_local } from "@/biz/app/storage"
 import type { Lang } from "@/i18n"
 import { lang } from "@/i18n"
 import { BIconTranslate } from "bootstrap-icons-vue"
-import { soon_local } from "@/biz/app/local"
-const props = defineProps<{ iconClass?: string }>()
-const { iconClass } = toRefs(props)
+
+const { iconClass } = defineProps<{ iconClass?: string }>()
+
 const handleLangChange = (e: Lang) => {
   lang.value = e
-  soon_local.setItem("lang", lang.value)
+  soon_local.lang.set(lang.value)
 }
 watch(
   lang,

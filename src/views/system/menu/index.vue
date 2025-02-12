@@ -68,7 +68,7 @@ import type { Menu } from "@/api"
 import { tree_menu, del_menu } from "@/api"
 
 import FormDialog from "./dialog.vue"
-import { ElMessageBox } from "element-plus"
+
 import { showMenuTitle } from "@/router/utils"
 
 import { tLocales } from "@/i18n"

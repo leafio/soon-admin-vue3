@@ -1,7 +1,7 @@
 import { tLocales } from "@/i18n"
-import en_login from "@/i18n/locales/en/login"
-import ko_login from "@/i18n/locales/ko/login"
-import zh_login from "@/i18n/locales/zh/login"
+import en_login from "@/i18n/locales/en/auth/login"
+import ko_login from "@/i18n/locales/ko/auth/login"
+import zh_login from "@/i18n/locales/zh/auth/login"
 
 import type { RouteRecordRaw } from "vue-router"
 const t = tLocales({ zh: zh_login, en: en_login, ko: ko_login })

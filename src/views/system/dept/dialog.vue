@@ -51,8 +51,7 @@ import { tLocales } from "@/i18n"
 import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
-import { useDialog } from "@/biz"
-import { useKeyName } from "@/biz/hooks/object"
+import { useFormDialog, useKeys } from "@/biz"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -63,7 +62,7 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useDialog<Dept>()
+const { visible, open, close, type, formData } = useFormDialog<Dept>()
 
 const submit = () => {
   formRef.value?.validate((valid, fields) => {
@@ -101,7 +100,7 @@ const rules = computed(() => ({
   name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
 }))
 
-const rulesKey = useKeyName(rules.value)
+const rulesKey = useKeys(rules.value)
 defineExpose({ open, close })
 </script>
 

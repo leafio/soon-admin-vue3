@@ -62,7 +62,7 @@ import type { Dept } from "@/api"
 import { tree_dept, del_dept } from "@/api"
 
 import FormDialog from "./dialog.vue"
-import { ElMessageBox } from "element-plus"
+
 import { tLocales } from "@/i18n"
 import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"

@@ -86,8 +86,7 @@ import { tLocales } from "@/i18n"
 import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import en_system_menu from "@/i18n/locales/en/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
-import { useDialog } from "@/biz"
-import { useKeyName } from "@/biz/hooks/object"
+import { useFormDialog, useKeys } from "@/biz"
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -98,7 +97,7 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useDialog<Menu>({ menuType: "page", meta: { cached: true, requiresAuth: true } })
+const { visible, open, close, type, formData } = useFormDialog<Menu>({ menuType: "page", meta: { cached: true, requiresAuth: true } })
 
 const menuTypeOptions = computed(() => [
   {
@@ -176,7 +175,7 @@ const onCancel = () => {
 const rules = computed(() => ({
   "meta.title": [{ required: true, message: "请输入名称", trigger: "blur" }],
 }))
-const rulesKey = useKeyName(rules.value)
+const rulesKey = useKeys(rules.value)
 defineExpose({ open, close })
 </script>
 

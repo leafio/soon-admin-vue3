@@ -1,24 +1,24 @@
-import { ElMessage } from "element-plus"
 import { parseBaseUrl } from "../../build/parse"
-import { lang, tLocales } from "@/i18n"
 import { refresh_token } from "./modules/auth"
 import { createSilentRefresh } from "./addons/silentRefreshToken"
 import type { SoonOptions } from "soon-fetch"
 import { createSoon, parseUrlOptions } from "soon-fetch"
-import { soon_local } from "@/biz/app/local"
+
+import { lang, tLocales } from "@/i18n"
+import { soon_local } from "@/biz/app/storage"
 
 export const baseURL = parseBaseUrl(import.meta.env, import.meta.env.DEV)
 console.log(`baseURL: ${baseURL}`)
 const t = tLocales()
 
 const silentRefresh = createSilentRefresh(() =>
-  refresh_token({ token: soon_local.getItem("refresh_token") ?? "" })
+  refresh_token({ token: soon_local.refresh_token.get() ?? "" })
     .then((res) => {
-      soon_local.setItem("token", res.token)
+      soon_local.token.set(res.token)
     })
     .catch(() => {
-      soon_local.removeItem("token")
-      soon_local.removeItem("refresh_token")
+      soon_local.token.remove()
+      soon_local.refresh_token.remove()
       location.href = "/login"
     }),
 )
@@ -38,7 +38,7 @@ function request<T = any>(url: string, options?: RequestOptions) {
       baseOptions: {
         timeout: 20 * 1000,
         headers: new Headers({
-          Authorization: soon_local.getItem("token") ?? "",
+          Authorization: soon_local.token.get() ?? "",
           "soon-lang": lang.value,
         }),
       },

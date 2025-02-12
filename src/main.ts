@@ -10,7 +10,6 @@ const app = createApp(App)
 if (import.meta.env.DEV) {
   await import("element-plus/dist/index.css")
 }
-import("element-plus/theme-chalk/src/message.scss")
 
 app.use(pinia).use(router).use(directives).mount("#app")
 

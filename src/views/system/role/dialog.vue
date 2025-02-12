@@ -73,8 +73,7 @@ import zh_system_role from "@/i18n/locales/zh/system/role"
 import en_system_role from "@/i18n/locales/en/system/role"
 import { showMenuTitle } from "@/router/utils"
 import ko_system_role from "@/i18n/locales/ko/system/role"
-import { useDialog } from "@/biz"
-import { useKeyName } from "@/biz/hooks/object"
+import { useFormDialog, useKeys } from "@/biz"
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
 const t = tLocales({ zh: zh_system_role, en: en_system_role, ko: ko_system_role })
@@ -87,7 +86,7 @@ const titles = computed(() => ({
 const initFormData = {
   status: 1,
 }
-const { visible, open, close, type, formData } = useDialog<Role>(initFormData)
+const { visible, open, close, type, formData } = useFormDialog<Role>(initFormData)
 
 const menuOptions = ref<Menu[]>([])
 watchEffect(() => {
@@ -124,7 +123,7 @@ const onCancel = () => {
 const rules = computed(() => ({
   name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
 }))
-const rulesKey = useKeyName(rules.value)
+const rulesKey = useKeys(rules.value)
 
 defineExpose({ open, close })
 </script>

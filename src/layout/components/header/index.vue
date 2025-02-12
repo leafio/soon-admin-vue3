@@ -42,7 +42,7 @@ import { BIconTextIndentLeft, BIconTextIndentRight, BIconGithub } from "bootstra
 
 import Breadcrumb from "./breadcrumb.vue"
 import Settings from "./settings.vue"
-import User from "./user.vue"
+import User from "./user/index.vue"
 import LangSwitch from "@/components/lang-switch.vue"
 
 import { tLocales } from "@/i18n"
@@ -58,6 +58,7 @@ const toggleSideMenu = () => {
 const { isFullscreen, enter, exit, toggle: toggleFullscreen } = useFullscreen()
 
 const isDark = useDark()
+console.log("is--dark", isDark)
 
 const toggleDark = useToggle(isDark)
 

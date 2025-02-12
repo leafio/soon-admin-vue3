@@ -5,7 +5,7 @@
         <LangSwitch icon-class="w-6 h-6" class="mb-4" />
       </div>
       <el-form-item :prop="rulesKey.username">
-        <el-input v-model="form.username" :placeholder="t('username') + ':  admin'" @keyup.enter="handleLogin"></el-input>
+        <el-input v-model="form.username" autofocus :placeholder="t('username') + ':  admin'" @keyup.enter="handleLogin"></el-input>
       </el-form-item>
       <el-form-item :prop="rulesKey.password">
         <el-input v-model="form.password" show-password :placeholder="t('password') + ':  admin'" type="password" @keyup.enter="handleLogin"></el-input>
@@ -30,11 +30,13 @@ import { tLocales } from "@/i18n"
 import type { FormInstance } from "element-plus"
 
 import LangSwitch from "@/components/lang-switch.vue"
-import en_login from "@/i18n/locales/en/login"
-import zh_login from "@/i18n/locales/zh/login"
-import ko_login from "@/i18n/locales/ko/login"
-import { useKeyName } from "@/biz/hooks/object"
-import { soon_local } from "@/biz/app/local"
+
+import { useKeys } from "@/biz"
+import { soon_local } from "@/biz/app/storage"
+import zh_login from "@/i18n/locales/zh/auth/login"
+import en_login from "@/i18n/locales/en/auth/login"
+import ko_login from "@/i18n/locales/ko/auth/login"
+
 const t = tLocales({ zh: zh_login, en: en_login, ko: ko_login })
 
 const form = ref({
@@ -61,8 +63,8 @@ const handleLogin = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
     login(form.value).then((res) => {
-      soon_local.setItem("token", res.token)
-      soon_local.setItem("refresh_token", res.refreshToken)
+      soon_local.token.set(res.token)
+      soon_local.refresh_token.set(res.refreshToken)
       router.push((route.query.redirect ?? "/") as string)
     })
   })
@@ -74,7 +76,7 @@ const rules = computed(() => ({
   code: [{ required: true, message: t("error.code"), trigger: "blur" }],
 }))
 
-const rulesKey = useKeyName(rules.value)
+const rulesKey = useKeys(rules.value)
 
 watch(rules, () => {
   setTimeout(() => {

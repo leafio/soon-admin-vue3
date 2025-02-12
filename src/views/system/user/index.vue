@@ -90,13 +90,15 @@ import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@
 import { Female, Male } from "@element-plus/icons-vue"
 import type { UserInfo } from "@/api"
 import { list_user, download_user_table, del_user } from "@/api"
-import { formatDateTime, useAuth, useCols, usePageList, useViewer, defaultTime, timePickerOptions } from "@/biz"
+import { formatDateTime, useCols, usePageList, defaultTime, timePickerOptions } from "@/biz"
 import FormDialog from "./dialog.vue"
-import { ElMessageBox } from "element-plus"
+
 import { tLocales } from "@/i18n"
+import { useAuth } from "@/biz/app/auth"
+import { useMobile } from "@/biz/app/responsive"
 
 type Item = UserInfo
-const paginationSize = computed(() => (useViewer() === "mobile" ? "small" : ""))
+const { paginationSize } = useMobile()
 
 const showSearch = ref(true)
 const auth = useAuth()
@@ -231,7 +233,7 @@ const refFormDialog = ref<InstanceType<typeof FormDialog> | null>(null)
 const handleShowEdit = (item: Item) => {
   refFormDialog.value?.open("edit", item)
 }
-const handleShowAdd = (item: Item) => {
+const handleShowAdd = () => {
   refFormDialog.value?.open("add")
 }
 const handleShowDetail = (item: Item) => {

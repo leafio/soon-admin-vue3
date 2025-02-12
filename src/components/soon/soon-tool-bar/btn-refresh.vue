@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip class="btn-item" effect="dark" :content="t('refresh')" placement="top">
+  <el-tooltip class="btn-item" effect="dark" :content="t('refresh')" placement="top" trigger="click">
     <el-button circle @click="emit('click')">
       <el-icon> <Refresh></Refresh> </el-icon
     ></el-button>

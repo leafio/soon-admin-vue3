@@ -13,7 +13,7 @@ import { own_menus } from "@/api"
 import type { SoonMenu } from "@/layout/components/aside/menu/type"
 import { parseRedirectNext, parseRoutesComponent } from "./utils"
 import pinia from "@/store/instance"
-import { soon_local } from "@/biz/app/local"
+import { soon_local } from "@/biz/app/storage"
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -29,7 +29,7 @@ router.beforeEach(async (to, from, next) => {
 
   NProgress.start()
   startLoading()
-  const token = soon_local.getItem("token")
+  const token = soon_local.token.get()
   const userStore = useUserStore(pinia)
   const appStore = useAppStore(pinia)
 
