@@ -3,7 +3,7 @@
     <!-- mobile overlay -->
     <div
       :class="`opacity-0  duration-300 transition-opacity
-       ${!isHide && isMobile ? ' opacity-100 fixed left-0  w-lvw h-lvh bg-opacity-50 bg-black z-[1]' : ''}`"
+       ${!isHide && isMobile ? ' opacity-100 fixed left-0  w-lvw h-lvh bg-opacity-50 bg-black z-10' : ''}`"
       @click="appStore.sidebar.isHide = true"
     ></div>
     <div

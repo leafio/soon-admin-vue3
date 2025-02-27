@@ -1,3 +1,6 @@
+import type { Paths } from "type-fest"
+import type { JSX } from "vue/jsx-runtime"
+
 export function useCols<T extends { prop: string }>(colsFun: () => T[]) {
   const cols = computed(colsFun)
 
@@ -23,4 +26,14 @@ export function useCols<T extends { prop: string }>(colsFun: () => T[]) {
     checkedCols,
     reset,
   }
+}
+
+export type ElTableCol<T, Keys = ""> = {
+  prop: Paths<T> | Keys
+  label: string
+  width?: string | number
+  minWidth?: string | number
+  sortable?: boolean
+  fixed?: string
+  render?: (args: { item: T }) => JSX.Element | string | undefined
 }

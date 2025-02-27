@@ -64,16 +64,20 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from "element-plus"
+import type { FormInstance, FormRules } from "element-plus"
 import type { Role, Menu } from "@/api"
 import { add_role, update_role, tree_menu } from "@/api"
 
 import { tLocales } from "@/i18n"
 import zh_system_role from "@/i18n/locales/zh/system/role"
 import en_system_role from "@/i18n/locales/en/system/role"
-import { showMenuTitle } from "@/router/utils"
 import ko_system_role from "@/i18n/locales/ko/system/role"
+
+import { showMenuTitle } from "@/router/utils"
 import { useFormDialog, useKeys } from "@/biz"
+
+type Item = Role
+
 const emit = defineEmits(["success"])
 const formRef = ref<FormInstance>()
 const t = tLocales({ zh: zh_system_role, en: en_system_role, ko: ko_system_role })
@@ -86,7 +90,7 @@ const titles = computed(() => ({
 const initFormData = {
   status: 1,
 }
-const { visible, open, close, type, formData } = useFormDialog<Role>(initFormData)
+const { visible, open, close, type, formData } = useFormDialog<Item>(initFormData)
 
 const menuOptions = ref<Menu[]>([])
 watchEffect(() => {
@@ -99,7 +103,7 @@ watchEffect(() => {
 const submit = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
-    const data = Object.assign({}, formData.value) as Role
+    const data = Object.assign({}, formData.value) as Item
     if (type.value === "add") {
       add_role(data).then((res) => {
         ElMessage.success(t("tip.addSuccess"))
@@ -120,9 +124,12 @@ const submit = () => {
 const onCancel = () => {
   close()
 }
-const rules = computed(() => ({
-  name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
-}))
+const rules = computed(
+  () =>
+    ({
+      name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
+    }) satisfies FormRules<Item>,
+)
 const rulesKey = useKeys(rules.value)
 
 defineExpose({ open, close })

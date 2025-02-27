@@ -14,7 +14,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column align="center" type="index" width="50px" />
-        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :min-width="col['min-width']">
+        <el-table-column v-for="col in cols" :key="col.prop" :prop="col.prop" :label="col.label" :min-width="col.minWidth">
           <template #default="{ row }">
             <template v-if="col.prop == 'meta.title'">
               <MenuTitle :row="row"></MenuTitle>
@@ -75,10 +75,12 @@ import { tLocales } from "@/i18n"
 import en_system_menu from "@/i18n/locales/en/system/menu"
 import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
-import { usePageList } from "@/biz"
+import type { ElTableCol } from "@/biz"
+import { usePagedList } from "@/biz"
 const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 
 type Item = Menu
+type Col = ElTableCol<Item, "action">
 
 const MenuTitle = ({ row }: { row: Item }) => {
   const title = row.meta?.title ?? ""
@@ -141,46 +143,46 @@ const {
   search,
   reset,
   query: queryForm,
-} = usePageList({
+} = usePagedList({
   searchApi: tree_menu,
   initQuery: { hasBtn: true },
 })
 refresh()
 
-const cols = computed(() => [
+const cols = computed<Col[]>(() => [
   {
     prop: "meta.title",
     label: t("label.menuTitle"),
-    "min-width": "200",
-    render(item: Item) {
+    minWidth: "200",
+    render({ item }: { item: Item }) {
       return item.meta?.title
     },
   },
   {
     prop: "menuType",
     label: t("label.menuType"),
-    "min-width": "64",
+    minWidth: "64",
   },
   {
     prop: "path",
     label: t("label.routePath"),
-    "min-width": "120",
+    minWidth: "120",
   },
 
   {
     prop: "auth",
     label: t("label.auth"),
-    "min-width": "64",
+    minWidth: "64",
   },
   // {
   //   prop: "sort",
   //   label: t("label.sort"),
-  //   width: "",
+  //
   // },
   // {
   //   prop: "hidden",
   //   label: t("label.hidden"),
-  //   width: "",
+  //
   // },
 ])
 const handleDelete = (item: Item) => {

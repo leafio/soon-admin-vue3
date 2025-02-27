@@ -161,9 +161,12 @@ const onCancel = () => {
   close()
 }
 
-const rules = computed<Partial<{ [Key in keyof Item]: Arrayable<FormItemRule> }>>(() => ({
-  username: [{ required: true, message: t("label.inputUsername"), trigger: "blur" }],
-}))
+const rules = computed(
+  () =>
+    ({
+      username: [{ required: true, message: t("label.inputUsername"), trigger: "blur" }],
+    }) satisfies FormRules<Item>,
+)
 
 const rulesKey = useKeys(rules.value)
 

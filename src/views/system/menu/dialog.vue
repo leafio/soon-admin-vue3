@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from "element-plus"
+import type { FormInstance, FormRules } from "element-plus"
 import type { Menu } from "@/api"
 import { tree_menu, add_menu, update_menu } from "@/api"
 
@@ -87,6 +87,8 @@ import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import en_system_menu from "@/i18n/locales/en/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
 import { useFormDialog, useKeys } from "@/biz"
+
+type Item = Menu
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -97,7 +99,7 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useFormDialog<Menu>({ menuType: "page", meta: { cached: true, requiresAuth: true } })
+const { visible, open, close, type, formData } = useFormDialog<Item>({ menuType: "page", meta: { cached: true, requiresAuth: true } })
 
 const menuTypeOptions = computed(() => [
   {
@@ -150,7 +152,7 @@ watchEffect(() => {
 const submit = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
-    const data = Object.assign({}, formData.value) as Menu
+    const data = Object.assign({}, formData.value) as Item
     data.meta.isIframe = data.menuType === "iframe"
     if (type.value === "add") {
       add_menu(data).then((res) => {
@@ -172,9 +174,12 @@ const submit = () => {
 const onCancel = () => {
   close()
 }
-const rules = computed(() => ({
-  "meta.title": [{ required: true, message: "请输入名称", trigger: "blur" }],
-}))
+const rules = computed(
+  () =>
+    ({
+      "meta.title": [{ required: true, message: "请输入名称", trigger: "blur" }],
+    }) satisfies FormRules<Omit<Item, "children">>,
+)
 const rulesKey = useKeys(rules.value)
 defineExpose({ open, close })
 </script>

@@ -15,12 +15,12 @@
 </template>
 <script setup lang="ts">
 import type { RouteLocationNormalized } from "vue-router"
+import { useTabsStore } from "@/store/modules/tabs"
 
 import { tLocales } from "@/i18n"
 import en_tabbar from "@/i18n/locales/en/tabbar"
 import ko_tabbar from "@/i18n/locales/ko/tabbar"
 import zh_tabbar from "@/i18n/locales/zh/tabbar"
-import { useTabsStore } from "@/store/modules/tabs"
 const t = tLocales({
   zh: zh_tabbar,
   en: en_tabbar,

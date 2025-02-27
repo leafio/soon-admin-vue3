@@ -65,9 +65,10 @@
               </div>
             </div>
           </div>
-          <template #action>
+          <div class="flex justify-between items-center">
             <component :is="actionCol.render" :item="item" />
-          </template>
+            <soon-detail-toggle class="m-1"></soon-detail-toggle>
+          </div>
         </soon-detail>
       </div>
     </div>
@@ -86,11 +87,12 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
+import { BtnAdd, SoonDetail, SoonDetailToggle, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
 import { Female, Male } from "@element-plus/icons-vue"
 import type { UserInfo } from "@/api"
 import { list_user, download_user_table, del_user } from "@/api"
-import { formatDateTime, useCols, usePageList, defaultTime, timePickerOptions } from "@/biz"
+import type { ElTableCol } from "@/biz"
+import { formatDateTime, useCols, usePagedList, defaultTime, timePickerOptions } from "@/biz"
 import FormDialog from "./dialog.vue"
 
 import { tLocales } from "@/i18n"
@@ -98,6 +100,8 @@ import { useAuth } from "@/biz/app/auth"
 import { useMobile } from "@/biz/app/responsive"
 
 type Item = UserInfo
+type Col = ElTableCol<Item, "action">
+
 const { paginationSize } = useMobile()
 
 const showSearch = ref(true)
@@ -117,7 +121,7 @@ const {
   search,
   reset,
   query: queryForm,
-} = usePageList({
+} = usePagedList({
   searchApi: list_user,
   // initParams: { timeRange: curMonth() },
   autoSearchDelay: 300,
@@ -128,16 +132,14 @@ const {
   cols,
   checkedCols,
   reset: resetCols,
-} = useCols(() => [
+} = useCols<Col>(() => [
   {
     prop: "username",
     label: t("label.username"),
-    width: "",
   },
   {
     prop: "nickname",
     label: t("label.nickname"),
-    width: "",
   },
   {
     prop: "gender",
@@ -155,17 +157,14 @@ const {
   {
     prop: "role.name",
     label: t("label.roleName"),
-    width: "",
   },
   {
     prop: "phone",
     label: t("label.phone"),
-    width: "",
   },
   {
     prop: "dept.name",
     label: t("label.deptName"),
-    width: "",
   },
   {
     prop: "status",
@@ -177,16 +176,14 @@ const {
   {
     prop: "createTime",
     label: t("label.createTime"),
-    width: "",
     render({ item }) {
       return formatDateTime(item?.createTime)
     },
   },
 ])
-const actionCol = computed(() => ({
+const actionCol = computed<Col>(() => ({
   prop: "action",
   label: t("action"),
-  width: "",
   fixed: "right",
   render({ item }: { item: Item }) {
     return (

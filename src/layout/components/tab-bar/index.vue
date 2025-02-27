@@ -24,11 +24,12 @@
       <BIconFullscreenExit v-if="isContentFullscreen" class="w-6 h-6 p-1 rounded-full hover:bg-primary-100" />
       <BIconFullscreen v-else class="w-6 h-6 p-1 rounded hover:bg-primary-100" />
     </div>
-    <div class="md:hidden h-full flex justify-center items-center cursor-pointer mx-1" @click="showContext()">
+    <div class="md:hidden h-full flex justify-center items-center cursor-pointer mx-1" @click="mobileContextVisible = true">
       <BIconThreeDotsVertical class="w-6 h-6 p-1 rounded hover:bg-primary-100" />
     </div>
 
     <context-menu v-if="tabsMenuList[curIndex]" :visible="visible" :target-ref="targetRefList[curIndex]" :tab="tabsMenuList[curIndex]" :cur-index="curIndex" />
+    <MobileContext v-model="mobileContextVisible" />
   </nav>
 </template>
 
@@ -40,7 +41,7 @@ import { useRoute, useRouter } from "vue-router"
 
 import { ElScrollbar, ClickOutside as vClickOutside } from "element-plus"
 import NavTab from "./nav-tab.vue"
-
+import MobileContext from "./mobile-context.vue"
 import contextMenu from "./context-menu.vue"
 import { unrefElement } from "@vueuse/core"
 import { BIconThreeDotsVertical, BIconArrowClockwise, BIconFullscreenExit, BIconFullscreen } from "bootstrap-icons-vue"
@@ -161,6 +162,7 @@ const handleToggleFullscreen = () => {
     appStore.sidebar.isHide = true
   }
 }
+const mobileContextVisible = ref(false)
 
 //-------
 //拖动排序

@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from "element-plus"
+import type { FormInstance, FormRules } from "element-plus"
 import type { Dept } from "@/api"
 import { tree_dept, add_dept, update_dept } from "@/api"
 
@@ -52,6 +52,8 @@ import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
 import { useFormDialog, useKeys } from "@/biz"
+
+type Item = Dept
 
 const formRef = ref<FormInstance>()
 const emit = defineEmits(["success"])
@@ -62,12 +64,12 @@ const titles = computed(() => ({
   edit: t("edit"),
   detail: t("detail"),
 }))
-const { visible, open, close, type, formData } = useFormDialog<Dept>()
+const { visible, open, close, type, formData } = useFormDialog<Item>()
 
 const submit = () => {
   formRef.value?.validate((valid, fields) => {
     if (!valid) return
-    const data = Object.assign({}, formData.value) as Dept
+    const data = Object.assign({}, formData.value) as Item
     if (type.value === "add") {
       add_dept(data).then((res) => {
         ElMessage.success(t("tip.addSuccess"))
@@ -96,9 +98,12 @@ watchEffect(() => {
 const onCancel = () => {
   close()
 }
-const rules = computed(() => ({
-  name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
-}))
+const rules = computed(
+  () =>
+    ({
+      name: [{ required: true, message: t("label.inputName"), trigger: "blur" }],
+    }) satisfies FormRules<Omit<Item, "children">>,
+)
 
 const rulesKey = useKeys(rules.value)
 defineExpose({ open, close })

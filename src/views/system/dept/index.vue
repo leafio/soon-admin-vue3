@@ -67,9 +67,11 @@ import { tLocales } from "@/i18n"
 import en_system_dept from "@/i18n/locales/en/system/dept"
 import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
-import { usePageList } from "@/biz"
+import type { ElTableCol } from "@/biz"
+import { usePagedList } from "@/biz"
 
 type Item = Dept
+type Col = ElTableCol<Item, "action">
 
 const showSearch = ref(true)
 
@@ -81,21 +83,19 @@ const {
   search,
   reset,
   query: queryForm,
-} = usePageList({
+} = usePagedList({
   searchApi: tree_dept,
 })
 refresh()
 const t = tLocales({ zh: zh_system_dept, en: en_system_dept, ko: ko_system_dept })
-const cols = computed(() => [
+const cols = computed<Col[]>(() => [
   {
     prop: "name",
     label: t("label.name"),
-    width: "",
   },
   {
     prop: "desc",
     label: t("label.remark"),
-    width: "",
   },
 ])
 const handleDelete = (item: Item) => {

@@ -1,5 +1,5 @@
 export { default as SoonCols } from "./soon-cols/index.vue"
-export { default as SoonDetail } from "./soon-detail/index.vue"
+export * from "./soon-detail/index"
 export { default as BtnAdd } from "./soon-tool-bar/btn-add.vue"
 export { default as BtnCols } from "./soon-tool-bar/btn-cols.vue"
 export { default as BtnExport } from "./soon-tool-bar/btn-export.vue"

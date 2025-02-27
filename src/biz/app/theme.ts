@@ -15,7 +15,8 @@ export function createGradientColors(color: RgbColor, isDark: boolean = false) {
     .fill(1)
     .map((_, index) => mixRgb(blackBase, color, (index + 1) * 0.1)[0].map(Math.round))
 
-  const light_colors = _light_colors.filter((c, index) => [3, 5, 7, 8, 9].includes(index + 1)).toReversed()
+  const light_colors = _light_colors.filter((c, index) => [3, 5, 7, 8, 9].includes(index + 1))
+  light_colors.reverse()
   const dark_colors = _dark_colors.filter((c, index) => [2, 4, 6, 8].includes(index + 1))
   const lighter = mixRgb(whiteBase, color, 0.05)[0].map(Math.round)
   return [lighter, ...light_colors, color, ...dark_colors]

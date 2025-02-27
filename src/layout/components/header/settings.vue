@@ -1,6 +1,6 @@
 <template>
   <el-drawer v-model="model" :title="t('settings.title')" size="360">
-    <div>
+    <div class="overflow-y-auto">
       <div class="flex justify-between">
         <span>{{ t("settings.tabbar") }}</span>
         <el-switch :model-value="!appStore.tabbar.isHide" @change="(e) => (appStore.tabbar.isHide = !e)"></el-switch>

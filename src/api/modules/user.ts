@@ -8,17 +8,19 @@ import type { Simplify } from "type-fest"
 export type User = {
   id: number
   username: string
-  password: string | null
-  email: string | null
-  phone: string | null
-  name: string | null
-  nickname: string | null
-  avatar: string | null
-  roleId: number | undefined
-  deptId: number | undefined
+  password: null | string
+  email: null | string
+  phone: null | string
+  name: null | string
+  nickname: null | string
+  avatar: null | string
   status: number
-  gender: number
-  desc: string | null
+  gender: number | undefined
+  desc: null | string
+  createTime: string
+  updateTime: null | string
+  roleId: string | undefined
+  deptId: number | undefined
 }
 export type UserInfo = User & {
   id: number
@@ -42,5 +44,3 @@ export const download_user_table = async (query: ListQueryUser) => {
     downloadBlob(body, filename)
   })
 }
-
-export const getCaptcha = soon.API("/captcha").GET<undefined, { id: number; img: string }>()

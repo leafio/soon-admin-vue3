@@ -49,14 +49,15 @@
               </div>
             </div>
           </div>
-          <template #action>
+          <div class="flex justify-between items-center">
             <div class="pr-6">
-              <el-button v-if="item.id !== 'admin'" class="!border-none" size="small" plain type="danger" @click="handleDelete(item)"
+              <el-button v-if="item.id !== 'admin'" text class="!border-none" size="small" plain type="danger" @click="handleDelete(item)"
                 >{{ t("del") }}
               </el-button>
-              <el-button class="!border-none" size="small" plain type="primary" @click="handleShowEdit(item)">{{ t("edit") }} </el-button>
+              <el-button text class="!border-none" size="small" plain type="primary" @click="handleShowEdit(item)">{{ t("edit") }} </el-button>
             </div>
-          </template>
+            <soon-detail-toggle class="m-1"></soon-detail-toggle>
+          </div>
         </soon-detail>
       </div>
     </div>
@@ -73,15 +74,17 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { BtnAdd, SoonDetail, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
+import { BtnAdd, SoonDetail, SoonDetailToggle, BtnCols, BtnSearch, BtnExport, BtnRefresh } from "@/components/soon"
 import type { Role } from "@/api"
 import { list_role, del_role } from "@/api"
-import { formatDateTime, usePageList } from "@/biz"
+import type { ElTableCol } from "@/biz"
+import { formatDateTime, usePagedList } from "@/biz"
 import FormDialog from "./dialog.vue"
 
 import { tLocales } from "@/i18n"
 
 type Item = Role
+type Col = ElTableCol<Item, "action">
 
 const showSearch = ref(true)
 
@@ -93,7 +96,7 @@ const {
   search,
   reset,
   query: queryForm,
-} = usePageList({
+} = usePagedList({
   searchApi: list_role,
 })
 refresh()
@@ -102,21 +105,20 @@ const t = tLocales({
   en: () => import("@/i18n/locales/en/system/role"),
   ko: () => import("@/i18n/locales/ko/system/role"),
 })
-const cols = computed(() => [
+const cols = computed<Col[]>(() => [
   {
     prop: "name",
     label: t("label.name"),
-    width: "",
   },
   // {
   //   prop: "code",
   //   label: t("label.code"),
-  //   width: "",
+  //
   // },
   {
     prop: "status",
     label: t("label.status"),
-    width: "",
+
     render: ({ item }: { item?: Item }) =>
       item?.status == 1 ? <el-tag type="success">{t("status.enabled")}</el-tag> : <el-tag>{t("status.disabled")}</el-tag>,
   },

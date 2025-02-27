@@ -9,7 +9,7 @@
       @click="handleClickMenu(menu)"
     >
       <div class="flex flex-1">
-        <soon-icon v-if="!level && menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
+        <soon-icon v-if="menu.meta?.icon" :value="menu.meta.icon" class="w-6 h-6" />
         <span v-if="!isCollapse" class="ml-1">{{ showMenuTitle(menu.meta?.title) }}</span>
       </div>
 

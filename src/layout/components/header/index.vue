@@ -25,7 +25,7 @@
       <div class="mr-4 cursor-pointer hidden md:block">
         <BIconBell />
       </div> -->
-      <div class="mr-4 cursor-pointer hidden md:block select-none" @click="showSettingsDrawer = !showSettingsDrawer">
+      <div class="mr-4 cursor-pointer select-none" @click="showSettingsDrawer = !showSettingsDrawer">
         <BIconGear />
       </div>
       <a class="cursor-pointer" href="https://github.com/leafio/soon-admin-vue3" target="_blank">
