@@ -24,7 +24,7 @@
     </el-form>
     <div class="btn-bar">
       <BtnAdd @click="handleShowAdd" />
-      <BtnExport v-if="auth('user.export')" @click="download_user_table(queryForm)" />
+      <BtnExport v-if="auth('user.export').value" @click="download_user_table(queryForm)" />
       <BtnCols v-model="cols" @reset="resetCols" />
       <BtnSearch v-model="showSearch" />
       <BtnRefresh @click="refresh" />
@@ -93,25 +93,22 @@ import type { UserInfo } from "@/api"
 import { list_user, download_user_table, del_user } from "@/api"
 import type { ElTableCol } from "@/biz"
 import { formatDateTime, useCols, usePagedList, defaultTime, timePickerOptions } from "@/biz"
+import { useMobile } from "@/biz/app/responsive"
+import { auth } from "@/biz/app/auth"
 import FormDialog from "./dialog.vue"
 
 import { tLocales } from "@/i18n"
-import { useAuth } from "@/biz/app/auth"
-import { useMobile } from "@/biz/app/responsive"
-
-type Item = UserInfo
-type Col = ElTableCol<Item, "action">
-
-const { paginationSize } = useMobile()
-
-const showSearch = ref(true)
-const auth = useAuth()
-
 const t = tLocales({
   zh: () => import("@/i18n/locales/zh/system/user"),
   en: () => import("@/i18n/locales/en/system/user"),
   ko: () => import("@/i18n/locales/ko/system/user"),
 })
+
+type Item = UserInfo
+type Col = ElTableCol<Item, "action">
+
+const { paginationSize } = useMobile()
+const showSearch = ref(true)
 
 const {
   list,
@@ -127,7 +124,6 @@ const {
   autoSearchDelay: 300,
 })
 refresh()
-
 const {
   cols,
   checkedCols,

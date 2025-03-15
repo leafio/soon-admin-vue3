@@ -15,7 +15,6 @@ export function useRequest<API extends () => Promise<any>>(
     loading.value = true
     const request = api().then((res) => {
       data.value = res
-      loading.value = false
     })
 
     const promises: Promise<any>[] = [request]
@@ -74,28 +73,38 @@ export function usePagedSearch<API extends (args: object) => Promise<any>>(
     options,
   )
 
-  const immediateKey = ref(0)
+  const old_query = ref(query.value)
+  const new_refresh = () => {
+    old_query.value = JSON.parse(JSON.stringify(query.value))
+    refresh()
+  }
+
   const debounceKey = ref(0)
 
   const search = () => {
-    pager.setter(query.value, 1)
-    immediateKey.value++
-    // refresh()
+    if (pager.getter(query.value).pageIndex === 1) {
+      new_refresh()
+    } else {
+      pager.setter(query.value, 1)
+    }
   }
 
   watch(
     () => query.value,
-    (new_query, old_query) => {
-      if (pager.getter(new_query).pageIndex === pager.getter(old_query).pageIndex && pager.getter(new_query).pageSize === pager.getter(old_query).pageSize) {
-        if (pager.getter(new_query).pageIndex === 1) {
-          if (options?.autoSearchDelay && options.autoSearchDelay > -1) {
-            debounceKey.value++
-          }
-        } else {
-          pager.setter(query.value, 1)
+    () => {
+      if (
+        pager.getter(query.value).pageIndex === pager.getter(old_query.value).pageIndex &&
+        pager.getter(query.value).pageSize === pager.getter(old_query.value).pageSize
+      ) {
+        if (options?.autoSearchDelay && options.autoSearchDelay > -1) {
+          debounceKey.value++
         }
       } else {
-        immediateKey.value++
+        if (pager.getter(query.value).pageSize !== pager.getter(old_query.value).pageSize) {
+          search()
+        } else {
+          new_refresh()
+        }
       }
     },
     { deep: true },
@@ -105,7 +114,7 @@ export function usePagedSearch<API extends (args: object) => Promise<any>>(
     watchDebounced(
       debounceKey,
       () => {
-        refresh()
+        search()
       },
       {
         deep: true,
@@ -115,12 +124,8 @@ export function usePagedSearch<API extends (args: object) => Promise<any>>(
       },
     )
 
-  watch(immediateKey, () => {
-    refresh()
-  })
-
   return {
-    refresh,
+    refresh: new_refresh,
     loading,
     data,
     search,

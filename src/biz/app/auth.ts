@@ -8,23 +8,21 @@ type AUTH_MENU = "menu.add" | "menu.edit" | "menu.del"
 
 type AUTH_CODE = AUTH_USER | AUTH_DEPT | AUTH_ROLE | AUTH_MENU
 
-function createAuthFun<T>(auth_code_arr: readonly T[] = []) {
+function createAuthFun<T>(auth_codes: Ref<T[]>) {
   const auth = (code: T) => {
-    const auth_codes = auth_code_arr
-    return auth_codes.includes(code)
+    return computed(() => auth_codes.value.includes(code))
   }
   auth.any = (codes: T[]) => {
-    const auth_codes = auth_code_arr
-    return codes.some((code) => auth_codes.includes(code))
+    return computed(() => codes.some((code) => auth_codes.value.includes(code)))
   }
   auth.all = (codes: T[]) => {
-    const auth_codes = auth_code_arr
-    return codes.every((code) => auth_codes.includes(code))
+    return computed(() => codes.every((code) => auth_codes.value.includes(code)))
   }
   return auth
 }
-export function useAuth() {
+function useAuth() {
   const userStore = useUserStore(pinia)
-  const auth_codes = userStore.btnList ?? []
-  return createAuthFun(auth_codes as AUTH_CODE[])
+  const auth_codes = computed(() => (userStore.btnList as AUTH_CODE[]) ?? [])
+  return createAuthFun(auth_codes)
 }
+export const auth = useAuth()
