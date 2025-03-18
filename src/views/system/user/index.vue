@@ -24,7 +24,7 @@
     </el-form>
     <div class="btn-bar">
       <BtnAdd @click="handleShowAdd" />
-      <BtnExport v-if="auth('user.export').value" @click="download_user_table(queryForm)" />
+      <BtnExport v-if="auth('user.export')" @click="download_user_table(queryForm)" />
       <BtnCols v-model="cols" @reset="resetCols" />
       <BtnSearch v-model="showSearch" />
       <BtnRefresh @click="refresh" />
