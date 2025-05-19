@@ -13,26 +13,24 @@ pnpm-lock.yaml
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-/dist/
 
 # production
 # /build
 stats.html
+/.next/
+/out/
+/dist/
+dist-ssr
 
+/cypress/videos/
+/cypress/screenshots/
 # misc
 .DS_Store
 *.pem
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # local env files
-.env*.local
+*.local
 
 # vercel
 .vercel
@@ -40,3 +38,31 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+
+
+
+
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo

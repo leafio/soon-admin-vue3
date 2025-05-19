@@ -1,18 +1,17 @@
 import { defineConfig, loadEnv } from "vite"
+import { fileURLToPath, URL } from "node:url"
 import vue from "@vitejs/plugin-vue"
 import vueJsx from "@vitejs/plugin-vue-jsx"
-import path from "path"
-import svgLoader from "vite-svg-loader"
+import vueDevTools from "vite-plugin-vue-devtools"
 import { visualizer } from "rollup-plugin-visualizer"
 
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
-//@ts-ignore
-import { parseBaseUrl } from "./build/parse"
 
-//@ts-ignore
-import eslintPlugin from "vite-plugin-eslint"
+import svgLoader from "vite-svg-loader"
+
+import { parseBaseUrl } from "./build/parse"
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -38,6 +37,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       vueJsx(),
+      vueDevTools(),
       svgLoader(),
       AutoImport({
         imports: ["vue", "vue-router", "pinia"],
@@ -50,7 +50,6 @@ export default defineConfig(({ mode }) => {
         resolvers: [ElementPlusResolver({ importStyle: isDev ? undefined : "sass" })],
         dts: "./types/components.d.ts",
       }),
-      eslintPlugin(),
       env.ANALYZE === "true"
         ? visualizer({
             open: true, //注意这里要设置为true，否则无效
@@ -88,6 +87,6 @@ export default defineConfig(({ mode }) => {
         clientFiles: ["./index.html", "./src/{views,components,layout}/*", "./node_modules/@element-plus/icons-vue", "./node_modules/lodash-es"],
       },
     },
-    resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
+    resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
   }
 })
