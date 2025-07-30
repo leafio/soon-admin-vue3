@@ -50,8 +50,10 @@
       </el-tree>
     </div>
     <el-pagination
-      v-model:current-page="queryForm.pageIndex"
-      v-model:page-size="queryForm.pageSize"
+      v-model:current-page="pager.pageIndex"
+      v-model:page-size="pager.pageSize"
+      @current-change="refresh()"
+      @size-change="refresh(true)"
       class="pagination-container"
       background
       layout="total, sizes, prev, pager, next, jumper"
@@ -77,6 +79,7 @@ import zh_system_menu from "@/i18n/locales/zh/system/menu"
 import ko_system_menu from "@/i18n/locales/ko/system/menu"
 import type { ElTableCol } from "@/biz"
 import { usePagedList } from "@/biz"
+import { watchDebounced } from "@vueuse/core"
 const t = tLocales({ zh: zh_system_menu, en: en_system_menu, ko: ko_system_menu })
 
 type Item = Menu
@@ -134,20 +137,9 @@ const MenuAction = ({ row }: { row: Item }) => {
 }
 
 const showSearch = ref(true)
-
-const {
-  list,
-  refresh,
-  total,
-  loading,
-  search,
-  reset,
-  query: queryForm,
-} = usePagedList({
-  searchApi: tree_menu,
-  initQuery: { hasBtn: true },
-})
+const { list, refresh, total, loading, search, reset, pager, query: queryForm } = usePagedList(tree_menu, { initQuery: { hasBtn: true } })
 refresh()
+watchDebounced(queryForm, () => refresh(true), { deep: true, debounce: 500 })
 
 const cols = computed<Col[]>(() => [
   {

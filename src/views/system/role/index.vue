@@ -6,7 +6,7 @@
       </el-form-item>
 
       <div class="query-btn-container">
-        <el-button type="primary" @click="search">{{ t("search") }}</el-button>
+        <el-button type="primary" @click="refresh(true)">{{ t("search") }}</el-button>
         <el-button @click="reset">{{ t("reset") }}</el-button>
       </div>
     </el-form>
@@ -62,8 +62,10 @@
       </div>
     </div>
     <el-pagination
-      v-model:current-page="queryForm.pageIndex"
-      v-model:page-size="queryForm.pageSize"
+      v-model:current-page="pager.pageIndex"
+      v-model:page-size="pager.pageSize"
+      @current-change="refresh()"
+      @size-change="refresh(true)"
       class="pagination-container"
       background
       layout="total, sizes, prev, pager, next, jumper"
@@ -82,24 +84,17 @@ import { formatDateTime, usePagedList } from "@/biz"
 import FormDialog from "./dialog.vue"
 
 import { tLocales } from "@/i18n"
+import { watchDebounced } from "@vueuse/core"
 
 type Item = Role
 type Col = ElTableCol<Item, "action">
 
 const showSearch = ref(true)
 
-const {
-  list,
-  refresh,
-  total,
-  loading,
-  search,
-  reset,
-  query: queryForm,
-} = usePagedList({
-  searchApi: list_role,
-})
+const { list, refresh, total, loading, search, reset, pager, query: queryForm } = usePagedList(list_role)
 refresh()
+watchDebounced(queryForm, () => refresh(true), { deep: true, debounce: 500 })
+
 const t = tLocales({
   zh: () => import("@/i18n/locales/zh/system/role"),
   en: () => import("@/i18n/locales/en/system/role"),

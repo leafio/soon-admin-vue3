@@ -44,8 +44,10 @@
       </el-tree>
     </div>
     <el-pagination
-      v-model:current-page="queryForm.pageIndex"
-      v-model:page-size="queryForm.pageSize"
+      v-model:current-page="pager.pageIndex"
+      v-model:page-size="pager.pageSize"
+      @current-change="refresh()"
+      @size-change="refresh(true)"
       class="pagination-container"
       background
       layout="total, sizes, prev, pager, next, jumper"
@@ -69,24 +71,17 @@ import zh_system_dept from "@/i18n/locales/zh/system/dept"
 import ko_system_dept from "@/i18n/locales/ko/system/dept"
 import type { ElTableCol } from "@/biz"
 import { usePagedList } from "@/biz"
+import { watchDebounced } from "@vueuse/core"
 
 type Item = Dept
 type Col = ElTableCol<Item, "action">
 
 const showSearch = ref(true)
 
-const {
-  list,
-  refresh,
-  total,
-  loading,
-  search,
-  reset,
-  query: queryForm,
-} = usePagedList({
-  searchApi: tree_dept,
-})
+const { list, refresh, total, loading, search, reset, pager, query: queryForm } = usePagedList(tree_dept)
 refresh()
+watchDebounced(queryForm, () => refresh(true), { deep: true, debounce: 500 })
+
 const t = tLocales({ zh: zh_system_dept, en: en_system_dept, ko: ko_system_dept })
 const cols = computed<Col[]>(() => [
   {

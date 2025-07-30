@@ -9,7 +9,7 @@ const global_locales = { zh: zh_global, en: en_global, ko: ko_global }
 
 export const { tLocales, lang } = createI18nSafe(
   {
-    lang: soon_local.lang.get() ?? "zh",
+    lang: soon_local.lang.get(),
     fallbacks: ["en"],
   },
   global_locales,

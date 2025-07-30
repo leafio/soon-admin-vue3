@@ -44,7 +44,7 @@
     "parentId": 22,
     "menuType": "iframe",
     "path": "/link/iframe",
-    "meta": { "cached": true, "title": "iframe", "isIframe": true, "link": "https://leafio.github.io/soon-tools/json/type", "isKeepAlive": true },
+    "meta": { "cached": true, "title": "iframe", "isIframe": true, "link": "https://www.baidu.com/", "isKeepAlive": true },
     "createTime": "2024-09-09T15:31:06.719Z",
     "updateTime": "2024-09-09T15:31:06.719Z",
     "children": []
@@ -54,7 +54,7 @@
     "parentId": 22,
     "menuType": "link",
     "path": "/link/external",
-    "meta": { "cached": true, "title": "external", "isIframe": false, "link": "https://github.com/leafio/soon-admin-vue3" },
+    "meta": { "cached": true, "title": "external", "isIframe": false, "link": "https://leafio.github.io/soon-tools/json/type" },
     "createTime": "2024-09-09T15:31:29.742Z",
     "updateTime": "2024-09-09T15:31:29.742Z",
     "children": [],

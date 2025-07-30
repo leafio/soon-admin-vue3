@@ -18,7 +18,7 @@
         </el-date-picker>
       </el-form-item>
       <div class="query-btn-container">
-        <el-button type="primary" @click="search">{{ t("search") }}</el-button>
+        <el-button type="primary" @click="refresh(true)">{{ t("search") }}</el-button>
         <el-button @click="reset">{{ t("reset") }}</el-button>
       </div>
     </el-form>
@@ -73,8 +73,10 @@
       </div>
     </div>
     <el-pagination
-      v-model:current-page="queryForm.pageIndex"
-      v-model:page-size="queryForm.pageSize"
+      v-model:current-page="pager.pageIndex"
+      v-model:page-size="pager.pageSize"
+      @current-change="refresh()"
+      @size-change="refresh(true)"
       class="pagination-container"
       :background="paginationSize !== 'small'"
       layout="total, sizes, prev, pager, next, jumper"
@@ -92,12 +94,15 @@ import { Female, Male } from "@element-plus/icons-vue"
 import type { UserInfo } from "@/api"
 import { list_user, download_user_table, del_user } from "@/api"
 import type { ElTableCol } from "@/biz"
-import { formatDateTime, useCols, usePagedList, defaultTime, timePickerOptions } from "@/biz"
+import { formatDateTime, useCols, defaultTime, timePickerOptions, usePagedList } from "@/biz"
+
 import { useMobile } from "@/biz/app/responsive"
 import { auth } from "@/biz/app/auth"
 import FormDialog from "./dialog.vue"
 
 import { tLocales } from "@/i18n"
+
+import { watchDebounced } from "@vueuse/core"
 const t = tLocales({
   zh: () => import("@/i18n/locales/zh/system/user"),
   en: () => import("@/i18n/locales/en/system/user"),
@@ -110,20 +115,10 @@ type Col = ElTableCol<Item, "action">
 const { paginationSize } = useMobile()
 const showSearch = ref(true)
 
-const {
-  list,
-  refresh,
-  total,
-  loading,
-  search,
-  reset,
-  query: queryForm,
-} = usePagedList({
-  searchApi: list_user,
-  // initParams: { timeRange: curMonth() },
-  autoSearchDelay: 300,
-})
+const { list, refresh, total, loading, search, reset, pager, query: queryForm } = usePagedList(list_user)
 refresh()
+watchDebounced(queryForm, () => refresh(true), { deep: true, debounce: 500 })
+
 const {
   cols,
   checkedCols,

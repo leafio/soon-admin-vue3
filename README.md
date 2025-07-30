@@ -24,7 +24,8 @@ Soon-Admin is full stuck admin system written by Typescript。
 - style: scss tailwind-css
 - auto-import: unplugin-auto-import unplugin-vue-components , element-plus
 - state management: pinia
-- http request: soon-fetch
+- http request: soon-fetch (cache,reusing,race,timeout,retry)
+- localStorage: soon-storage (type-safe)
 - i18n: soon-i18n
 - mock: soon-mock
 - router: vue-router ,dynamic routes and permissions for pages and buttons
@@ -160,7 +161,8 @@ Soon-Admin 是一套完全以typescript开发的后台管理系统。
 - 样式采用 scss 和 Tailwind Css
 - 使用 unplugin-auto-import unplugin-vue-components 自动导入element-plus 组件
 - 采用 Pinia 作为状态管理
-- 使用 soon-fetch进行http请求,不到3K
+- 使用 soon-fetch进行http请求，请求共享、竞态管理、响应缓存、重试、双token自动刷新
+- 使用 soon-storage 类型安全的localStorage封装
 - 使用 soon-i18n实现国际化,有良好的type提示约束,不到3K
 - 使用 soon-mock 可视化配置模拟API
 - 使用 vue-router 配置动态路由权限拦截、路由懒加载，支持页面按钮权限控制
